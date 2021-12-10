@@ -18,7 +18,7 @@ class ProfilesTest(TestCase):
 
     def test_particular_profile(self):
         """ Check if the name of the profile is on the page"""
-        user = User.objects.create_user("userTest", "user@test.com", "mOtDePaSsE124")
+        user = User.objects.create_user("userTes", "user@test.com", "mOtDePaSsE124")
         Profile.objects.create(user=user, favorite_city="Bordeaux")
-        response = self.client.get(reverse("profiles:profile", kwargs={"username":"userTest"}))
-        self.assertContains(response, "userTest")
+        response = self.client.get(reverse("profiles:profile", args=["userTest"]))
+        self.assertIn(b"<title>userTest</title>", response.content)

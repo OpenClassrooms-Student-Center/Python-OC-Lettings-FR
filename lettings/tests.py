@@ -29,5 +29,5 @@ class LettingsTest(TestCase):
             country_iso_code="isocode"
         )
         Letting.objects.create(title="LettingTest", address=address)
-        response = self.client.get(reverse('lettings:letting', kwargs={"letting_id": 1}))
-        self.assertContains(response, "LettingTest")
+        response = self.client.get(reverse('lettings:letting', args=[1]))
+        self.assertIn(b"<title>LettingTest</title>", response.content)
