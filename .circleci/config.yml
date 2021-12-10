@@ -31,7 +31,7 @@ workflows:
     jobs:
       - build-and-test
       - docker/publish:
-          image: "clemduc124/demo-name"
+          image: "clemduc124/oc13lettings"
           requires:
             - build-and-test
       - heroku/deploy-via-git:
