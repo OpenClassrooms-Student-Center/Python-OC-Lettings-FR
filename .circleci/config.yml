@@ -26,22 +26,14 @@ jobs:
           name: Run test
           command: pytest
           
-  build-docker:
-    - docker/publish:
-      image: "clemduc124/demo-name"
-      docker-username: "DOCKER_USERNAME"
-      docker-password: "DOCKER_PASSWORD"
-  deploy-heroku:
-    - heroku/deploy-via-git:
-    
-
 workflows:
   test:
     jobs:
       - build-and-test
   publish-docker:
     jobs:
-      - build-docker
+      - docker/publish:
+          image: "clemduc124/demo-name"
   go-production:
     jobs:
-      - deploy-heroku
+      - heroku/deploy-via-git
