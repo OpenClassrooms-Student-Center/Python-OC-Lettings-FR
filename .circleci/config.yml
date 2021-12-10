@@ -27,13 +27,13 @@ jobs:
           command: pytest
           
 workflows:
-  test:
+  test-and-deploy:
     jobs:
       - build-and-test
-  publish-docker:
-    jobs:
       - docker/publish:
           image: "clemduc124/demo-name"
-  go-production:
-    jobs:
-      - heroku/deploy-via-git
+          requires:
+            - build-and-test
+      - heroku/deploy-via-git:
+          requires:
+            - build-and-test
