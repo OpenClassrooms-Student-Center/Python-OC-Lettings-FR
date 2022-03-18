@@ -1,0 +1,101 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
+  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
+  python: circleci/python@1.5.0
+
+aliases:
+  -  &setting-up
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+          # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
+          # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
+      - run:
+          name: Run tests
+          # This assumes pytest is installed via the install-package step above
+          command: pytest
+      - run:
+          name: Linting
+          # This assumes flake8 is installed via the install-package step above
+          command: flake8
+
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  build-and-test: # This is the name of the job, feel free to change it to better match what you're trying to do!
+    # These next lines defines a Docker executors: https://circleci.com/docs/2.0/executor-types/
+    <<: *setting-up
+    docker:
+      - image: cimg/python:3.10.2
+
+  build-and-push:
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build and push Docker image
+          command: |
+            TAG=${CIRCLE_BUILD_NUM}
+            docker build -t lgarrigoux/oc_lettings:$TAG .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker tag lgarrigoux/oc_lettings:$TAG lgarrigoux/oc_lettings:latest
+            docker push lgarrigoux/oc_lettings:$TAG
+            docker push lgarrigoux/oc_lettings:latest
+
+  sentry:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Install Sentry
+          command: |
+            curl -sL https://sentry.io/get-cli/ | bash
+            export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+            sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+            sentry-cli releases set-commits $SENTRY_RELEASE --auto
+            sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
+            sentry-cli releases finalize $SENTRY_RELEASE
+#            sentry-cli releases deploys $SENTRY_RELEASE
+
+  deploying:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Deploy Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-9 web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-9 web
+
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  all-branches: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+      - build-and-test
+
+  master-deploy:
+    jobs:
+      - build-and-push:
+          filters:
+            branches:
+              only:
+                - master
+      - deploying:
+          requires:
+            - build-and-push
+      - sentry:
+          requires:
+            - deploying

@@ -73,5 +73,42 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 Utilisation de PowerShell, comme ci-dessus sauf :
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
+- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1`
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Déploiement
+
+#### Vue d'ensemble
+Le déploiement de l'application est géré par un pipeline CircleCI. Chaque modification poussée sur le registre Github déclenche le test et le linting de la nouvelle version du code. Cependant, seules les modifications apportées à la branche master entraîneront un déploiement sur Docker, puis sur Heroku.
+
+Le déploiement s'appuie sur les fichiers .circleci/config.yml et Dockerfile. Il se fait en plusieurs étapes (test/linting, conteneurisation, déploiement Sentry, déploiement sur Heroku); si l'une échoue, les suivantes ne seront pas exécutées.
+
+#### Prérequis
+- Un compte CircleCI
+- Un compte Dockerhub (avec un dépôt)
+- Un compte Heroku (avec une application)
+- Un compte Sentry (avec un projet)
+
+### Mise en place
+Tout d'abord, clonez le dépôt Github. Après cela, rendez-vous sur votre compte CircleCI, cliquez sur le bouton "Ajoutez un projet" et suivez les instructions afin de lier votre nouveau dépôt à CircleCI. N'acceptez pas que CircleCI génère automatiquement un fichier config.yml pour vous (vous en avez déjà un).
+
+**Votre dépôt Github est maintenant lié à votre propre pipeline CircleCI.** Nous allons maintenant le lier à votre compte Docker.
+
+Rendez-vous dans le fichier ".circleci/config.yml" et remplacez "lgarrigoux/oc_lettings" par le nom de votre dépôt DockerHub, puis "oc-lettings-9" par le nom de  votre application Heroku.
+
+Rendez-vous également dans les paramètres de votre application CircleCI et ajoutez les variables d'environnement suivantes :
+
+- DOCKER_USER (votre nom d'utilisateur Docker),
+- DOCKER_PASS (le mot de passe correspondant),
+- HEROKU_TOKEN (le token associé à votre application Heroku, trouvable dans les paramètres de l'application"),
+- SENTRY_AUTH_TOKEN (le token associé à votre compte Sentry),
+- SENTRY_DNS (le DNS de votre projet Sentry),
+- SENTRY_ORG et SENTRY_PROJECT (les noms de votre organisation et de votre project Sentry).
+
+**Votre pipeline CircleCI est maintenant lié à votre conteneur Docker, à votre projet Sentry et à votre application Heroku.**
+
+Rendez-vous maintenant sur la page Settings de votre projet Heroku et créez les Configs Vars suivantes : DEBUG et SECRET_KEY. DEBUG sera False et SECRET_KEY sera notre clef secrète Django.
+
+**Pour vérifier que votre application est bien surveillée par Sentry**, naviguez vers l'URL "/sentry-debug/". Un nouvel événement s'affichera sur la page Issues de votre projet Sentry.
+
+Votre déploiement est maintenant mis en place.
