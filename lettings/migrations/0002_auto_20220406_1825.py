@@ -6,16 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lettings', '0001_initial'),
+        ("lettings", "0001_initial"),
     ]
 
     def fill_address(apps, schema_editor):
-        Old_address = apps.get_model('oc_lettings_site', 'address')
-        New_address = apps.get_model('lettings', 'address')
+        Old_address = apps.get_model("oc_lettings_site", "address")
+        New_address = apps.get_model("lettings", "address")
         for add in Old_address.objects.all():
-            New_address.objects.create(number=add.number, street = add.street, city=add.city, 
-            state=add.state, zip_code=add.zip_code, country_iso_code=add.country_iso_code)
+            New_address.objects.create(
+                number=add.number,
+                street=add.street,
+                city=add.city,
+                state=add.state,
+                zip_code=add.zip_code,
+                country_iso_code=add.country_iso_code,
+            )
 
-
-    operations = [migrations.RunPython(fill_address)
-    ]
+    operations = [migrations.RunPython(fill_address)]

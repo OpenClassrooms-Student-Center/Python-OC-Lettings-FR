@@ -6,17 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lettings', '0002_auto_20220406_1825'),
+        ("lettings", "0002_auto_20220406_1825"),
     ]
 
     def fill_letting(apps, schema_editor):
-        Old_letting = apps.get_model('oc_lettings_site', 'letting')
-        New_letting = apps.get_model('lettings', 'letting')
-        Address = apps.get_model('lettings', 'Address')
+        Old_letting = apps.get_model("oc_lettings_site", "letting")
+        New_letting = apps.get_model("lettings", "letting")
+        Address = apps.get_model("lettings", "Address")
         for let in Old_letting.objects.all():
             adress = Address.objects.filter(id=let.address.id)
             New_letting.objects.create(title=let.title, address_id=adress[0].id)
 
-
-    operations = [migrations.RunPython(fill_letting)
-    ]
+    operations = [migrations.RunPython(fill_letting)]
