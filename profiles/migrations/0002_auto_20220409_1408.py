@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
         ("profiles", "0001_initial"),
     ]
 
-    def fill_profiles(apps, shema_editor):
+    def fill_profiles(apps, schema_editor):
         old_profile = apps.get_model("oc_lettings_site", "profile")
         new_profile = apps.get_model("profiles", "profile")
         for profile in old_profile.objects.all():
