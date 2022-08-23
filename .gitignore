@@ -4,4 +4,3 @@ venv
 .vscode
 .dockerignore
 Dockerfile
-docker-compose.yml
