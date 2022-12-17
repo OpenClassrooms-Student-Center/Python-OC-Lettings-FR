@@ -1,0 +1,2 @@
+docker build --tag hash .
+docker run --publish 8000:8000 hash
