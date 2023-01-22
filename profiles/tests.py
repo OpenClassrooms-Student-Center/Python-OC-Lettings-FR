@@ -6,7 +6,7 @@ from .models import Profile
 
 
 class ProfileViewsTest(TestCase):
-    
+
     def setUp(self) -> None:
         self.user = User.objects.create_user(
             username="Oc-lettings-test-User",

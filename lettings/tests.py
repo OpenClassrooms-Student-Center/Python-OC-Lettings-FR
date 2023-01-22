@@ -5,7 +5,7 @@ from .models import Address, Letting
 
 
 class LettingViewsTest(TestCase):
-    
+
     def setUp(self) -> None:
         self.address = Address.objects.create(
             number=12,
