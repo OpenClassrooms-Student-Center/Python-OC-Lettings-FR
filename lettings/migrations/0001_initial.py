@@ -36,7 +36,4 @@ class Migration(migrations.Migration):
                 ('address', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='lettings.Address')),
             ],
         ),
-        migrations.RunSQL("INSERT INTO lettings_address SELECT * FROM oc_lettings_site_address;"),
-        migrations.RunSQL("INSERT INTO lettings_letting SELECT * FROM oc_lettings_site_letting;"),
-
     ]
