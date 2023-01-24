@@ -4,8 +4,7 @@ from .models import Letting
 
 def index(request):
     '''
-    Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit.
-    Sed non placerat massa. Integer est nunc, pulvinar a tempor et, bibendum id arcu.
+    Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit. Sed non placerat massa. Integer est nunc, pulvinar a tempor et, bibendum id arcu.
     Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
     Cras eget scelerisque
     '''
