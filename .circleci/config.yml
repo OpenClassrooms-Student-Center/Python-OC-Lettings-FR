@@ -21,7 +21,11 @@ jobs:
             python --version
             python -m pip install --upgrade pip
             pip install -r requirements.txt
-
+      - run:
+          name: Litting
+          command: |
+            source venv/bin/activate
+            flake8
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
