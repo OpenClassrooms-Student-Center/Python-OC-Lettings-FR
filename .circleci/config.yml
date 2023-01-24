@@ -32,6 +32,11 @@ jobs:
           command: |
             source venv/bin/activate
             flake8
+      - run:
+          name: Tests
+          command: |
+            source venv/bin/activate
+            pytest
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
