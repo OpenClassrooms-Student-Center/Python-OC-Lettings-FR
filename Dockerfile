@@ -1,4 +1,3 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.8-slim
 
 EXPOSE 8000
@@ -6,7 +5,7 @@ EXPOSE 8000
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Turns off buffering for easier container logging
+# Turns off buffering
 ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
@@ -21,5 +20,5 @@ COPY . /app
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "oc_lettings_site.wsgi"]
+# CMD python manage.py runserver 0.0.0.0:8080
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "oc_lettings_site.wsgi"]
