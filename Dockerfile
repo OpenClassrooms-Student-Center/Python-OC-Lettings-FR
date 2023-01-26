@@ -21,4 +21,4 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 # CMD python manage.py runserver 0.0.0.0:8080
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "oc_lettings_site.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "oc_lettings_site.wsgi"]
