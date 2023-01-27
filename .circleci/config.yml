@@ -68,8 +68,14 @@ jobs:
       - run:
           name: Publish Docker Image
           command: |
+<<<<<<< HEAD
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
             docker push $IMAGE_NAME:latest
+=======
+            docker build -t oc_lettings_site .
+            echo $DOCKER_PASSWORD 
+            echo $DOCKER_USERNAME
+>>>>>>> parent of 3d0ccf7 (Update config.yml)
 
 workflows:
   main:
