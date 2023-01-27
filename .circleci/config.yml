@@ -69,7 +69,7 @@ jobs:
           name: Publish Docker Image
           command: |
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-            docker push $IMAGE_NAME:latest
+            docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY/$IMAGE_NAME:latest
 
 workflows:
   main:
