@@ -1,12 +1,5 @@
 version: 2.1
 
-executors:
-  docker-publisher:
-    environment:
-      IMAGE_NAME: $DOCKER_USERNAME/$DOCKER_REPOSITORY/oc_lettings_site
-    docker:
-      - image: cimg/python:3.10.2
-
 jobs:
   build-and-test:
     docker:
@@ -38,52 +31,24 @@ jobs:
             source venv/bin/activate
             pytest
 
-  build-image:
-    executor: docker-publisher
+  build-and-publish-image:
     docker:
       - image: cimg/python:3.10.2
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Build Docker image
+          name: Publish docker image
           command: |
-            docker build -t $IMAGE_NAME:latest .
-      - run:
-          name: Archive Docker image
-          command: docker save -o oc_lettings_site_image.tar $IMAGE_NAME
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./oc_lettings_site_image.tar
-  publish-latest-image:
-    executor: docker-publisher
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - setup_remote_docker
-      - run:
-          name: Load archived Docker image
-          command: docker load -i /tmp/workspace/oc_lettings_site_image.tar
-      - run:
-          name: Publish Docker Image
-          command: |
-<<<<<<< HEAD
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-            docker push $IMAGE_NAME:latest
-=======
             docker build -t oc_lettings_site .
-            echo $DOCKER_PASSWORD 
-            echo $DOCKER_USERNAME
->>>>>>> parent of 3d0ccf7 (Update config.yml)
+            docker tag oc_lettings_site $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+            docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
 
 workflows:
   main:
     jobs:
       - build-and-test
-      - build-image:
+      - build-and-publish-image:
           requires:
             - build-and-test
-      - publish-latest-image:
-          requires:
-            - build-image
