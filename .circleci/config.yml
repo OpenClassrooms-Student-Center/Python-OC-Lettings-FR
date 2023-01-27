@@ -1,5 +1,12 @@
 version: 2.1
 
+executors:
+  docker-publisher:
+    environment:
+      IMAGE_NAME: oc_lettings_site
+    docker:
+      - image: cimg/python:3.10.2
+
 jobs:
   build-and-test:
     docker:
@@ -31,24 +38,46 @@ jobs:
             source venv/bin/activate
             pytest
 
-  build-and-publish-image:
+  build-image:
+    executor: docker-publisher
     docker:
       - image: cimg/python:3.10.2
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Publish docker image
+          name: Build Docker image
+          command: |
+            docker build -t IMAGE_NAME:latest .
+      - run:
+          name: Archive Docker image
+          command: docker save -o oc_lettings_site_image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./oc_lettings_site_image.tar
+  publish-latest-image:
+    executor: docker-publisher
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run:
+          name: Load archived Docker image
+          command: docker load -i /tmp/workspace/oc_lettings_site_image.tar
+      - run:
+          name: Publish Docker Image
           command: |
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-            docker build -t oc_lettings_site .
-            docker tag oc_lettings_site $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
-            docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+            docker push $IMAGE_NAME:latest
 
 workflows:
   main:
     jobs:
       - build-and-test
-      - build-and-publish-image:
+      - build-image:
           requires:
             - build-and-test
+      - publish-latest-image:
+          requires:
+            - build-image
