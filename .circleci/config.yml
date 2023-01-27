@@ -41,7 +41,8 @@ jobs:
           name: Publish docker image
           command: |
             docker build -t oc_lettings_site .
-            echo $DOCKER_PASSWORD
+            echo $DOCKER_PASSWORD 
+            echo $DOCKER_USERNAME
 
 workflows:
   main:
