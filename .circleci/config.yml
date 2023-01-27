@@ -41,9 +41,7 @@ jobs:
           name: Publish docker image
           command: |
             docker build -t oc_lettings_site .
-            echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-            docker tag oc_lettings_site $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
-            docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+            echo $DOCKER_PASSWORD
 
 workflows:
   main:
