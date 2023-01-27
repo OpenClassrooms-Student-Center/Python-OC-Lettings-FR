@@ -31,24 +31,22 @@ jobs:
             source venv/bin/activate
             pytest
 
-  containerize:
+  build-and-publish-image:
     docker:
       - image: cimg/python:3.10.2
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Containerize app
+          name: Publish docker image
           command: |
-            echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
             docker build -t oc_lettings_site .
-            docker tag oc_lettings_site $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
-            docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+
 
 workflows:
   main:
     jobs:
       - build-and-test
-      - containerize:
+      - build-and-publish-image:
           requires:
             - build-and-test
