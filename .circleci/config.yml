@@ -1,0 +1,24 @@
+  # CircleCi version
+  version: 2.1
+
+  orbs:
+    python: circleci/python@2.1.1
+
+  jobs:
+    build-and-test:
+      executor: python/default
+      steps:
+        - checkout
+        - python/install-packages:
+            pip-dependency-file: requirements.txt
+            pkg-manager: pip
+        - run:
+            command: pytest
+            name: run pytest
+        - run:
+            command: flake8
+            name: run linting
+  workflows:
+    master:
+      jobs:
+        - build-and-test
