@@ -1,0 +1,119 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@2.0.0
+
+jobs:
+  build:
+    docker:
+      - image: python:latest
+    steps:
+      - checkout
+      - run:
+          command:  |
+            python -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python manage.py makemigrations
+            python manage.py migrate
+
+  quality:
+    docker:
+      - image: python:latest
+    steps:
+      - checkout
+      - run:
+          command:  |
+            python -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python manage.py check
+            flake8
+
+  test:
+    docker:
+      - image: python:latest
+    steps:
+      - checkout
+      - run:
+          command:  |
+            python -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            pytest
+
+  docker_image:
+    docker:
+      - image: cimg/base:current
+    working_directory: ~/tmp
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            mkdir -p workspace
+            echo DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} >> .env
+            echo SENTRY_DSN=${SENTRY_DSN} >> .env
+            cp .env workspace
+            echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+            docker build -t $DOCKERHUB_USER/$DOCKERHUB_REPO:$CIRCLE_SHA1 .
+            docker tag $DOCKERHUB_USER/$DOCKERHUB_REPO:$CIRCLE_SHA1 $DOCKERHUB_USER/$DOCKERHUB_REPO:latest
+            docker push $DOCKERHUB_USER/$DOCKERHUB_REPO:$CIRCLE_SHA1
+            docker push $DOCKERHUB_USER/$DOCKERHUB_REPO:latest
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - .env
+
+  deploy:
+    docker:
+      - image: cimg/base:current
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - setup_remote_docker
+      - heroku/install
+      - attach_workspace:
+          at: ~/tmp/workspace
+      - run:
+          name: Deploy to Heroku
+          command: |
+            cp ~/tmp/workspace/.env ./
+            my_apps=$(heroku apps)
+            existing_app=0
+            for app in $my_apps; 
+              do if [ $app = "$HEROKU_APP_NAME" ]; 
+                then existing_app=1; 
+              fi done
+            if [ $existing_app = 0 ];
+              then heroku create --app ${HEROKU_APP_NAME};
+            fi
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=${SECRET_KEY} --app ${HEROKU_APP_NAME}
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push web --app ${HEROKU_APP_NAME}
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release web --app ${HEROKU_APP_NAME}
+
+workflows:
+  build-workflow:
+    jobs:
+      - build
+      - quality
+      - test
+      - docker_image:
+          requires:
+            - build
+            - quality
+            - test
+          filters:
+            branches:
+              only:
+                master
+      - deploy:
+          requires:
+            - docker_image
+          filters:
+            branches:
+              only: master
