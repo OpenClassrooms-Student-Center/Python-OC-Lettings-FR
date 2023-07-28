@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         #     model_name='letting',
         #     name='address',
         # ),
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             state_operations=[
-                migrations.migrations.RemoveField(
+                migrations.RemoveField(
                     model_name="letting",
-                    name="category",
+                    name="address",
                 )
             ],
             database_operations=[],
@@ -27,11 +27,11 @@ class Migration(migrations.Migration):
         #     model_name='profile',
         #     name='user',
         # ),
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             state_operations=[
-                migrations.migrations.RemoveField(
+                migrations.RemoveField(
                     model_name="profile",
-                    name="category",
+                    name="user",
                 )
             ],
             database_operations=[],
@@ -39,9 +39,9 @@ class Migration(migrations.Migration):
         # migrations.DeleteModel(
         #     name='Address',
         # ),
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             database_operations=[
-                migrations.migrations.AlterModelTable(
+                migrations.AlterModelTable(
                     name="Address",
                     table="lettings_address",
                 )
@@ -59,9 +59,9 @@ class Migration(migrations.Migration):
         #     name='Letting',
         # ),
 
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             database_operations=[
-                migrations.migrations.AlterModelTable(
+                migrations.AlterModelTable(
                     name="Letting",
                     table="lettings_letting",
                 )
@@ -77,9 +77,9 @@ class Migration(migrations.Migration):
         #     name='Profile',
         # ),
 
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             database_operations=[
-                migrations.migrations.AlterModelTable(
+                migrations.AlterModelTable(
                     name="Profile",
                     table="profiles_profile",
                 )

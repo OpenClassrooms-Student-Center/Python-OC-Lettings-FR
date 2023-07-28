@@ -26,9 +26,9 @@ class Migration(migrations.Migration):
         #     ],
         # ),
         
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             state_operations=[
-                migrations.migrations.CreateModel(
+                migrations.CreateModel(
                     name='Address',
                     fields=[
                         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -54,9 +54,9 @@ class Migration(migrations.Migration):
         #     ],
         # ),
 
-        migrations.migrations.SeparateDatabaseAndState(
+        migrations.SeparateDatabaseAndState(
             state_operations=[
-                migrations.migrations.CreateModel(
+                migrations.CreateModel(
                     name='Letting',
                     fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
