@@ -14,12 +14,26 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Profile',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('favorite_city', models.CharField(blank=True, max_length=64)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+        # migrations.CreateModel(
+        #     name='Profile',
+        #     fields=[
+        #         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #         ('favorite_city', models.CharField(blank=True, max_length=64)),
+        #         ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+        #     ],
+        # ),
+
+        migrations.migrations.SeparateDatabaseAndState(
+            state_operations=[
+                migrations.migrations.CreateModel(
+                    name='Profile',
+                    fields=[
+                        ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                        ('favorite_city', models.CharField(blank=True, max_length=64)),
+                        ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ],
+            ),
             ],
-        ),
+            database_operations=[],
+        )
     ]
