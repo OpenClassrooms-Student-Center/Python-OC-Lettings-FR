@@ -1,4 +1,5 @@
 #
+#
 name: Build and deploy container app to Azure Web App - OC-LETTINGS
 
 # Configures this workflow to run every time a change is pushed to the branch called `release`.
@@ -13,39 +14,39 @@ env:
 
 jobs:
   job_1:
-      name: Tests
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - name: Set up Python 3.11
-          uses: actions/setup-python@v4
-          with:
-            python-version: "3.11"
-            cache: 'pip'
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        - name: Lint with flake8
-          run: |
-            # stop the build if there are Python syntax errors or undefined names
-            flake8 --exit-zero --format=html --htmldir ./reports/flake8 --max-line-length=99 --statistics --tee --output-file ./reports/flake8/flake8stats.txt
-            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        - name: Test with pytest
-          env:
-            SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          run: |
-            pytest --html=reports/junit/report.html
-            pytest --junitxml=reports/junit/junit.xml
-        - name: Archive tests results results
-          uses: actions/upload-artifact@v3
-          with:
-            name: tests-reports
-            path: reports/
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 --exit-zero --format=html --htmldir ./reports/flake8 --max-line-length=99 --statistics --tee --output-file ./reports/flake8/flake8stats.txt
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: |
+          pytest --html=reports/junit/report.html
+          pytest --junitxml=reports/junit/junit.xml
+      - name: Archive tests results results
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests-reports
+          path: reports/
 
-# There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
+  # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
   push_to_registries:
     name: Push Docker image to multiple registries
     needs: job_1
@@ -95,31 +96,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-#  deploy to Azure:
-#    name: Deploy App to Azure
-#    needs: job_2
-#    build:
-#      runs-on: 'ubuntu-latest'
-#
-#      steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to registry
-#        uses: docker/login-action@v2
-#        with:
-#          registry: https://index.docker.io/v1/
-#          username: ${{ secrets.AzureAppService_ContainerUsername_c7553e14ce2743709ebb29d4c98085b4 }}
-#          password: ${{ secrets.AzureAppService_ContainerPassword_a2780b0a51784151a5862a129916bde6 }}
-#
-#      - name: Build and push container image to registry
-#        uses: docker/build-push-action@v3
-#        with:
-#          push: true
-#          tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c7553e14ce2743709ebb29d4c98085b4 }}/arteymis78/azure_oc_lettings:${{ github.sha }}
-#          file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
@@ -154,5 +130,3 @@ jobs:
 # You can also reference a tag or branch, but the action may change without warning.
 # https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
 # https://github.com/docker/metadata-action
-
-
