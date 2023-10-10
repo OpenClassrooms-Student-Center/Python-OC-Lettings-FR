@@ -8,6 +8,7 @@ django = "==3.0"
 flake8 = "==3.7.0"
 pytest-django = "==3.9.0"
 six = "*"
+pytest-cov = "*"
 
 [dev-packages]
 
