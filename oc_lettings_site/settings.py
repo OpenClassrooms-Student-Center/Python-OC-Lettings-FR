@@ -20,8 +20,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'oc_lettings_site.apps.OCLettingsSiteConfig',
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,6 +28,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+LETTING_APPS = [
+    'oc_lettings_site.apps.OCLettingsSiteConfig',
+    'lettings.apps.LettingsConfig'
+]
+
+INSTALLED_APPS = LETTING_APPS + DJANGO_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
