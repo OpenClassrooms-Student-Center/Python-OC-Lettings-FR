@@ -31,7 +31,8 @@ DJANGO_APPS = [
 
 LETTING_APPS = [
     'oc_lettings_site.apps.OCLettingsSiteConfig',
-    'lettings.apps.LettingsConfig'
+    'lettings.apps.LettingsConfig',
+    'profiles.apps.ProfilesConfig'
 ]
 
 INSTALLED_APPS = LETTING_APPS + DJANGO_APPS
