@@ -1,13 +1,6 @@
 import os
 from django.db import migrations
-from oc_lettings_site import settings
-
-def read_sql(filename):
-    filepath = os.path.join(settings.BASE_DIR, 'lettings', 'sql', filename)
-    with open(filepath, 'rb') as f:
-        s = f.read()
-    return s
-
+from tools.tools import read_sql
 
 class Migration(migrations.Migration):
 
@@ -17,7 +10,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunSQL(
-            read_sql('insert_data_from_oc.sql'),
-            reverse_sql=read_sql('reverse_insert_data_from_oc.sql'),
+            read_sql('lettings', 'insert_data_from_oc.sql'),
+            reverse_sql=read_sql('lettings', 'reverse_insert_data_from_oc.sql'),
         ),
     ]
