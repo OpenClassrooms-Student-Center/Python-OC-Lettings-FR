@@ -10,6 +10,7 @@ pytest-django = "==3.9.0"
 six = "*"
 pytest-cov = "*"
 sentry-sdk = {extras = ["django"], version = "*"}
+pytest-html = "*"
 
 [dev-packages]
 
