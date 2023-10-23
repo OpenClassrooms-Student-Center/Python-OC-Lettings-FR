@@ -19,7 +19,7 @@ class ProfilesUrlsTestCase(TestCase):
         assert path == "/profiles/"
         assert resolve(path).view_name == "profiles:index"
 
-    def test_profile_profile_url(self):
+    def test_profile_url(self):
         profile = Profile.objects.create(
             user=self.user,
             favorite_city="My favorite city")

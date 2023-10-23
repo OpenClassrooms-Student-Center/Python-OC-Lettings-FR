@@ -22,7 +22,7 @@ class ProfilesViewsTestCase(TestCase):
         self.assertContains(response, expected_content, status_code=200)
         assertTemplateUsed(response, "profiles/index.html")
 
-    def test_profile_profile_view(self):
+    def test_profile_view(self):
         profile = Profile.objects.create(
             user=self.user,
             favorite_city="My favorite city")
@@ -33,7 +33,7 @@ class ProfilesViewsTestCase(TestCase):
         self.assertContains(response, expected_content, status_code=200)
         assertTemplateUsed(response, "profiles/profile.html")
 
-    def test_profile_profile_404_view(self):
+    def test_profile_404_view(self):
         path = reverse('profiles:profile', args=["inconnu"])
         response = self.client.get(path)
         expected_content = "<h1>Page not found</h1>"
