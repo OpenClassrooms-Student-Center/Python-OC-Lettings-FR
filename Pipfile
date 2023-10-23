@@ -9,6 +9,7 @@ flake8 = "==3.7.0"
 pytest-django = "==3.9.0"
 six = "*"
 pytest-cov = "*"
+sentry-sdk = {extras = ["django"], version = "*"}
 
 [dev-packages]
 

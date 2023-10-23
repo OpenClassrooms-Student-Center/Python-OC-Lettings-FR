@@ -1,4 +1,5 @@
 import os
+import sentry_sdk
 
 from pathlib import Path
 
@@ -118,3 +119,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static", ]
+
+dsn = "https://386bd82c309c6697a1d829a225374fae@o4505946318635008"
+dsn += ".ingest.sentry.io/4506098369822720"
+
+sentry_sdk.init(
+    dsn=dsn,
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
+)
