@@ -1,5 +1,6 @@
 from .models import Letting
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 
 # Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit.
@@ -41,7 +42,7 @@ def letting(request, letting_id):
     Returns:
         _type_: _description_
     """
-    letting = Letting.objects.get(id=letting_id)
+    letting = get_object_or_404(Letting, id=letting_id)
     context = {
         'title': letting.title,
         'address': letting.address,
