@@ -1,21 +1,25 @@
 import os
 import sentry_sdk
-
+from sentry_sdk.integrations.django import DjangoIntegration
+from dotenv import load_dotenv
 from pathlib import Path
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# take environment variables from .env
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default='default_local_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ['localhost',  '127.0.0.1']
+DEBUG = os.environ.get('DEBUG_VALUE', default=True)
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,7 +78,7 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'oc-lettings-site.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, os.environ.get('DJANGO_DATABASE_NAME') + '.sqlite3'),
     }
 }
 
@@ -120,14 +124,71 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static", ]
 
-dsn = "https://386bd82c309c6697a1d829a225374fae@o4505946318635008"
-dsn += ".ingest.sentry.io/4506098369822720"
+# SENTRY
+# ------------------------------------------------------------------------------
+try:
+    DSN_SENTRY = os.environ['DSN_SENTRY']
+except KeyError:
+    DSN_SENTRY = ''
 
 sentry_sdk.init(
-    dsn=dsn,
-
+    dsn=DSN_SENTRY,
+    integrations=[
+        DjangoIntegration(
+            transaction_style="url",
+            middleware_spans=True,
+            signals_spans=False,
+            cache_spans=False,
+        )
+        ],
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production,
     traces_sample_rate=1.0,
 )
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    "formatters": {
+        "verbose": {
+            "format": "{asctime} {levelname} {module} {message}",
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    'handlers': {
+        'console': {
+            "level": "DEBUG",
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            "level": "DEBUG",
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        "root": {
+            "handlers": ["console"],
+            "level": "WARNING",
+        },
+        'lettings': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+        },
+        'profiles': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+        }
+    },
+}
+
+DEBUG_PROPAGATE_EXCEPTIONS = True
