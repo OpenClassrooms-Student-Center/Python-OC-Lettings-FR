@@ -1,0 +1,9 @@
+version: '3'
+services:
+  database:
+    image: keinos/sqlite3:latest
+    container_name: sqlite_base
+    env_file:
+      - ./.env
+    ports:
+      - 12346:12346

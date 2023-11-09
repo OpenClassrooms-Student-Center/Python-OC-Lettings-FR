@@ -1,0 +1,6 @@
+.venv
+htmlcov
+.pytest_cache
+utils
+logs
+.sqlite3
