@@ -1,6 +1,10 @@
+import logging
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .models import Profile
+
+
+logger = logging.getLogger(__name__)
 
 
 # Sed placerat quam in pulvinar commodo. Nullam laoreet consectetur ex,
@@ -15,6 +19,12 @@ def index(request):
     Returns:
         _type_: _description_
     """
+    logger.debug("profiles-DEBUG")
+    logger.info("profiles-INFO")
+    logger.warning("profiles-WARNING")
+    logger.error("profiles-ERROR")
+    logger.critical("profiles-CRITICAL")
+    # ---------------------------------------
     profiles_list = Profile.objects.all()
     context = {'profiles_list': profiles_list}
     return render(request, 'profiles/index.html', context)

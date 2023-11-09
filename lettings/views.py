@@ -1,6 +1,10 @@
+import logging
 from .models import Letting
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+
+
+logger = logging.getLogger(__name__)
 
 
 # Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit.
@@ -16,6 +20,12 @@ def index(request):
     Returns:
         _type_: _description_
     """
+    logger.debug("lettings-DEBUG")
+    logger.info("lettings-INFO")
+    logger.warning("lettings-WARNING")
+    logger.error("lettings-ERROR")
+    logger.critical("lettings-CRITICAL")
+    # ---------------------------------------
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
     return render(request, 'lettings/index.html', context)

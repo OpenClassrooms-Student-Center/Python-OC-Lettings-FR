@@ -11,6 +11,7 @@ six = "*"
 pytest-cov = "*"
 sentry-sdk = {extras = ["django"], version = "*"}
 pytest-html = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
