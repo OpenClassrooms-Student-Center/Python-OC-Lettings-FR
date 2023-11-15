@@ -1,0 +1,10 @@
+.venv
+htmlcov
+.pytest_cache
+utils
+.sqlite3
+.git
+.gitignore
+.coverage
+dockerfile
+docker-compose.yml

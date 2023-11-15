@@ -26,6 +26,7 @@ if settings.DEBUG:
 
     # This allows the error pages to be debugged during development.
     urlpatterns += [
+        path('__debug__/', include('debug_toolbar.urls')),
         path(
             "404/",
             views.page_not_found,

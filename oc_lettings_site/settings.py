@@ -1,7 +1,8 @@
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
+from oc_lettings_site import env
 from pathlib import Path
 
 
@@ -9,17 +10,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # take environment variables from .env
-load_dotenv()
+# load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default='default_local_secret_key')
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG_VALUE', default=True)
-ALLOWED_HOSTS = ['*']
+DEBUG = env('DEBUG_VALUE')
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
 # Application definition
@@ -39,9 +40,14 @@ LETTING_APPS = [
     'profiles.apps.ProfilesConfig'
 ]
 
-INSTALLED_APPS = LETTING_APPS + DJANGO_APPS
+TIERS_APPS = [
+    'debug_toolbar',
+]
+
+INSTALLED_APPS = LETTING_APPS + DJANGO_APPS + TIERS_APPS
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,7 +84,7 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, os.environ.get('DJANGO_DATABASE_NAME') + '.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, env('DATABASE_NAME') + '.sqlite3'),
     }
 }
 
@@ -127,7 +133,7 @@ STATICFILES_DIRS = [BASE_DIR / "static", ]
 # SENTRY
 # ------------------------------------------------------------------------------
 try:
-    DSN_SENTRY = os.environ['DSN_SENTRY']
+    DSN_SENTRY = env('DSN_SENTRY')
 except KeyError:
     DSN_SENTRY = ''
 
@@ -192,3 +198,21 @@ LOGGING = {
 }
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
+
+# SESSIONS_ENGINE = 'django.contrib.sessions.backends.cache'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+CACHE_MIDDLEWARE_KEY_PREFIX = 'lettings'
+
+# add for debug toolbar
+INTERNAL_IPS = [
+ '127.0.0.1',
+]

@@ -1,0 +1,64 @@
+# Utilisez une image de base Python
+FROM python:3.9-slim
+
+# Pour activer les print
+ENV PYTHONUNBUFFERED 1
+
+# pour la persistance des import
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# Définissez le répertoire de travail dans l'image
+WORKDIR /app
+
+# outils de compilation pour psycopg2 (pour une base postgres)
+# -y pour dire qu'on est ok pour installer des dependances
+# && pour concatener les instruction et creer une image moins lourde ?
+# on ne veut pas les installations recommandees juste le minimum : --no-install-recommands
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    # pour compiler des paquets pithon 
+    build-essential \
+    # pour construire spycopg2
+    libpq-dev
+
+# copier requirements.txt
+COPY requirements.txt .
+
+# Installez les dépendances de l'application
+# pas besoin qu'il enregistre des choses en chache: --no-cache-dir
+# pas besion d'indexer non plus, quand on arrete le containre
+# tout disparait : --no-index
+RUN pip install --no-cache-dir -r requirements.txt
+
+#lance le bash pour postgres
+# COPY entrypoint /entrypoint
+# pour enlever les fin de ligne d'un fichier ecrit sous windows
+# RUN sed -i 's/\r$//g' /entrypoint
+# pour donner les droits d'execution
+# RUN chmod +x /entrypoint
+
+# ENTRYPOINT [ "/entrypoint" ]
+
+# Copiez les fichiers dans le répertoire de travail
+COPY . /app
+
+#lance le bash pour demarrer le server
+COPY ./compose/start /start
+# pour enlever les fin de ligne d'un fichier ecrit sous windows
+RUN sed -i 's/\r$//g' /start
+# pour donner les droits d'execution
+RUN chmod +x /start
+
+# la commande est dans le docker-compose
+# ENTRYPOINT [ "/start" ]
+
+# Exécutez les migrations et créez la base de données
+# commande start dans docker-compose
+# RUN python manage.py migrate
+
+# Exposez le port sur lequel l'application Django s'exécute
+# defini dans docker-compose
+# EXPOSE 8000
+
+# Commande pour lancer l'application Django
+# commande start dans docker-compose
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
