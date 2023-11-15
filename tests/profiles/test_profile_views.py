@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.cache import cache
 from pytest_django.asserts import assertTemplateUsed
 from profiles.models import Profile
 
@@ -41,6 +42,7 @@ class ProfilesViewsTestCase(TestCase):
         assertTemplateUsed(response, "base/404.html")
 
     def test_profile_noprofile_view(self):
+        cache.clear()
         path = reverse('profiles:index')
         response = self.client.get(path)
         expected_content = "<p>No profiles are available.</p>"
