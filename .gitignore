@@ -5,3 +5,4 @@
 htmlcov
 utils
 logs
+.coverage
