@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./compose/dockerfile
-    image: test231110
     container_name: lettings
     depends_on:
       - database
@@ -27,9 +26,11 @@ services:
   
   memcached:
     image: memcached:latest
+    container_name: memcached
   
   redis:
     image: redis:latest
+    container_name: redis
 
 
 volumes:
