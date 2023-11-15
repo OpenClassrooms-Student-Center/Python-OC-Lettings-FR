@@ -9,6 +9,8 @@ services:
     container_name: lettings
     depends_on:
       - database
+      - memcached
+      - redis
     env_file:
       - ./.env
     ports:
@@ -22,6 +24,13 @@ services:
       - ./.env
     volumes:
       - lettings_data:/data
+  
+  memcached:
+    image: memcached:latest
+  
+  redis:
+    image: redis:latest
+
 
 volumes:
   lettings_data: {}
