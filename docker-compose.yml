@@ -1,9 +1,27 @@
 version: '3'
 services:
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/dockerfile
+    image: test231110
+    container_name: lettings
+    depends_on:
+      - database
+    env_file:
+      - ./.env
+    ports:
+      - 8000:8000
+    command: /start
+
   database:
     image: keinos/sqlite3:latest
     container_name: sqlite_base
     env_file:
       - ./.env
-    ports:
-      - 12346:12346
+    volumes:
+      - lettings_data:/data
+
+volumes:
+  lettings_data: {}

@@ -2,5 +2,9 @@
 htmlcov
 .pytest_cache
 utils
-logs
 .sqlite3
+.git
+.gitignore
+.coverage
+dockerfile
+docker-compose.yml

@@ -1,6 +1,7 @@
 import logging
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.core.cache import cache
 from .models import Profile
 
 
@@ -25,7 +26,12 @@ def index(request):
     logger.error("profiles-ERROR")
     logger.critical("profiles-CRITICAL")
     # ---------------------------------------
-    profiles_list = Profile.objects.all()
+    # profiles_list = Profile.objects.all()
+    profiles_list = cache.get('all_profiles')
+    if not profiles_list:
+        profiles_list = Profile.objects.all()
+        cache.set('all_profiles', profiles_list)
+
     context = {'profiles_list': profiles_list}
     return render(request, 'profiles/index.html', context)
 
