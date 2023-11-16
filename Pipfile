@@ -25,7 +25,7 @@ pytest-cov = "==4.1.0"
 pytest-django = "==3.9.0"
 pytest-html = "==4.0.2"
 pytest-metadata = "==3.0.0"
-pytz = "==2023.3.post1"
+pytz = "*"
 sentry-sdk = {extras = ["django"], version = "==1.32.0"}
 six = "==1.16.0"
 sqlparse = "==0.4.4"
