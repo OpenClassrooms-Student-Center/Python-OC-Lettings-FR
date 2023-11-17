@@ -45,7 +45,17 @@ cache:
     - ~/.cache/pip
     - .venv/
 
-
+before_script:
+  - echo "Initialize docker compose..."
+  - docker info
+  - docker-compose --version
+  - echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY" >> .env
+  - echo "DEBUG_VALUE=$DEBUG_VALUE" >> .env
+  - echo "HOSTS=$HOSTS" >> .env
+  - echo "DATABASE_NAME=$DATABASE_NAME" >> .env
+  - echo "DSN_SENTRY=$DSN_SENTRY" >> .env
+  - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+  - echo "Docker compose ready"  
 
 # env_script:
 #   image: python:3.10
@@ -69,19 +79,6 @@ build-job:       # This job runs in the build stage, which runs first.
   stage: build
   only:
     - branches
-  before_script:
-    - echo "Initialize docker compose..."
-    - docker info
-    - docker-compose --version
-    - echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY" >> .env
-    - echo "DEBUG_VALUE=$DEBUG_VALUE" >> .env
-    - echo "HOSTS=$HOSTS" >> .env
-    - echo "DATABASE_NAME=$DATABASE_NAME" >> .env
-    - echo "DSN_SENTRY=$DSN_SENTRY" >> .env
-    - echo "DSN_SENTRY=$GITLAB_TOKEN" >> .env
-    - echo "DSN_SENTRY=$PIPELINE_KEEP_DAYS" >> .env
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
-    - echo "Docker compose ready"  
   script:
     # - export IMG_TAG=test231110:latest
     - docker compose pull
@@ -92,9 +89,6 @@ build-job:       # This job runs in the build stage, which runs first.
     # - echo "Compile Static Files..."
     # - pipenv run python manage.py collectstatic --noinput
     - echo "Build complete."
-  artifacts:
-    reports:
-      dotenv: .env
 
 cleanup-job:
   stage: cleanup
@@ -104,6 +98,8 @@ cleanup-job:
   #   GITLAB_TOKEN: $GITLAB_TOKEN
   #   PIPELINE_KEEP_DAYS: $PIPELINE_KEEP_DAYS
   script:
+    - echo $GITLAB_TOKEN
+    - echo $PIPELINE_KEEP_DAYS
     - docker compose up -d
     - echo $GITLAB_TOKEN
     - echo $PIPELINE_KEEP_DAYS
