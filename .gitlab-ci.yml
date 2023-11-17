@@ -82,8 +82,8 @@ cleanup-job:
     PIPELINE_KEEP_DAYS: $PIPELINE_KEEP_DAYS
   script:
     - docker compose up -d
-    - echo "$GITLAB_TOKEN"
-    - echo "$PIPELINE_KEEP_DAYS"
+    - echo $GITLAB_TOKEN
+    - echo $PIPELINE_KEEP_DAYS
     - docker compose run django python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
 
 build-job:       # This job runs in the build stage, which runs first.
