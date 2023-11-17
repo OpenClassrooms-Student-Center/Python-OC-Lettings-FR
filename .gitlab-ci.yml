@@ -46,6 +46,7 @@ cache:
     - .venv/
 
 before_script:
+  - echo "$PIPELINE_KEEP_DAYS"
   - echo "Initialize docker compose..."
   - docker info
   - docker-compose --version
