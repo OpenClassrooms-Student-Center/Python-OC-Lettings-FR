@@ -60,7 +60,7 @@ lint-test-job:   # This job also runs in the test stage.
     - echo "Linting code..."
     # Linter le code avec Flake8
     # - docker compose up -d
-    - docker compose erun django flake8
+    - docker compose run django flake8
     - echo "No lint issues found."
 
 unit-test-job:   # This job runs in the test stage.
