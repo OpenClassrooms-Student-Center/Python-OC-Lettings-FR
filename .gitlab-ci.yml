@@ -10,3 +10,7 @@ job1:
 job2:
   script:
     - echo "Variables are '$GLOBAL_VAR' and '$JOB_VAR'"
+
+job3:
+  script:
+    - echo "Variables are '$PIPELINE_KEEP_DAYS'"
