@@ -75,7 +75,7 @@ before_script:
 cleanup-job:
   stage: cleanup
   only:
-    - main
+    - branches
   script:
     - pipenv run python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
 
@@ -114,8 +114,8 @@ lint-test-job:   # This job also runs in the test stage.
   script:
     - echo "Linting code... This will take about 10 seconds."
     # Linter le code avec Flake8
-    - docker compose up -d
-    - flake8
+    # - docker compose up -d
+    - pipenv run flake8
     - echo "No lint issues found."
 
 quality-job:   # This job also runs in the quality stage.
