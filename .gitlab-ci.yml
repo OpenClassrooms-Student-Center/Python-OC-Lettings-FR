@@ -30,8 +30,8 @@ stages:          # List of stages for jobs, and their order of execution
   - deploy
 
 
-variables:
-  PIPELINE_KEEP_DAYS: $PIPELINE_KEEP_DAYS
+# variables:
+#   PIPELINE_KEEP_DAYS: $PIPELINE_KEEP_DAYS
 #   # Set the Python version
 #   PYTHON_VERSION: "3.10"
 #   # create the virtual environment within the project directory.
@@ -47,7 +47,7 @@ cache:
     - .venv/
 
 before_script:
-  - echo "$PIPELINE_KEEP_DAYS"
+  - echo "'$PIPELINE_KEEP_DAYS'"
   - echo "Initialize docker compose..."
   - docker info
   - docker-compose --version
