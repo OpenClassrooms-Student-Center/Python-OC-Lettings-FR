@@ -79,7 +79,7 @@ cleanup-job:
     - branches
   script:
     - docker compose up -d
-    - echo $GITLAB_TOKEN
+    - echo "$GITLAB_TOKEN"
     - echo ${PIPELINE_KEEP_DAYS}
     - docker compose run django python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
 
