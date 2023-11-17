@@ -6,4 +6,4 @@ htmlcov
 utils
 logs
 .coverage
-*.old
+*.old*
