@@ -14,3 +14,5 @@ job2:
 job3:
   script:
     - echo "Variables are '$PIPELINE_KEEP_DAYS'"
+    - echo "Variables are '$DATABASE_NAME'"
+    - echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY"
