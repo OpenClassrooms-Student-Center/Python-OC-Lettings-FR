@@ -1,27 +1,10 @@
 # ########################################################################################################
-# This file is a template, and might need editing before it works on your project.
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
-#
-# You can copy and paste this template into a new `.gitlab-ci.yml` file.
-# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
-#
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+# For more information about template, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 # ########################################################################################################
-
 
 image: docker:latest
 
-stages:          # List of stages for jobs, and their order of execution
+stages:
   - build
   - cleanup
   - test
@@ -29,14 +12,6 @@ stages:          # List of stages for jobs, and their order of execution
   - package
   - deploy
 
-
-# variables:
-#   PIPELINE_KEEP_DAYS: $PIPELINE_KEEP_DAYS
-#   # Set the Python version
-#   PYTHON_VERSION: "3.10"
-#   # create the virtual environment within the project directory.
-#   # This helps avoid conflicts with externally managed environments
-#   PIPENV_VENV_IN_PROJECT: "1"
 services:
   - docker:dind
 
@@ -47,7 +22,6 @@ cache:
     - .venv/
 
 before_script:
-  - echo "'$PIPELINE_KEEP_DAYS'"
   - echo "Initialize docker compose..."
   - docker info
   - docker-compose --version
@@ -59,35 +33,15 @@ before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   - echo "Docker compose ready"  
 
-# env_script:
-#   image: python:3.10
-#   stage: build
-#   script:
-#     # Install Global Dependencies
-#     - apt update -qy
-#     - apt install -y build-essential
-#     # - apt-get install -y python3-dev python3-pip
-
-#     # Install pipenv
-#     - pip install pipenv
-    
-#     # Install Python dependencies from the Pipfile.lock file
-#     - mkdir .venv
-#     - pipenv install --dev --skip-lock
-
-
-
-build-job:       # This job runs in the build stage, which runs first.
+build-job:
   stage: build
   only:
     - branches
   script:
-    # - export IMG_TAG=test231110:latest
+    # echo "Build docker images..."
     - docker compose pull
     - docker compose down
     - docker compose build --pull    
-    # echo "Install Python dependencies..."
-    # pip install -r requirements.txt => pipenv using
     # - echo "Compile Static Files..."
     # - pipenv run python manage.py collectstatic --noinput
     - echo "Build complete."
