@@ -50,16 +50,18 @@ cleanup-job:
   stage: cleanup
   only:
     - branches
-  # variables:
-  #   GITLAB_TOKEN: $GITLAB_TOKEN
-  #   PIPELINE_KEEP_DAYS: $PIPELINE_KEEP_DAYS
   script:
-    - echo "$GITLAB_TOKEN"
-    - echo "$PIPELINE_KEEP_DAYS"
     - docker compose up -d
-    - echo "$GITLAB_TOKEN"
-    - echo "$PIPELINE_KEEP_DAYS"
     - docker compose run django python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
+
+lint-test-job:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "Linting code..."
+    # Linter le code avec Flake8
+    # - docker compose up -d
+    - docker compose erun django flake8
+    - echo "No lint issues found."
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -74,15 +76,6 @@ unit-test-job:   # This job runs in the test stage.
     - pytest --cov=. --cov-report html
     - pytest --html=htmlcov/myreport.html
     - echo "Code coverage is 90%"
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    # Linter le code avec Flake8
-    # - docker compose up -d
-    - docker compose exec pipenv run flake8
-    - echo "No lint issues found."
 
 quality-job:   # This job also runs in the quality stage.
   stage: quality    
