@@ -9,10 +9,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential
 
 COPY Pipfile.lock .
+COPY Pipfile .
 
-RUN  pip install pipenv \
-    && pipenv requirements > requirements.txt \
-    && pip install -r requirements.txt
+RUN  pip install pipenv --upgrade
+
+RUN set -ex && pipenv install --deploy --system
 
 COPY . .
 
