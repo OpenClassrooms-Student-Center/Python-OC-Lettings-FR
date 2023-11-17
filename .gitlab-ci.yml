@@ -30,7 +30,8 @@ stages:          # List of stages for jobs, and their order of execution
   - deploy
 
 
-# variables:
+variables:
+  $PIPELINE_KEEP_DAYS: "$PIPELINE_KEEP_DAYS"
 #   # Set the Python version
 #   PYTHON_VERSION: "3.10"
 #   # create the virtual environment within the project directory.
