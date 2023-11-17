@@ -41,6 +41,8 @@ pymemcache = "*"
 python-memcached = "*"
 redis = "*"
 django-redis = "*"
+python-dateutil = "*"
+python-gitlab = "*"
 
 [dev-packages]
 
