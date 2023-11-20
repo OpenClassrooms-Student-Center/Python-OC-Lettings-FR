@@ -64,6 +64,7 @@ isort-job:
   stage: test
   script:
     - echo "isort code..."
+    - docker compose up -d
     - docker compose exec django isort . --check
     - echo "No isort issues found."
 
