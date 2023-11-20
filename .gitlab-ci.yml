@@ -60,6 +60,13 @@ lint-test-job:
     - docker compose run django flake8
     - echo "No lint issues found."
 
+lint-test-job:
+  stage: test
+  script:
+    - echo "isort code..."
+    - docker compose run django isort . --check
+    - echo "No isort issues found."
+
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   only:
