@@ -67,6 +67,13 @@ isort-job:
     - docker compose run django isort . --check
     - echo "No isort issues found."
 
+black-job:
+  stage: test
+  script:
+    - echo "black code..."
+    - docker compose run django black . --check
+    - echo "No black issues found."
+
 test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   only:
