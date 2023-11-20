@@ -1,4 +1,5 @@
 from django.db import migrations
+
 from tools.tools import read_sql
 
 

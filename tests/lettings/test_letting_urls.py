@@ -1,7 +1,7 @@
 from django.test import TestCase
+from django.urls import resolve, reverse
 
-from django.urls import reverse, resolve
-from lettings.models import Letting, Address
+from lettings.models import Address, Letting
 
 
 class LettingsUrlsTestCase(TestCase):

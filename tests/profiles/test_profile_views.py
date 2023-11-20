@@ -1,9 +1,9 @@
-from django.test import TestCase
-
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.core.cache import cache
+from django.test import TestCase
+from django.urls import reverse
 from pytest_django.asserts import assertTemplateUsed
+
 from profiles.models import Profile
 
 

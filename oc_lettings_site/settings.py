@@ -1,11 +1,12 @@
 import os
 import socket
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-# from dotenv import load_dotenv
-from oc_lettings_site import env
 from pathlib import Path
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+# from dotenv import load_dotenv
+from oc_lettings_site import env
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent

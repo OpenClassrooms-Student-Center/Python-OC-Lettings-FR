@@ -1,9 +1,9 @@
 import logging
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.core.cache import cache
-from .models import Profile
 
+from django.core.cache import cache
+from django.shortcuts import get_object_or_404, render
+
+from .models import Profile
 
 logger = logging.getLogger(__name__)
 

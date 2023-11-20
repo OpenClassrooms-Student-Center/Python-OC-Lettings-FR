@@ -1,8 +1,8 @@
 import logging
-from .models import Letting
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 
+from django.shortcuts import get_object_or_404, render
+
+from .models import Letting
 
 logger = logging.getLogger(__name__)
 

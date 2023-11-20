@@ -1,7 +1,8 @@
-import datetime
-import pytz
-import gitlab
 import argparse
+import datetime
+
+import gitlab
+import pytz
 from dateutil import parser
 
 

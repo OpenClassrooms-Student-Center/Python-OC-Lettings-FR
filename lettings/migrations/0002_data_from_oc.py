@@ -1,6 +1,9 @@
 import os
+
 from django.db import migrations
+
 from tools.tools import read_sql
+
 
 class Migration(migrations.Migration):
 

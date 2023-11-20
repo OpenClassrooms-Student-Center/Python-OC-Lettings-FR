@@ -38,7 +38,7 @@ build-job:
   only:
     - branches
   script:
-    # echo "Build docker images..."
+    - echo "Build docker images..."
     - docker compose pull
     - docker compose down
     - docker compose build --pull    
@@ -65,9 +65,8 @@ unit-test-job:   # This job runs in the test stage.
   only:
     - branches
   script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    # Exécuter les tests Django 
-    - python manage.py test
+    - echo "Running tests..."
+    - docker compose run python manage.py test
     # Exécuter pytest
     - pytest
     - pytest --cov=. --cov-report html
