@@ -64,7 +64,7 @@ lint-test-job:
   stage: test
   script:
     - echo "isort code..."
-    - docker compose run django isort . --check
+    - docker compose run django isort --check
     - echo "No isort issues found."
 
 unit-test-job:   # This job runs in the test stage.
