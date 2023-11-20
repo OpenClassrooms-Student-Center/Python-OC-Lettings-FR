@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Address(models.Model):
-    """ Manage address informations
+    """Manage address informations
 
     Args:
         models (_type_): _description_
@@ -16,22 +16,24 @@ class Address(models.Model):
     city = models.CharField(max_length=64)
     state = models.CharField(max_length=2, validators=[MinLengthValidator(2)])
     zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
-    country_iso_code = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
+    country_iso_code = models.CharField(
+        max_length=3, validators=[MinLengthValidator(3)]
+    )
 
     class Meta:
         verbose_name_plural = "Addresses"
 
     def __str__(self):
-        """ The address main informations
+        """The address main informations
 
         Returns:
             str: number and street
         """
-        return f'{self.number} {self.street}'
+        return f"{self.number} {self.street}"
 
 
 class Letting(models.Model):
-    """ manage informations about letting
+    """manage informations about letting
 
     Args:
         models (_type_): _description_
@@ -43,7 +45,7 @@ class Letting(models.Model):
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
     def __str__(self):
-        """ The title of letting
+        """output the title of letting
 
         Returns:
             str: title

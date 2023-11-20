@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 # tempor et, bibendum id arcu. Vestibulum ante ipsum primis in faucibus orci luctus et
 #  ultrices posuere cubilia curae; Cras eget scelerisque
 def index(request):
-    """ index view
+    """index view
 
     Args:
         request (_type_): _description_
@@ -27,8 +27,8 @@ def index(request):
     logger.critical("lettings-CRITICAL")
     # ---------------------------------------
     lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings/index.html', context)
+    context = {"lettings_list": lettings_list}
+    return render(request, "lettings/index.html", context)
 
 
 # Cras ultricies dignissim purus, vitae hendrerit ex varius non. In accumsan porta
@@ -43,7 +43,7 @@ def index(request):
 #  Sed non dolor risus. Mauris condimentum auctor elementum. Donec quis nisi ligula.
 #  Integer vehicula tincidunt enim, ac lacinia augue pulvinar sit amet.
 def letting(request, letting_id):
-    """ View for a letting id
+    """View for a letting id
 
     Args:
         request (_type_): _description_
@@ -54,7 +54,7 @@ def letting(request, letting_id):
     """
     letting = get_object_or_404(Letting, id=letting_id)
     context = {
-        'title': letting.title,
-        'address': letting.address,
+        "title": letting.title,
+        "address": letting.address,
     }
-    return render(request, 'lettings/letting.html', context)
+    return render(request, "lettings/letting.html", context)
