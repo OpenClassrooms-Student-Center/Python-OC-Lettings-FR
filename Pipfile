@@ -43,6 +43,7 @@ redis = "*"
 django-redis = "*"
 python-dateutil = "*"
 python-gitlab = "*"
+isort = "*"
 
 [dev-packages]
 
