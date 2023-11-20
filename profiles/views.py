@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 #  sed consequat libero pulvinar eget. Fusc
 # faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum lacus d
 def index(request):
-    """ index view
+    """index view
 
     Args:
         request (_type_): _description_
@@ -27,13 +27,13 @@ def index(request):
     logger.critical("profiles-CRITICAL")
     # ---------------------------------------
     # profiles_list = Profile.objects.all()
-    profiles_list = cache.get('all_profiles')
+    profiles_list = cache.get("all_profiles")
     if not profiles_list:
         profiles_list = Profile.objects.all()
-        cache.set('all_profiles', profiles_list)
+        cache.set("all_profiles", profiles_list)
 
-    context = {'profiles_list': profiles_list}
-    return render(request, 'profiles/index.html', context)
+    context = {"profiles_list": profiles_list}
+    return render(request, "profiles/index.html", context)
 
 
 # Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac
@@ -42,7 +42,7 @@ def index(request):
 # it. Nam aliquam dignissim congue. Pellentesque habitant morbi tristique senectus et
 #  netus et males
 def profile(request, username):
-    """ profile view for a username
+    """profile view for a username
 
     Args:
         request (_type_): _description_
@@ -52,5 +52,5 @@ def profile(request, username):
         _type_: _description_
     """
     profile = get_object_or_404(Profile, user__username=username)
-    context = {'profile': profile}
-    return render(request, 'profiles/profile.html', context)
+    context = {"profile": profile}
+    return render(request, "profiles/profile.html", context)

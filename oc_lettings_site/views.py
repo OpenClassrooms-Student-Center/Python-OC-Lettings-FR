@@ -18,7 +18,7 @@ def index(request):
     logger.warning("main-WARNING")
     logger.error("main-ERROR")
     logger.critical("main-CRITICAL")
-    return render(request, 'index.html')
+    return render(request, "index.html")
 
 
 def page_not_found(request, exception):

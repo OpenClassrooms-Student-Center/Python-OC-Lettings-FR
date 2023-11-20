@@ -11,6 +11,7 @@ class Address(models.Model):
     Returns:
         Address: a class instance with adress data
     """
+
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
     street = models.CharField(max_length=64)
     city = models.CharField(max_length=64)
@@ -29,6 +30,7 @@ class Address(models.Model):
         Returns:
             str: number and street
         """
+
         return f"{self.number} {self.street}"
 
 
@@ -41,6 +43,7 @@ class Letting(models.Model):
     Returns:
         Letting: give title and adress data
     """
+
     title = models.CharField(max_length=256)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
@@ -50,4 +53,5 @@ class Letting(models.Model):
         Returns:
             str: title
         """
+
         return self.title
