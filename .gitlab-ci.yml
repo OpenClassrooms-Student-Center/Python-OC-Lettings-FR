@@ -49,18 +49,18 @@ build-job:
 cleanup-job:
   stage: cleanup
   only:
-    - branches
+    - main
   script:
     - docker compose run django python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
 
-lint-test-job:
+lint-job:
   stage: test
   script:
     - echo "Linting code..."
     - docker compose run django flake8
     - echo "No lint issues found."
 
-lint-test-job:
+isort-job:
   stage: test
   script:
     - echo "isort code..."
