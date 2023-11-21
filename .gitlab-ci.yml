@@ -78,16 +78,15 @@ pylint-job:
   stage: test
   only:
     - branches
-  before_script:
+  script:
     - mkdir -p public/badges public/lint
     - echo undefined > public/badges/$CI_JOB_NAME.score
-    - pipenv install pylint-gitlab
-  script:
+    - docker compose run django pipenv install pylint-gitlab
     - echo "pylint starting...."
-    - pylint --exit-zero --output-format=text $(find -type f -name "*.py" ! -path "**/.venv/**") | tee /tmp/pylint.txt
+    - docker compose run django pylint --exit-zero --output-format=text $(find -type f -name "*.py" ! -path "**/.venv/**") | tee /tmp/pylint.txt
     - sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' /tmp/pylint.txt > public/badges/$CI_JOB_NAME.score
-    - pylint --exit-zero --output-format=pylint_gitlab.GitlabCodeClimateReporter $(find -type f -name "*.py" ! -path "**/.venv/**") > codeclimate.json
-    - pylint --exit-zero --output-format=pylint_gitlab.GitlabPagesHtmlReporter $(find -type f -name "*.py" ! -path "**/.venv/**") > public/lint/index.html
+    - docker compose run django pylint --exit-zero --output-format=pylint_gitlab.GitlabCodeClimateReporter $(find -type f -name "*.py" ! -path "**/.venv/**") > codeclimate.json
+    - docker compose run django pylint --exit-zero --output-format=pylint_gitlab.GitlabPagesHtmlReporter $(find -type f -name "*.py" ! -path "**/.venv/**") > public/lint/index.html
   after_script:
     - anybadge --overwrite --label $CI_JOB_NAME --value=$(cat public/badges/$CI_JOB_NAME.score) --file=public/badges/$CI_JOB_NAME.svg 4=red 6=orange 8=yellow 10=green
     - |
@@ -114,10 +113,9 @@ test-job:
   stage: test
   only:
     - branches
-  before_script:
+  script:
     - mkdir -p public/badges public/lint
     - echo undefined > public/badges/$CI_JOB_NAME.score
-  script:
     - echo "Running tests..."
     - docker compose run django python manage.py test
     # Exécuter pytest
