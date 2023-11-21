@@ -130,8 +130,9 @@ test-job:
     paths:
       - public
     reports:
-      coverage_format: cobertura
-      path: coverage.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
     when: always
 
 package-job:   # This job also runs in the package stage.
