@@ -45,6 +45,7 @@ build-job:
     # - echo "Compile Static Files..."
     # - pipenv run python manage.py collectstatic --noinput
     - docker compose up -d
+    - docker compose run django
     - echo "Build complete."
 
 cleanup-job:
