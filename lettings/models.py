@@ -1,3 +1,4 @@
+"""define lettings models"""
 from django.core.validators import MaxValueValidator, MinLengthValidator
 from django.db import models
 
@@ -22,9 +23,10 @@ class Address(models.Model):
     )
 
     class Meta:
+        """Meta for plural definition"""
         verbose_name_plural = "Addresses"
 
-    def __str__(self):
+    def __str__(self) -> str:
         """The address main informations
 
         Returns:

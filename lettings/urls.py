@@ -1,8 +1,9 @@
+"""define lettings url"""
 from django.urls import path
 
 from . import views
 
-app_name = "lettings"
+APP_NAME = "lettings"
 
 urlpatterns = [
     path("", views.index, name="index"),

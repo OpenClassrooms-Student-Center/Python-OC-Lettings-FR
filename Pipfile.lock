@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bd963c44531853a03228d18c4ca919d407da3c7e2c04b98cf5b6996327bcedf7"
+            "sha256": "0fdf381f5832ffdf9b5f2a8f67e36730dfd29e5da28b3242946be5d73aea2e42"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -24,6 +24,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==3.7.2"
+        },
+        "astroid": {
+            "hashes": [
+                "sha256:7d5895c9825e18079c5aeac0572bc2e4c83205c95d416e0b4fee8bc361d2d9ca",
+                "sha256:86b0bb7d7da0be1a7c4aedb7974e391b32d4ed89e33de6ed6902b4b15c97577e"
+            ],
+            "markers": "python_full_version >= '3.8.0'",
+            "version": "==3.0.1"
         },
         "async-timeout": {
             "hashes": [
@@ -402,6 +410,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==7.3.2"
+        },
+        "dill": {
+            "hashes": [
+                "sha256:76b122c08ef4ce2eedcd4d1abd8e641114bfc6c2867f49f3c41facf65bf19f5e",
+                "sha256:cc1c8b182eb3013e24bd475ff2e9295af86c1a38eb1aff128dac8962a9ce3c03"
+            ],
+            "markers": "python_version < '3.11'",
+            "version": "==0.3.7"
         },
         "django": {
             "hashes": [
@@ -1004,6 +1020,15 @@
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.1.1"
         },
+        "pylint": {
+            "hashes": [
+                "sha256:0d4c286ef6d2f66c8bfb527a7f8a629009e42c99707dec821a03e1b51a4c1496",
+                "sha256:60ed5f3a9ff8b61839ff0348b3624ceeb9e6c2a92c514d81c9cc273da3b6bcda"
+            ],
+            "index": "pypi",
+            "markers": "python_full_version >= '3.8.0'",
+            "version": "==3.0.2"
+        },
         "pymemcache": {
             "hashes": [
                 "sha256:27bf9bd1bbc1e20f83633208620d56de50f14185055e49504f4f5e94e94aff94",
@@ -1295,6 +1320,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==2.0.1"
+        },
+        "tomlkit": {
+            "hashes": [
+                "sha256:75baf5012d06501f07bee5bf8e801b9f343e7aac5a92581f20f80ce632e6b5a4",
+                "sha256:b0a645a9156dc7cb5d3a1f0d4bab66db287fcb8e0430bdd4664a095ea16414ba"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==0.12.3"
         },
         "typing-extensions": {
             "hashes": [

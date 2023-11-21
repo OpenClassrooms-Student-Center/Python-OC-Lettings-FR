@@ -1,3 +1,4 @@
+"""define lettings views"""
 import logging
 
 from django.shortcuts import get_object_or_404, render
@@ -20,6 +21,7 @@ def index(request):
     Returns:
         _type_: _description_
     """
+    # add sentry logs
     logger.debug("lettings-DEBUG")
     logger.info("lettings-INFO")
     logger.warning("lettings-WARNING")
@@ -52,9 +54,9 @@ def letting(request, letting_id):
     Returns:
         _type_: _description_
     """
-    letting = get_object_or_404(Letting, id=letting_id)
+    letting_obj = get_object_or_404(Letting, id=letting_id)
     context = {
-        "title": letting.title,
-        "address": letting.address,
+        "title": letting_obj.title,
+        "address": letting_obj.address,
     }
     return render(request, "lettings/letting.html", context)

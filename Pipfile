@@ -45,6 +45,7 @@ python-dateutil = "*"
 python-gitlab = "*"
 isort = "*"
 black = "*"
+pylint = "*"
 
 [dev-packages]
 
