@@ -27,6 +27,7 @@ cache:
   paths:
     - ~/.cache/pip
     - .venv/
+    - /cache
 
 before_script:
   - echo "Initialize docker compose..."
@@ -52,7 +53,7 @@ build-job:
     # - echo "Compile Static Files..."
     # - pipenv run python manage.py collectstatic --noinput
     # - docker compose up -d
-    - sleep 20
+    # - sleep 20
     - echo "Build complete."
 
 cleanup-job:
@@ -62,8 +63,10 @@ cleanup-job:
   script:
     - docker compose run django python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
 
-lint-job:
+flake-job:
   stage: quality
+  only:
+    - branches
   script:
     - echo "Linting code..."
     - docker compose run django flake8
@@ -71,6 +74,8 @@ lint-job:
 
 isort-job:
   stage: quality
+  only:
+    - branches
   script:
     - echo "isort code..."
     - docker compose run django isort . --check
@@ -78,6 +83,8 @@ isort-job:
 
 black-job:
   stage: quality
+  only:
+    - branches
   script:
     - echo "black running..."
     - docker compose run django black . --check
