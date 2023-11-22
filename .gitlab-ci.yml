@@ -15,6 +15,7 @@ stages:
 services:
   - name: docker:dind
     alias: docker
+    command: ["--tls=false"]
 
 variables:
   DOCKER_HOST: tcp://docker:2375
