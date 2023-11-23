@@ -5,10 +5,11 @@ services:
     build:
       context: .
       dockerfile: ./compose/dockerfile
-    image: test231110
     container_name: lettings
     depends_on:
       - database
+      - memcached
+      - redis
     env_file:
       - ./.env
     ports:
@@ -22,6 +23,15 @@ services:
       - ./.env
     volumes:
       - lettings_data:/data
+  
+  memcached:
+    image: memcached:latest
+    container_name: memcached
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+
 
 volumes:
   lettings_data: {}

@@ -1,5 +1,11 @@
+"""define lettings app config"""
 from django.apps import AppConfig
 
 
 class LettingsConfig(AppConfig):
-    name = 'lettings'
+    """default lettings config
+
+    Args:
+        AppConfig (_type_): _description_
+    """
+    name = "lettings"

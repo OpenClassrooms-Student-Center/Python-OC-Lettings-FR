@@ -1,8 +1,9 @@
+"""define lettings views"""
 import logging
-from .models import Letting
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 
+from django.shortcuts import get_object_or_404, render
+
+from .models import Letting
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +13,7 @@ logger = logging.getLogger(__name__)
 # tempor et, bibendum id arcu. Vestibulum ante ipsum primis in faucibus orci luctus et
 #  ultrices posuere cubilia curae; Cras eget scelerisque
 def index(request):
-    """ index view
+    """index view
 
     Args:
         request (_type_): _description_
@@ -20,6 +21,7 @@ def index(request):
     Returns:
         _type_: _description_
     """
+    # add sentry logs
     logger.debug("lettings-DEBUG")
     logger.info("lettings-INFO")
     logger.warning("lettings-WARNING")
@@ -27,8 +29,8 @@ def index(request):
     logger.critical("lettings-CRITICAL")
     # ---------------------------------------
     lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings/index.html', context)
+    context = {"lettings_list": lettings_list}
+    return render(request, "lettings/index.html", context)
 
 
 # Cras ultricies dignissim purus, vitae hendrerit ex varius non. In accumsan porta
@@ -43,7 +45,7 @@ def index(request):
 #  Sed non dolor risus. Mauris condimentum auctor elementum. Donec quis nisi ligula.
 #  Integer vehicula tincidunt enim, ac lacinia augue pulvinar sit amet.
 def letting(request, letting_id):
-    """ View for a letting id
+    """View for a letting id
 
     Args:
         request (_type_): _description_
@@ -52,9 +54,9 @@ def letting(request, letting_id):
     Returns:
         _type_: _description_
     """
-    letting = get_object_or_404(Letting, id=letting_id)
+    letting_obj = get_object_or_404(Letting, id=letting_id)
     context = {
-        'title': letting.title,
-        'address': letting.address,
+        "title": letting_obj.title,
+        "address": letting_obj.address,
     }
-    return render(request, 'lettings/letting.html', context)
+    return render(request, "lettings/letting.html", context)

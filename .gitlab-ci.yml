@@ -1,0 +1,167 @@
+# ########################################################################################################
+# For more information about template, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
+# ########################################################################################################
+
+image: docker:20.10.16
+
+stages:
+  - build
+  - cleanup
+  - test
+  - quality
+  - package
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+
+services:
+  - name: docker:20.10.16-dind
+    alias: docker
+    command: ["--tls=false"]
+
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+    - ~/.cache/pip
+    - .venv/
+    - /cache
+
+before_script:
+  - echo "Initialize docker compose..."
+  - docker info
+  - docker-compose --version
+  - echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY" >> .env
+  - echo "DEBUG_VALUE=$DEBUG_VALUE" >> .env
+  - echo "HOSTS=$HOSTS" >> .env
+  - echo "DATABASE_NAME=$DATABASE_NAME" >> .env
+  - echo "DSN_SENTRY=$DSN_SENTRY" >> .env
+  - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+  - echo "Docker compose ready"  
+
+build-job:
+  stage: build
+  only:
+    - branches
+  script:
+    - echo "Build docker images..."
+    - docker compose pull
+    - docker compose down
+    - docker compose build --pull    
+    # - echo "Compile Static Files..."
+    # - pipenv run python manage.py collectstatic --noinput
+    # - docker compose up -d
+    # - sleep 20
+    - echo "Build complete."
+
+cleanup-job:
+  stage: cleanup
+  only:
+    - main
+  script:
+    - docker compose run django python compose/delete_pipelines.py $CI_SERVER_URL $GITLAB_TOKEN $PIPELINE_KEEP_DAYS $CI_PROJECT_ID
+
+flake-job:
+  stage: quality
+  only:
+    - branches
+  script:
+    - echo "Linting code..."
+    - docker compose run django flake8
+    - echo "No lint issues found."
+
+isort-job:
+  stage: quality
+  only:
+    - branches
+  script:
+    - echo "isort code..."
+    - docker compose run django isort . --check
+    - echo "No isort issues found."
+
+black-job:
+  stage: quality
+  only:
+    - branches
+  script:
+    - echo "black running..."
+    - docker compose run django black . --check
+    - echo "No black issues found."
+
+pylint-job:
+  stage: test
+  only:
+    - branches
+  script:
+    - mkdir -p public/badges public/lint
+    - echo undefined > public/badges/$CI_JOB_NAME.score
+    - docker compose run django pipenv install pylint-gitlab
+    - echo "pylint starting...."
+    - docker compose run django pylint --exit-zero --output-format=text $(find -type f -name "*.py" ! -path "**/.venv/**") | tee /tmp/pylint.txt
+    - sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' /tmp/pylint.txt > public/badges/$CI_JOB_NAME.score
+    # - docker compose run django pylint --exit-zero --output-format=pylint_gitlab.GitlabCodeClimateReporter $(find -type f -name "*.py" ! -path "**/.venv/**") > codeclimate.json
+    - docker compose run django pylint --exit-zero --load-plugins=pylint_gitlab --output-format=gitlab-codeclimate $(find -type f -name "*.py" ! -path "**/.venv/**") > codeclimate.json
+    - docker compose run django pylint --exit-zero --output-format=pylint_gitlab.GitlabPagesHtmlReporter $(find -type f -name "*.py" ! -path "**/.venv/**") > public/lint/index.html
+  after_script:
+    - anybadge --overwrite --label $CI_JOB_NAME --value=$(cat public/badges/$CI_JOB_NAME.score) --file=public/badges/$CI_JOB_NAME.svg 4=red 6=orange 8=yellow 10=green
+    - |
+      echo "Your score is: $(cat public/badges/$CI_JOB_NAME.score)"
+  artifacts:
+    paths:
+      - public
+    reports:
+      codequality: codeclimate.json
+    when: always
+
+pages-job:
+  stage: deploy
+  script:
+    - echo
+  artifacts:
+    paths:
+      - public
+  only:
+    refs:
+      - main
+
+test-job:
+  stage: test
+  only:
+    - branches
+  script:
+    - mkdir -p public/badges
+    - echo undefined > public/badges/$CI_JOB_NAME.score
+    - echo "Running tests..."
+    - docker compose run django python manage.py test
+    # Exécuter pytest
+    - docker compose exec django pytest > public/badges/$CI_JOB_NAME.score
+    - docker compose exec django pytest --cov=. --cov-report xml:coverage.xml
+    # - pytest --html=htmlcov/myreport.html
+    # - echo "Code coverage is 90%"
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    paths:
+      - public
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+    when: always
+
+package-job:   # This job also runs in the package stage.
+  stage: package    
+  script:
+    - echo "package code... This will take about 10 seconds."
+    - sleep 10
+    - echo "Packaging end."
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  only:
+    - main
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."

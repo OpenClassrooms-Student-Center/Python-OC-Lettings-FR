@@ -8,4 +8,4 @@ env = environ.Env(
     DEBUG=(bool, False),
 )
 
-env.read_env(str(BASE_DIR / '.env'))
+env.read_env(str(BASE_DIR / ".env"))
