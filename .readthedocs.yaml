@@ -5,7 +5,7 @@ build:
     python: "3.10"
 python:
   install:
-  - requirements: doc/source/requirements.txt
+  - requirements: doc/requirements.txt
   - method: pip
     path: .
 sphinx:
