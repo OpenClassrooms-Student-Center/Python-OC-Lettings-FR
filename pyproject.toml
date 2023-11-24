@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "lettings"
-authors = [{name = "Sylvie", email = ""}]
+authors = [{name = "Sylvie", email = "brioman@neuf.fr"}]
 dynamic = ["version", "description"]
 readme = "README.md"
 description = "Mettez à l'échelle une application Django en utilisant une architecture modulaire"
