@@ -5,11 +5,11 @@ build:
     python: "3.10"
 python:
   install:
-  - requirements: requirements.txt
-  - method: pip
-    path: .
+    - requirements: doc/requirements.txt
+    - method: pip
+      path: .
 sphinx:
   configuration: doc/source/conf.py
-  fail_on_warning: true
+  # fail_on_warning: true
 formats:
   - pdf

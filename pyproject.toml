@@ -1,0 +1,14 @@
+[build-system]
+requires = ["flit_core >=3.2,<4",]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "lettings"
+authors = [{name = "Sylvie", email = "brioman@neuf.fr"},]
+dynamic = ["version", "description",]
+readme = "README.md"
+
+[tool.tomlsort]
+all = true
+in_place = true
+trailing_comma_inline_array = true
