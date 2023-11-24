@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'ocp13'
+project = 'slb59.ocp13'
 copyright = '2023, Sylvie'
 author = 'Sylvie'
 release = '1.0'
