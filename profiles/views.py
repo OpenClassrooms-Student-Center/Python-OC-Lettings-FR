@@ -1,3 +1,4 @@
+"""views definitions for profiles"""
 import logging
 
 from django.core.cache import cache
