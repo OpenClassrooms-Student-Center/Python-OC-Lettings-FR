@@ -1,18 +1,20 @@
-Bienvenue sur Lumache's documentation!
-======================================
+.. ocp13 documentation master file, created by
+   sphinx-quickstart on Thu Nov 23 19:02:29 2023.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
-
-.. note::
-
-   This project is under active development.
-   La documentation de Lumache est hébergée sur Read the Docs.
-
-Contents
---------
+Welcome to ocp13's documentation!
+=================================
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
