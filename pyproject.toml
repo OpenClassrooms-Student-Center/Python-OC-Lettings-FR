@@ -8,3 +8,8 @@ authors = [{name = "Sylvie", email = "brioman@neuf.fr"},]
 dynamic = ["version", "description",]
 readme = "README.md"
 description = "Mettez à l'échelle une application Django en utilisant une architecture modulaire"
+
+[tool.tomlsort]
+all = true
+in_place = true
+trailing_comma_inline_array = true
