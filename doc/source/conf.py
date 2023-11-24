@@ -10,11 +10,17 @@ project = 'ocp13'
 copyright = '2023, Sylvie'
 author = 'Sylvie'
 release = '1.0'
+version = ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = []
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
 
 templates_path = ['_templates']
 exclude_patterns = []
