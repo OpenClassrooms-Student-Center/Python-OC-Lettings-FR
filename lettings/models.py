@@ -27,7 +27,7 @@ class Address(models.Model):
         verbose_name_plural = "Addresses"
 
     def __str__(self) -> str:
-        """The address main informations
+        """The mailing address main informations
 
         Returns:
             str: number and street
