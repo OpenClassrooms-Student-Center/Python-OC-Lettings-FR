@@ -33,7 +33,7 @@ The different tools used for the development and deployment of this application 
 
 start
 database
-deployment
+.. deployment
 
 Indices and tables
 ==================
