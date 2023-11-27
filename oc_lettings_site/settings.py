@@ -42,14 +42,16 @@ LETTING_APPS = [
     "profiles.apps.ProfilesConfig",
 ]
 
-TIERS_APPS = [
-    "debug_toolbar",
-]
+if env("DEBUG_VALUE") == 'True':
+    TIERS_APPS = [
+        "debug_toolbar",
+    ]
+else:
+    TIERS_APPS = []
 
-INSTALLED_APPS = LETTING_APPS + DJANGO_APPS + TIERS_APPS
+INSTALLED_APPS = LETTING_APPS + DJANGO_APPS
 
-MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+STANDARD_MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -58,6 +60,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+TIERS_MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ]
+
+if env("DEBUG_VALUE") == 'True':
+    MIDDLEWARE = TIERS_MIDDLEWARE + STANDARD_MIDDLEWARE
+else:
+    MIDDLEWARE = STANDARD_MIDDLEWARE
 
 ROOT_URLCONF = "oc_lettings_site.urls"
 
@@ -204,17 +215,17 @@ LOGGING = {
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # SESSIONS_ENGINE = 'django.contrib.sessions.backends.cache'
-
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+if env("USE_CACHE") == 'True':
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+        }
     }
-}
 
-CACHE_MIDDLEWARE_ALIAS = "default"
-CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
-CACHE_MIDDLEWARE_KEY_PREFIX = "lettings"
+    CACHE_MIDDLEWARE_ALIAS = "default"
+    CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+    CACHE_MIDDLEWARE_KEY_PREFIX = "lettings"
 
 # add for debug toolbar
 INTERNAL_IPS = [
