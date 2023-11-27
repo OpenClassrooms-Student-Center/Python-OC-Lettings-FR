@@ -47,7 +47,6 @@ isort = "*"
 black = "*"
 pylint = "*"
 sphinx = "*"
-karma-sphinx-theme = "*"
 
 [dev-packages]
 
