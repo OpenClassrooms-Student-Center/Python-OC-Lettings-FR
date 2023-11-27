@@ -1,5 +1,6 @@
+========
 Database
-=========
+========
 
 The data is stored on a SQLite3 database included in the Django project container.
 Here are some steps to check that the database is working properly.
@@ -12,7 +13,7 @@ Here are some steps to check that the database is working properly.
 - .quit to exit
 
 Models
--------
+------
 
 The project is broken down into 2 applications: lettings and profiles.
 Here is the description of the models and the links between the different classes.

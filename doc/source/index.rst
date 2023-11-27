@@ -3,6 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+=================================
 Welcome to ocp13's documentation!
 =================================
 
@@ -12,7 +13,7 @@ Orange County Lettings is a real estate rental company. On the site, you can vie
    :alt: Orange County Lettings
 
 Technologies
---------------
+------------
 
 It is an application written whith Django in python language.
 The data is stored in the SQLite3 database.

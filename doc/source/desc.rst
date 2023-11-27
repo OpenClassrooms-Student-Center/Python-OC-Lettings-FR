@@ -1,5 +1,6 @@
+=======================
 Application Description
-========================
+=======================
 
 When you run the application locally with command python manage.py runserver, you go to http://localhost:8000 to access home page.
 
