@@ -1,10 +1,12 @@
+============
 Installation
-=============
+============
 
 These steps describe how to install your development environment.
 
 Clone the GitHub repository
-----------------------------
+---------------------------
+
  - git clone https://github.com/Slb59/Oc-P13.git .
 
 Create the virtual environment
@@ -18,7 +20,8 @@ Pipenv is a Python virtualenv management tool that supports a multitude of syste
  - pipenv shell
   
 Link the project to Sentry
----------------------------
+--------------------------
+
 Sentry is a platform that automatically flags errors and project exceptions.
 It also allows for performance monitoring.
 
@@ -28,7 +31,7 @@ It also allows for performance monitoring.
   - Log in to your Sentry account to view the logs retrieved by Sentry
 
 Run the site
--------------
+------------
 
  - python manage.py runserver
  - goto http://localhost:8000 with your browser
