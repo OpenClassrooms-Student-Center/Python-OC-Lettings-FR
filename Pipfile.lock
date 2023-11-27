@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7f70f2309b255957815dcbc2ce5aa68ca385aa099f06dd5264a7353e78e6f2b4"
+            "sha256": "6d48c6afde0871589071870d98acd9b694b59ba20a838bced7865cf3198fd8e4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -760,11 +760,11 @@
         },
         "idna": {
             "hashes": [
-                "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4",
-                "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"
+                "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca",
+                "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"
             ],
             "markers": "python_version >= '3.5'",
-            "version": "==3.4"
+            "version": "==3.6"
         },
         "imagesize": {
             "hashes": [
@@ -817,14 +817,21 @@
             "markers": "python_version >= '3.7'",
             "version": "==3.1.2"
         },
+        "karma-sphinx-theme": {
+            "hashes": [
+                "sha256:5a95f91818b458bd5bdf62690828361a369a222f0721cd0e1eb2ea29056e8c27"
+            ],
+            "index": "pypi",
+            "version": "==0.0.8"
+        },
         "locust": {
             "hashes": [
-                "sha256:091bb8ee321a9a63e160d0f6de0a0819c62f18378e44986bc5d446d017875aa6",
-                "sha256:fc245bcdc3ffccfcd31be1ce99f736fe3be69b514d396ef419e2898d86795c6d"
+                "sha256:152d6c9b1d8b842422a9ef352d13529d337d5c4e1e0c0a3e0827c1b5eafb903d",
+                "sha256:5c21609b1395833dc0b4bb3ddaaf709a88f6e70950aefce86e11eb5944fe9217"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==2.19.0"
+            "version": "==2.19.1"
         },
         "markupsafe": {
             "hashes": [
