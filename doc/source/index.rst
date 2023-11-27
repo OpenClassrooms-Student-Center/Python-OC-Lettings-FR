@@ -31,9 +31,10 @@ The different tools used for the development and deployment of this application 
    :maxdepth: 2
    :caption: Contents:
 
-start
-database
-.. deployment
+   start
+   desc
+   database
+   .. deployment
 
 Indices and tables
 ==================

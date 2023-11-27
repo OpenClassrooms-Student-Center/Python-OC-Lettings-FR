@@ -1,5 +1,6 @@
 DJANGO_SECRET_KEY=!! Mettre la secret key django !!
-DEBUG_VALUE=True
+DEBUG_VALUE=False
 HOSTS=127.0.0.1,localhost
 DATABASE_NAME='oc-lettings-site'
 DSN_SENTRY= !! Mettre votre DSN Sentry !!
+USE_CACHE='False'
