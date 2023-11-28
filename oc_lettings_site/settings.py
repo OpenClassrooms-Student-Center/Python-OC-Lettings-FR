@@ -21,9 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG_VALUE")
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
+DEBUG = env("DEBUG_VALUE") == 'True'
 
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 # Application definition
 
@@ -42,14 +45,14 @@ LETTING_APPS = [
     "profiles.apps.ProfilesConfig",
 ]
 
-if env("DEBUG_VALUE") == 'True':
+if DEBUG:
     TIERS_APPS = [
         "debug_toolbar",
     ]
 else:
     TIERS_APPS = []
 
-INSTALLED_APPS = LETTING_APPS + DJANGO_APPS
+INSTALLED_APPS = LETTING_APPS + DJANGO_APPS + TIERS_APPS
 
 STANDARD_MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -65,7 +68,7 @@ TIERS_MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
 
-if env("DEBUG_VALUE") == 'True':
+if DEBUG:
     MIDDLEWARE = TIERS_MIDDLEWARE + STANDARD_MIDDLEWARE
 else:
     MIDDLEWARE = STANDARD_MIDDLEWARE
