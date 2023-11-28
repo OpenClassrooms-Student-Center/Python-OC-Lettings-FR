@@ -7,3 +7,4 @@ utils
 logs
 .coverage
 *.old*
+staticfiles/

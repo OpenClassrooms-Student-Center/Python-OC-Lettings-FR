@@ -47,6 +47,7 @@ isort = "*"
 black = "*"
 pylint = "*"
 sphinx = "*"
+debug-toolbar = "*"
 
 [dev-packages]
 
