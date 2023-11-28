@@ -3,15 +3,16 @@ services:
 
   django:
     build:
-      context: .
+      context: ..
       dockerfile: ./compose/dockerfile
+    image: slb59/lettings
     container_name: lettings
     depends_on:
       - database
       - memcached
       - redis
     env_file:
-      - ./.env
+      - ../.env
     ports:
       - 8000:8000
     command: /start
@@ -20,7 +21,7 @@ services:
     image: keinos/sqlite3:latest
     container_name: sqlite_base
     env_file:
-      - ./.env
+      - ../.env
     volumes:
       - lettings_data:/data
   
