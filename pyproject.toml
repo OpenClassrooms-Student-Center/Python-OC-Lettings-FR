@@ -12,3 +12,6 @@ readme = "README.md"
 all = true
 in_place = true
 trailing_comma_inline_array = true
+
+[tool.pylint.MASTER]
+ignore-paths = '^.venv/.*$'

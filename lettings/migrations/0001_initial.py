@@ -8,6 +8,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     """main migration class"""
+
     initial = True
 
     dependencies = []

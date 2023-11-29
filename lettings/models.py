@@ -24,6 +24,7 @@ class Address(models.Model):
 
     class Meta:
         """Meta for plural definition"""
+
         verbose_name_plural = "Addresses"
 
     def __str__(self) -> str:

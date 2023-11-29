@@ -7,7 +7,8 @@ These steps describe how to install your development environment.
 Clone the GitHub repository
 ---------------------------
 
- - git clone https://github.com/Slb59/Oc-P13.git .
+.. code-block:: shell
+    git clone https://github.com/Slb59/Oc-P13.git .
 
 Create the virtual environment
 ------------------------------

@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG_VALUE") == 'True'
+DEBUG = env("DEBUG_VALUE") == "True"
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
@@ -66,7 +66,7 @@ STANDARD_MIDDLEWARE = [
 
 TIERS_MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
+]
 
 if DEBUG:
     MIDDLEWARE = TIERS_MIDDLEWARE + STANDARD_MIDDLEWARE
@@ -218,7 +218,7 @@ LOGGING = {
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # SESSIONS_ENGINE = 'django.contrib.sessions.backends.cache'
-if env("USE_CACHE") == 'True':
+if env("USE_CACHE") == "True":
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",

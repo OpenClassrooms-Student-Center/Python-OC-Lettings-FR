@@ -6,6 +6,7 @@ from tools.tools import read_sql
 
 class Migration(migrations.Migration):
     """main migration class"""
+
     dependencies = [
         ("lettings", "0001_initial"),
         ("oc_lettings_site", "0001_initial"),

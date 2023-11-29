@@ -8,4 +8,5 @@ class LettingsConfig(AppConfig):
     Args:
         AppConfig (_type_): _description_
     """
+
     name = "lettings"

@@ -35,7 +35,7 @@ The different tools used for the development and deployment of this application 
    start
    desc
    database
-   deployment
+   development
 
 Indices and tables
 ==================
