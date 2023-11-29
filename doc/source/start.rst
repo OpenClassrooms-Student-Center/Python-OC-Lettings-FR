@@ -8,7 +8,8 @@ Clone the GitHub repository
 ---------------------------
 
 .. code-block:: shell
-    git clone https://github.com/Slb59/Oc-P13.git .
+
+   git clone https://github.com/Slb59/Oc-P13.git .
 
 Create the virtual environment
 ------------------------------

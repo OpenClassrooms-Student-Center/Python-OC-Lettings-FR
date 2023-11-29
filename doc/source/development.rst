@@ -41,31 +41,39 @@ Linting
     - Ned Batchelder’s McCabe script
 
     .. code-block:: shell
-        flake8
+       
+       flake8
 
 - isort is a Python utility / library to sort imports alphabetically, and automatically separated into sections and by type
     .. code-block:: shell
-        isort . --check
+       
+       isort . --check
 
 - black is the uncompromising Python code formatter.
     .. code-block:: shell
-        black . --check
+    
+       black . --check
 
 - pylint is a static code analyser for Python 2 or 3.
     .. code-block:: shell
-        pylint . --recursive=y > logs/pylint.txt
+        
+       pylint . --recursive=y > logs/pylint.txt
     
     then you can check the logs/pylint.txt file
 
 - pytest framework makes it easy to write unit tests
     .. code-block:: shell
-        pytest
+        
+       pytest
 
     You can check the tests coverage with:
     .. code-block:: shell
-        pytest --cov=. --cov-report=html
+    
+       pytest --cov=. --cov-report=html
+
     then check the result in htmlcov.index.html
 
     You can also check the html report logs/pytest-report.html with:
     .. code-block:: shell
-        pytest --html=logs/pytest-report.html
+    
+       pytest --html=logs/pytest-report.html
