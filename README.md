@@ -31,6 +31,8 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
 - Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
 - Pour désactiver l'environnement, `deactivate`
+- Créer un fichier .env à la racine du projet
+- Copier le contenu du fichier.env_sample et le coller dans le fichier .env  
 
 #### Exécuter le site
 
@@ -46,12 +48,19 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
 - `flake8`
+- for flake8 html report `flake8 --format=html --htmldir=flake-report`
 
 #### Tests unitaires
 
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
 - `pytest`
+
+#### Tests de couverture
+
+Pour générer un rapport html des tests :
+
+- ```coverage html --skip-covered```
 
 #### Base de données
 

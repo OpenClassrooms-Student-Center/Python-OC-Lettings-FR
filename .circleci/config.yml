@@ -1,0 +1,90 @@
+version: 2.1 
+
+orbs:
+  docker: circleci/docker@2.1.3
+  python: circleci/python@2.0.3
+#  travail à faire (pytest, flake8, build and push docker, deploy from docker to render)
+jobs:
+  pytest:
+    docker:
+      #  se base sur cette image docker(propre à docker)
+      - image: cimg/python:3.10.2
+    steps:
+      # recupérer le code
+      - checkout
+      # exécuter l'installation des dépendances
+      - python/install-packages:
+          pkg-manager: pip
+          pip-dependency-file: requirements.txt
+      - run:
+      # executer les tests
+          name: check test with Pytest
+          command: pytest --nomigrations --disable-warnings 
+  flake8:
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - checkout
+      - run:
+          # installation de flake8
+          name: Install Flake8
+          command: pip install flake8==3.7.0
+      - run:
+          # exécution de flake8
+          name: check linting with Flake8
+          command: flake8
+
+  build-push-docker:
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - checkout
+      # Preparation pour la connection sur docker hub
+      - setup_remote_docker
+      - run:
+          name: Build docker image
+          # build l'image avec le nom et la version(donné sur Circle/Ci)
+          command:
+            docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION .
+      - run:
+          name: Connect to Docker Hub
+          # login à docker (donner le password et le username)
+          command:
+            echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER_ID" --password-stdin
+      - run:
+          name: Push docker image
+          # push la version de l'image buildé vers hub
+          command:
+            docker tag $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION |
+            docker push $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION 
+
+  deploy-from-dockerhub-to-render:
+    docker:
+      - image: curlimages/curl:latest
+    steps:
+      - run:
+          name: Deploy docker hub image to Render
+          command: curl $DEPLOY_HOOK
+# ordre d'éxécution des jobs et quand les exécuter
+workflows:
+  version: 2
+  run_tests_and_build_docker:
+    jobs:
+      - pytest
+      - flake8
+      - build-push-docker:
+          filters:
+          # se met à jour (le build) seulement si on modifie la branche master
+            branches:
+              only: master
+          # condition requise (que flake8 et pytest valides)
+          requires:
+            - flake8
+            - pytest
+      - deploy-from-dockerhub-to-render:
+          filters:
+            branches:
+              only: master
+          # necessite le build push docker soit ok
+          requires:
+            - build-push-docker
