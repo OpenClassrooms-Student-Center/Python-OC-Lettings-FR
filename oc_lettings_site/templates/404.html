@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}ERROR 404{% endblock title %}
+
+{% block content %}
+
+<div class="container px-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="page-header-ui-title mb-3 display-6">404 PAGE NOT FOUND</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 py-5 text-center">
+	<div class="card">
+	    <div class="card-body">
+	       	<p>"Oops, unfortunately the page you are looking for seems to have taken an unexpected vacation."</p>
+	    </div>
+	</div>
+</div>
+
+<div class="container px-5 py-5 text-center">
+    <div class="justify-content-center">
+        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'index' %}">
+            Home
+        </a>
+    </div>
+</div>
+
+{% endblock %}

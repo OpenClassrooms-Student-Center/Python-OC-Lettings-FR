@@ -3,6 +3,11 @@ import sys
 
 
 def main():
+    """Entry point for the Django management command-line interface.
+
+    This function sets the DJANGO_SETTINGS_MODULE environment variable
+    to specify the settings module for the Django project.
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'oc_lettings_site.settings')
     try:
         from django.core.management import execute_from_command_line
