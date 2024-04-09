@@ -75,3 +75,37 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Déploiement
+
+Ce projet utilise GitHub Actions pour automatiser le déploiement de l'application sur ECS
+
+#### Fonctionnement du déploiement
+
+1. Lorsqu'un push est créé sur n'importe quelle branche, les jobs suivants sont déclenchées :
+  - compilations_and_tests : compile et teste le code.
+2. Lorsqu'une pull request est créée sur la branche master, les jobs suivants sont déclenchés :
+  - compilations_and_tests : compile et teste le code.
+  - containerization_and_push : construit une image Docker, puis la pousse vers ECR et DockerHub.
+  - build : met à jour la tâche ECS avec la nouvelle image Docker et déploie l'application mise à jour.
+
+#### Configuration requise
+
+Pour que le déploiement fonctionne correctement, vous devez disposer des éléments suivants :
+
+1. Un compte AWS avec les autorisations pour Amazon ECS et Amazon ECR.
+2. Un compte Docker Hub pour stocker les images Docker.
+3. Les secrets GitHub :
+- AWS_ACCESS_KEY_ID : votre clé d'accès AWS.
+- AWS_SECRET_ACCESS_KEY : votre clé secrète AWS.
+- DOCKERHUB_PASSWORD : le mot de passe de votre compte Docker Hub.
+4. Un cluster Amazon ECS avec un service comprenant la définition de tâche lettings-oc-docker.
+
+#### Étapes de déploiement
+
+1. Assurez-vous davoir la configuration requise.
+2. Créez une nouvelle branche à partir de la branche main.
+3. Apportez les modifications souhaitées au code et validez-les dans votre nouvelle branche.
+4. Créez une pull request à partir de votre branche vers la branche main.
+5. Attendez que les GitHub Actions se terminent et vérifiez que le déploiement a réussi.
+6. Une fois le déploiement réussi, vous pouvez fusionner la pull request dans la branche main.

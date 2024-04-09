@@ -1,0 +1,94 @@
+name: GitHub Actions Integration
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  compilations_and_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Python and dependencies
+        run: |
+          sudo apt update
+          sudo apt install python3-pip
+          pip3 install -r requirements.txt
+          pip3 install pytest pytest-cov
+
+      - name: Run Tests whit Coverage
+        run: pytest
+
+      - name: Run Linting
+        run: flake8
+
+  containerization_and_push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
+    needs: compilations_and_tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-3
+
+      - name: Build Docker image to ECR and DockerHub
+        run: |
+          cd $(git rev-parse --show-toplevel) && COMMIT_HASH=$(git rev-parse --short HEAD)
+          docker build -t python-oc-lettings-fr:$COMMIT_HASH -f Dockerfile .
+
+      - name: Push Docker image to ECR
+        run: |
+          cd $(git rev-parse --show-toplevel) && COMMIT_HASH=$(git rev-parse --short HEAD)
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x3w8a6r7/oc-lettings-fr
+          docker tag python-oc-lettings-fr:$COMMIT_HASH public.ecr.aws/x3w8a6r7/oc-lettings-fr:$COMMIT_HASH
+          docker push public.ecr.aws/x3w8a6r7/oc-lettings-fr:$COMMIT_HASH
+
+      - name: Push Docker image to DockerHub and to local
+        run: |
+          cd $(git rev-parse --show-toplevel) && COMMIT_HASH=$(git rev-parse --short HEAD)
+          echo "$DOCKERHUB_PASSWORD" | docker login -u loutreceleste --password-stdin
+          docker tag python-oc-lettings-fr:$COMMIT_HASH loutreceleste/python-oc-lettings-fr:$COMMIT_HASH
+          docker push loutreceleste/python-oc-lettings-fr:$COMMIT_HASH
+          docker pull loutreceleste/python-oc-lettings-fr:$COMMIT_HASH
+        env:
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
+    needs: containerization_and_push
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-3
+          
+      - name: Update ECS Task Definition
+        run: |
+          cd $(git rev-parse --show-toplevel) && COMMIT_HASH=$(git rev-parse --short HEAD)
+          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition lettings-oc-docker --region eu-west-3)
+          NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | jq --arg IMAGE public.ecr.aws/x3w8a6r7/oc-lettings-fr:$COMMIT_HASH '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities) |  del(.registeredAt) | del(.registeredBy)')
+          NEW_TASK_INFO=$(aws ecs register-task-definition --region eu-west-3 --cli-input-json "$NEW_TASK_DEFINITION")
+          NEW_REVISION=$(echo $NEW_TASK_INFO | jq '.taskDefinition.revision')
+          aws ecs update-service --cluster lettings-fr --service python-oc-lettings-fr --task-definition lettings-oc-docker:$NEW_REVISION --force-new-deployment --region eu-west-3
