@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Description of the programming interfaces. &mdash; OC-Lettings-FR  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User guide." href="user_guide.html" />
+    <link rel="prev" title="Description of the database structure and data models." href="database_structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OC-Lettings-FR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project_description.html">Project description.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions_installing_project.html">Instructions for installing the project.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start_guide.html">Quick start guide.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies_programming_use.html">Technologies and programming languages to use.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database_structure.html">Description of the database structure and data models.</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Description of the programming interfaces.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interface-types">Interface Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functionality-and-behavior">Functionality and Behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods-and-parameters">Methods and Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#endpoint-urls-for-web-apis">Endpoint URLs (for Web APIs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment_managment_procedures.html">Deployment and management procedures for the application.</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OC-Lettings-FR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Description of the programming interfaces.</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/programming_interfaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="description-of-the-programming-interfaces">
+<h1>Description of the programming interfaces.<a class="headerlink" href="#description-of-the-programming-interfaces" title="Link to this heading"></a></h1>
+<p>The OC Lettings project exposes various interfaces that enable developers to interact with different aspects of the application and its functionalities.</p>
+<section id="interface-types">
+<h2>Interface Types<a class="headerlink" href="#interface-types" title="Link to this heading"></a></h2>
+<p><strong>1. User Interface (UI) Components:</strong></p>
+<p>Users interact with the application through a web-based graphical interface. This includes forms, buttons, navigation menus, and other interactive elements.</p>
+<p><strong>2. Service Interfaces (APIs):</strong></p>
+<p>The application provides RESTful APIs for external integrations. These APIs allow developers to perform operations such as creating, reading, updating, and deleting data resources.</p>
+<p><strong>3. Data Interfaces:</strong></p>
+<p>Developers can access and manipulate data within the system using database access methods and data exchange formats supported by the application.</p>
+</section>
+<section id="functionality-and-behavior">
+<h2>Functionality and Behavior<a class="headerlink" href="#functionality-and-behavior" title="Link to this heading"></a></h2>
+<p>The programming interfaces support the following functionalities:</p>
+<ul class="simple">
+<li><p>User Management:</p></li>
+</ul>
+<p>APIs for user authentication, registration, and profile management.
+Methods to retrieve user information and update user profiles.</p>
+<ul class="simple">
+<li><p>Property Listings:</p></li>
+</ul>
+<p>Interfaces to manage property listings, including CRUD operations for creating, updating, and retrieving property details.</p>
+<ul class="simple">
+<li><p>Address Management:</p></li>
+</ul>
+<p>APIs for handling address information associated with property listings.</p>
+</section>
+<section id="methods-and-parameters">
+<h2>Methods and Parameters<a class="headerlink" href="#methods-and-parameters" title="Link to this heading"></a></h2>
+<p><strong>index(request)</strong></p>
+<p>Renders the index page with a list of lettings or profiles.</p>
+<ul class="simple">
+<li><p>Description:</p></li>
+</ul>
+<p>This view retrieves a list of lettings or profiles from the database and renders the corresponding HTML template (index.html or profiles/index.html).</p>
+<ul class="simple">
+<li><p>Arguments:</p></li>
+</ul>
+<p>request (HttpRequest): The HTTP request object.</p>
+<ul class="simple">
+<li><p>Returns:</p></li>
+</ul>
+<p>HttpResponse: The rendered HTML response containing the index page with the list of lettings or profiles.</p>
+<p><strong>letting(request, letting_id)</strong></p>
+<p>Renders the letting details page based on the specified letting ID.</p>
+<ul class="simple">
+<li><p>Description:</p></li>
+</ul>
+<p>This view retrieves the letting object with the specified ID from the database and renders the letting.html template with the letting details.</p>
+<ul class="simple">
+<li><p>Arguments:</p></li>
+</ul>
+<p>request (HttpRequest): The HTTP request object.
+letting_id (int): The ID of the letting to display.</p>
+<ul class="simple">
+<li><p>Returns:</p></li>
+</ul>
+<p>HttpResponse: The rendered HTML response containing the letting details page.</p>
+<p><strong>profile(request, username)</strong></p>
+<p>Renders the profile page for a specific user based on the username.</p>
+<ul class="simple">
+<li><p>Description:</p></li>
+</ul>
+<p>This view retrieves the profile associated with the given username from the database and renders the profiles/profile.html template with the profile details.</p>
+<ul class="simple">
+<li><p>Arguments:</p></li>
+</ul>
+<p>request (HttpRequest): The HTTP request object.</p>
+<p><strong>username (str):</strong></p>
+<p>The username of the user whose profile is being viewed.</p>
+<ul class="simple">
+<li><p>Returns:</p></li>
+</ul>
+<p>HttpResponse: The rendered HTML response containing the profile page.</p>
+<p>These views utilize Django’s ORM (Letting.objects.get(), Profile.objects.all()) to fetch data from the database and pass the retrieved data to corresponding HTML templates (index.html, letting.html, profiles/index.html, profiles/profile.html) using the render() function.</p>
+</section>
+<section id="endpoint-urls-for-web-apis">
+<h2>Endpoint URLs (for Web APIs)<a class="headerlink" href="#endpoint-urls-for-web-apis" title="Link to this heading"></a></h2>
+<p><strong>For web-based APIs, the following endpoint URLs are available:</strong></p>
+<p>GET /api/users/{user_id}: Retrieve user details by user ID.</p>
+<p>POST /api/properties: Create a new property listing.</p>
+<p>PUT /api/properties/{property_id}: Update an existing property.</p>
+</section>
+<section id="error-handling">
+<h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
+<p>The programming interfaces handle errors and exceptions gracefully, providing informative error messages and appropriate HTTP status codes to indicate the status of API requests.</p>
+<p>By documenting these programming interfaces, developers can gain insights into how to effectively integrate with and utilize the capabilities offered by the OC Lettings application. This documentation facilitates seamless development and interaction with the provided interfaces, enabling efficient application development and integration efforts.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="database_structure.html" class="btn btn-neutral float-left" title="Description of the database structure and data models." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="user_guide.html" class="btn btn-neutral float-right" title="User guide." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Guy King / Loutreceleste.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

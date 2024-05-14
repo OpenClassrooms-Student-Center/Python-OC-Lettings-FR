@@ -1,3 +1,9 @@
 **/__pycache__
 *.pyc
 venv
+.idea/
+.flake8
+.env
+.coverage
+.coveragerc
+htmlcov/

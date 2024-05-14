@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deployment and management procedures for the application. &mdash; OC-Lettings-FR  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User guide." href="user_guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OC-Lettings-FR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project_description.html">Project description.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions_installing_project.html">Instructions for installing the project.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start_guide.html">Quick start guide.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies_programming_use.html">Technologies and programming languages to use.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database_structure.html">Description of the database structure and data models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming_interfaces.html">Description of the programming interfaces.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide.</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deployment and management procedures for the application.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#secret-variables">Secret Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github-actions-integration">GitHub Actions Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-and-error-tracking">Monitoring and Error Tracking</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OC-Lettings-FR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Deployment and management procedures for the application.</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/deployment_managment_procedures.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="deployment-and-management-procedures-for-the-application">
+<h1>Deployment and management procedures for the application.<a class="headerlink" href="#deployment-and-management-procedures-for-the-application" title="Link to this heading"></a></h1>
+<p>The OC Lettings application uses GitHub Actions for continuous integration and continuous deployment (CI/CD). The following is a description of the deployment and management procedures for the application.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before deploying the OC Lettings application, ensure you have the following tools and accounts installed and set up:</p>
+<ul class="simple">
+<li><p><strong>AWS account:</strong> An account with Amazon Web Services to deploy the application on the cloud.</p></li>
+<li><p><strong>Docker:</strong> A platform to build, run, and manage containers.</p></li>
+<li><p><strong>Python:</strong> A programming language used to develop the application.</p></li>
+<li><p><strong>GitHub account:</strong> A web-based platform for version control and collaboration.</p></li>
+<li><p><strong>Git:</strong> A distributed version control system to manage the source code.</p></li>
+<li><p><strong>AWS CLI:</strong> A command-line tool to interact with AWS services.</p></li>
+<li><p><strong>ECS CLI:</strong> A command-line tool to manage Amazon Elastic Container Service (ECS) clusters.</p></li>
+<li><p><strong>Sentry account:</strong> An error tracking and monitoring tool to identify and resolve issues in real-time.</p></li>
+</ul>
+<p>Having these prerequisites in place will ensure a smooth deployment process for the OC Lettings application.</p>
+</section>
+<section id="secret-variables">
+<h2>Secret Variables<a class="headerlink" href="#secret-variables" title="Link to this heading"></a></h2>
+<p>The OC Lettings application uses secret variables to store sensitive information required for deployment and management. These variables are stored securely in GitHub secrets and AWS Secrets Manager.</p>
+<p>The following secret variables are used in the GitHub Actions workflow:</p>
+<ul class="simple">
+<li><p><strong>AWS_ACCESS_KEY_ID:</strong> The AWS access key ID required to authenticate with AWS services.</p></li>
+<li><p><strong>AWS_SECRET_ACCESS_KEY:</strong> The AWS secret access key required to authenticate with AWS services.</p></li>
+<li><p><strong>AWS_REGION:</strong> The AWS region in which the ECS cluster and ECR repository are located.</p></li>
+<li><p><strong>ECR_URL_REPOSITORY:</strong> The URL of the ECR repository where the Docker image is stored.</p></li>
+<li><p><strong>DOCKERHUB_USERNAME:</strong> The Docker Hub username required to authenticate with Docker Hub.</p></li>
+<li><p><strong>DOCKERHUB_PASSWORD:</strong> The Docker Hub password required to authenticate with Docker Hub.</p></li>
+</ul>
+<p>These secret variables are referenced in the GitHub Actions workflow using the ${{ secrets.&lt;SECRET_NAME&gt; }} syntax. For example, the AWS_ACCESS_KEY_ID secret is referenced using ${{ secrets.AWS_ACCESS_KEY_ID }}.</p>
+</section>
+<section id="github-actions-integration">
+<h2>GitHub Actions Integration<a class="headerlink" href="#github-actions-integration" title="Link to this heading"></a></h2>
+<p>The GitHub Actions workflow file is triggered on every push event to any branch. The workflow performs the following tasks:</p>
+<ol class="arabic simple">
+<li><p><strong>Checkout code:</strong> The code is checked out from the repository using the <a class="reference external" href="mailto:actions/checkout&#37;&#52;&#48;v2">actions/checkout<span>&#64;</span>v2</a> action.</p></li>
+<li><p><strong>Install Python and dependencies:</strong> The workflow installs Python and the required dependencies using apt and pip.</p></li>
+<li><p><strong>Run Tests with Coverage:</strong> The workflow runs the unit tests using pytest and generates a coverage report.</p></li>
+<li><p><strong>Run Linting:</strong> The workflow runs flake8 to ensure that the code adheres to style guidelines.</p></li>
+</ol>
+<p>If the push event is to the master branch, the workflow also performs the following tasks:</p>
+<ol class="arabic simple">
+<li><p><strong>Set up AWS credentials:</strong> The workflow sets up AWS credentials using the <a class="reference external" href="mailto:aws-actions/configure-aws-credentials&#37;&#52;&#48;v2">aws-actions/configure-aws-credentials<span>&#64;</span>v2</a> action.</p></li>
+<li><p><strong>Build Docker image to ECR and DockerHub:</strong> The workflow builds a Docker image using the Dockerfile in the root directory of the repository and tags it with the commit hash.</p></li>
+<li><p><strong>Push Docker image to ECR:</strong> The workflow pushes the Docker image to Amazon Elastic Container Registry (ECR) using the aws command line interface.</p></li>
+<li><p><strong>Push Docker image to DockerHub and to local:</strong> The workflow pushes the Docker image to Docker Hub and to the local Docker registry using the docker command line interface.</p></li>
+</ol>
+</section>
+<section id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading"></a></h2>
+<p>The deployment process for the OC Lettings application involves the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Prepare the environment:</strong> Set up a server with the required specifications and install the necessary software, including Docker and Amazon Elastic Container Service (ECS) CLI.</p></li>
+<li><p><strong>Pull the Docker image:</strong> Use the docker pull command to pull the latest version of the Docker image from ECR or Docker Hub.</p></li>
+<li><p><strong>Configure ECS task definition:</strong> Configure the ECS task definition to use the latest version of the Docker image.</p></li>
+<li><p><strong>Update the ECS service:</strong> Update the ECS service to use the new task definition.</p></li>
+<li><p><strong>Test the application:</strong> Test the application to ensure that it is functioning correctly.</p></li>
+</ol>
+<p>The deployment process is automated using the GitHub Actions workflow described above. The workflow updates the ECS task definition and service automatically whenever a new Docker image is pushed to ECR.</p>
+</section>
+<section id="monitoring-and-error-tracking">
+<h2>Monitoring and Error Tracking<a class="headerlink" href="#monitoring-and-error-tracking" title="Link to this heading"></a></h2>
+<p>The OC Lettings application uses Sentry for monitoring and error tracking. Sentry provides real-time error tracking and alerting, allowing the development team to quickly identify and resolve issues. The team can also use Sentry to view detailed information about errors and their causes, as well as to track trends in error rates over time.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user_guide.html" class="btn btn-neutral float-left" title="User guide." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Guy King / Loutreceleste.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
