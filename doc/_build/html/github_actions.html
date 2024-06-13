@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Github Actions &#8212; oc_lettings  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="github-actions">
+<h1>Github Actions<a class="headerlink" href="#github-actions" title="Link to this heading">¶</a></h1>
+<section id="yml-file-steps">
+<h2>YML file steps<a class="headerlink" href="#yml-file-steps" title="Link to this heading">¶</a></h2>
+<p><strong>Step 1: Install Python, packages from requirements.txt and
+link static assets to our project</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>name:<span class="w"> </span>Install<span class="w"> </span>dependencies
+run:<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<span class="w">    </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+-<span class="w"> </span>name:<span class="w"> </span>Collect<span class="w"> </span>static<span class="w"> </span>files
+<span class="w">    </span>run:<span class="w"> </span>python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--noinput
+<span class="w">    </span>env:
+<span class="w">    </span>DJANGO_SETTINGS_MODULE:<span class="w"> </span>oc_lettings_site.settings
+</pre></div>
+</div>
+<p><strong>Step 2: Linting</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-<span class="w"> </span>name:<span class="w"> </span>Run<span class="w"> </span>linting
+<span class="w">    </span>run:<span class="w"> </span>flake8<span class="w"> </span>.
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Step 3: Tests with coverage **</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-<span class="w"> </span>name:<span class="w"> </span>Run<span class="w"> </span>tests<span class="w"> </span>with<span class="w"> </span>coverage
+<span class="w">    </span>run:<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>pytest<span class="w"> </span>--cov<span class="o">=</span>./<span class="w"> </span>--cov-report<span class="o">=</span>term-missing:skip-covered<span class="w"> </span>--cov-fail-under<span class="o">=</span><span class="m">80</span>
+</pre></div>
+</div>
+<p><strong>Step 4: Create Secrets for your github actions and use them</strong>
+1. Inside yout project, on Github, go to settings, secrets and variables, click on action and on new repository secret,</p>
+<blockquote>
+<div><p>add your docker username and your docker password like this:</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">DOCKER_USERNAME</span><span class="o">=</span><span class="s2">&quot;your_docker_username&quot;</span>
+<span class="nv">DOCKER_PASSWORD</span><span class="o">=</span><span class="s2">&quot;your_docker_password&quot;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt>This is what we use inside the yml file to log and perform operations with docker:</dt><dd></dd>
+</dl>
+</li>
+</ol>
+<p><strong>Step 5: Pushing the image to docker hub</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-<span class="w"> </span>name:<span class="w"> </span>Push<span class="w"> </span>Docker<span class="w"> </span>image<span class="w"> </span>to<span class="w"> </span>Docker<span class="w"> </span>Hub
+<span class="w">    </span>run:<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span><span class="si">${</span><span class="p">{ secrets.DOCKER_USERNAME </span><span class="si">}</span><span class="o">}</span>/myapp:<span class="si">${</span><span class="p">{ github.sha </span><span class="si">}</span><span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>Step 6: Deploy the image to render</strong>
+1. Get your render deploy hook</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Go to Render, got to your dashboard</p></li>
+<li><p>Create a new web service</p></li>
+<li><p>In the settings of your service, link your reposiroty to it, add this start command :</p></li>
+</ul>
+<p>-Copy the Deploy hook</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Add the secret variable inside github actions as we previously see as :</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><dl class="simple">
+<dt>This is what we use inside the yml file to link this project to your render web service :</dt><dd></dd>
+</dl>
+</li>
+</ol>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">oc_lettings</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">Presentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Structure of the OC Lettings Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_use.html">Local Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, AurelienAllenic.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/github_actions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
