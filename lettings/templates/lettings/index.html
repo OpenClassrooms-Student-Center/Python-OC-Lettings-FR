@@ -20,7 +20,7 @@
                 <ul class="list-group list-group-flush list-group-careers">
                     {% for letting in lettings_list %}
                         <li class="list-group-item">
-                            <a href="{% url 'letting' letting_id=letting.id %}">{{ letting.title }}</a>
+                            <a href="{% url 'lettings_letting' letting_id=letting.id %}">{{ letting.title }}</a>
                         </li>
                     {% endfor %}
                 </ul>

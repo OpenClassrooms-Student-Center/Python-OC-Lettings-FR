@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: OCR_P13
+    env: docker
+    repo: https://github.com/clementboloch/OCR_P13.git
+    branch: master
+    dockerfilePath: ./Dockerfile
+    buildCommand: docker build . -t myapp:${GIT_COMMIT}
+    startCommand: docker run -p 8000:8000 myapp:${GIT_COMMIT}

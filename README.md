@@ -53,6 +53,11 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `source venv/bin/activate`
 - `pytest`
 
+Pour générer le rapport de couverture:
+- `coverage run --source='.' manage.py test`
+- `coverage report`
+
+
 #### Base de données
 
 - `cd /path/to/Python-OC-Lettings-FR`
@@ -75,3 +80,58 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+## Déploiement 
+### Récapitulatif Haut Niveau du Fonctionnement du Déploiement
+
+Notre pipeline CI/CD automatise le processus de déploiement en suivant ces étapes clés :
+
+#### Compilation et Tests
+Lors de chaque push, les modifications sont d'abord soumises à une phase de compilation et de tests. Cela assure que le code est fonctionnel, respecte les normes de codage et que la couverture des tests est supérieure à 80 %.
+
+#### Conteneurisation
+Si les tests réussissent et que le push est fait sur la branche master, une image Docker est construite, taguée avec le hash du commit et poussée vers le Docker Hub.
+
+#### Déploiement en Production 
+Lorsqu'une mise à jour est poussée sur la branche master, l'image Docker est récupérée et déployée automatiquement sur notre serveur Render pour mettre à jour le site en production.
+
+
+### Configuration Requise
+Pour que le déploiement fonctionne correctement, assurez-vous que Docker et Docker Compose soient bien installés sur votre machine.
+
+### Mise en production
+Pour mettre en production en utilisant le pipeline CI/CD, deux ooptions s'offrent à vous :
+#### 1. Pousser des Modifications sur master
+Commitez vos Modifications : Ajoutez et commitez vos modifications localement.
+
+<code>
+git add . <br>
+git commit -m "Description des modifications"</code>
+<br><br>
+Pousser sur master : Envoyez vos commits sur la branche master du dépôt distant.
+
+<code>git push origin master</code>
+
+#### 2. Fusionner dans master (si applicable)
+Si vous travaillez sur une branche de fonctionnalité ou de correctif et que vous souhaitez fusionner ces changements dans master :
+
+Créez une Pull Request : Créez une Pull Request (PR) dans GitHub depuis votre branche de fonctionnalité vers master.
+
+Revue de Code : Une fois la PR approuvée, fusionnez la PR dans master. 
+
+#### Tester En Ligne (Optionnel)
+Visitez le site à l'url suivante pour vérifier que tout est en ordre:<br>
+https://ocr-p13.onrender.com/
+
+#### Tester Localement (Optionnel)
+
+Pour tester localement avant le déploiement, vous pouvez récupérer l'image Docker depuis Docker Hub et lancer un conteneur localement (remplacer commit_hash par le hash du dernier commit):
+
+<code>
+docker login <br>
+docker pull clementboloch/ocr_p13:latest <br>
+docker run -d -p 8000:8000 clementboloch/ocr_p13:latest
+</code>
+
+Accédez à http://localhost:8000 dans votre navigateur pour voir l'application.
