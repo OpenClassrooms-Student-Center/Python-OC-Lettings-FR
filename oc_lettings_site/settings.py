@@ -13,6 +13,14 @@ env = environ.Env()
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+ENVIRONMENT = env('DJANGO_ENV', default='development')
+
+# Charger le fichier .env approprié
+if ENVIRONMENT == 'production':
+    environ.Env.read_env('.env.production')
+else:
+    environ.Env.read_env('.env.development')
+
 # Configuration de Sentry
 sentry_sdk.init(
     dsn=env("SENTRY_DSN"),
@@ -26,14 +34,9 @@ sentry_sdk.init(
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False) 
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "testserver",
-    "python-oc-lettings-fr-sgwn.onrender.com",
-]
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
