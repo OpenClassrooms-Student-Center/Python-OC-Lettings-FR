@@ -1,3 +1,10 @@
 django==3.0
 flake8==3.7.0
 pytest-django==3.9.0
+sentry-sdk==2.26.1
+setuptools==75.3.2
+six==1.17.0
+coverage==7.6.1
+python-dotenv==1.0.1
+gunicorn==23.0.0
+whitenoise==6.7.0
