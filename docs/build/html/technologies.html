@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Technologies and Programming Languages &mdash; Python-OC-Lettings-FR  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Database Structure and Data Models" href="database.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Python-OC-Lettings-FR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Project Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technologies and Programming Languages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-technologies">Core Technologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django">Django</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sqlite3">SQLite3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment-and-infrastructure">Deployment and Infrastructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sentry">Sentry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#frontend">Frontend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#html-css">HTML/CSS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytest">pytest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#development-tools">Development Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-control">Version Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-quality">Code Quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ci-cd">CI/CD</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database Structure and Data Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interfaces.html">Application Views and URL Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment and Application Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html#running-with-docker">Running with Docker</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python-OC-Lettings-FR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Technologies and Programming Languages</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/technologies.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="technologies-and-programming-languages">
+<h1>Technologies and Programming Languages<a class="headerlink" href="#technologies-and-programming-languages" title="Link to this heading"></a></h1>
+<p>This section details all technologies and tools used in the OC Lettings project.</p>
+<section id="core-technologies">
+<h2>Core Technologies<a class="headerlink" href="#core-technologies" title="Link to this heading"></a></h2>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Version</strong>: 3.12.3</p></li>
+<li><p><strong>Purpose</strong>: Main programming language for the application backend</p></li>
+<li><p><strong>Key libraries</strong>: See requirements.txt for a complete list of dependencies</p></li>
+</ul>
+</section>
+<section id="django">
+<h3>Django<a class="headerlink" href="#django" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Version</strong>: 3.0</p></li>
+<li><p><strong>Purpose</strong>: Web framework for building the application</p></li>
+<li><p><strong>Components used</strong>:
+- Django ORM for database models
+- Django Templates for view rendering
+- Django Admin for content management</p></li>
+</ul>
+</section>
+</section>
+<section id="database">
+<h2>Database<a class="headerlink" href="#database" title="Link to this heading"></a></h2>
+<section id="sqlite3">
+<h3>SQLite3<a class="headerlink" href="#sqlite3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Purpose</strong>: Database for development environment</p></li>
+<li><p><strong>Schema</strong>: See the Database Structure section for detailed model information</p></li>
+</ul>
+</section>
+</section>
+<section id="deployment-and-infrastructure">
+<h2>Deployment and Infrastructure<a class="headerlink" href="#deployment-and-infrastructure" title="Link to this heading"></a></h2>
+<section id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Purpose</strong>: Containerization for consistent deployment</p></li>
+<li><p><strong>Components</strong>:
+- Dockerfile for building application image
+- Container orchestration for deployment</p></li>
+</ul>
+</section>
+<section id="sentry">
+<h3>Sentry<a class="headerlink" href="#sentry" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Purpose</strong>: Error tracking and performance monitoring</p></li>
+<li><p><strong>Implementation</strong>: Integrated with Django for automatic error reporting</p></li>
+</ul>
+</section>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
+<section id="sphinx">
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Purpose</strong>: Documentation generation tool</p></li>
+<li><p><strong>Components</strong>:
+- autodoc for automatic code documentation
+- ReStructuredText for markup
+- ReadTheDocs theme for styling</p></li>
+<li><p><strong>Output</strong>: HTML documentation with searchable interface</p></li>
+</ul>
+</section>
+</section>
+<section id="frontend">
+<h2>Frontend<a class="headerlink" href="#frontend" title="Link to this heading"></a></h2>
+<section id="html-css">
+<h3>HTML/CSS<a class="headerlink" href="#html-css" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Framework</strong>: Bootstrap for responsive design</p></li>
+<li><p><strong>Templates</strong>: Django template language for HTML generation</p></li>
+<li><p><strong>Static Files</strong>: CSS and JavaScript assets for frontend functionality</p></li>
+</ul>
+</section>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
+<section id="pytest">
+<h3>pytest<a class="headerlink" href="#pytest" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Purpose</strong>: Testing framework for unit and integration tests</p></li>
+<li><p><strong>Coverage</strong>: Tests cover models, views, and business logic</p></li>
+</ul>
+</section>
+</section>
+<section id="development-tools">
+<h2>Development Tools<a class="headerlink" href="#development-tools" title="Link to this heading"></a></h2>
+<section id="version-control">
+<h3>Version Control<a class="headerlink" href="#version-control" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Tool</strong>: Git with GitHub</p></li>
+<li><p><strong>Purpose</strong>: Track changes and collaborate on code</p></li>
+</ul>
+</section>
+<section id="code-quality">
+<h3>Code Quality<a class="headerlink" href="#code-quality" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>flake8</strong>:
+- <strong>Purpose</strong>: Python linting tool for enforcing code style
+- <strong>Configuration</strong>: Customized in setup.cfg
+- <strong>Integration</strong>: Runs in CI/CD pipeline and locally before commits</p></li>
+</ul>
+</section>
+<section id="ci-cd">
+<h3>CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Platform</strong>: GitHub Actions</p></li>
+<li><p><strong>Purpose</strong>: Continuous integration and deployment pipeline</p></li>
+<li><p><strong>Features</strong>: Automated testing, linting, and deployment to production</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="database.html" class="btn btn-neutral float-right" title="Database Structure and Data Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, mumz0.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

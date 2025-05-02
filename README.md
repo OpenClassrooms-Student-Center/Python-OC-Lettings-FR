@@ -1,45 +1,45 @@
-## Résumé
+## Summary
 
-Site web d'Orange County Lettings
+Orange County Lettings website
 
-## Développement local
+## Local Development
 
-### Prérequis
+### Prerequisites
 
-- Compte GitHub avec accès en lecture à ce repository
+- GitHub account with read access to this repository
 - Git CLI
 - SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+- Python interpreter, version 3.6 or higher
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+In the rest of the local development documentation, it is assumed that the `python` command in your OS shell runs the above Python interpreter (unless a virtual environment is activated).
 
 ### macOS / Linux
 
-#### Cloner le repository
+#### Clone the repository
 
 - `cd /path/to/put/project/in`
 - `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
 
-#### Créer l'environnement virtuel
+#### Create the virtual environment
 
 - `cd /path/to/Python-OC-Lettings-FR`
 - `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
+- `apt-get install python3-venv` (If the previous step gives errors with a package not found on Ubuntu)
+- Activate the environment `source venv/bin/activate`
+- Confirm that the `python` command runs the Python interpreter in the virtual environment
 `which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+- Confirm that the Python interpreter version is 3.6 or higher `python --version`
+- Confirm that the `pip` command runs the pip executable in the virtual environment, `which pip`
+- To deactivate the environment, `deactivate`
 
-#### Exécuter le site
+#### Run the site
 
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
 - `pip install --requirement requirements.txt`
 - `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+- Go to `http://localhost:8000` in a browser.
+- Confirm that the site works and it is possible to navigate (you should see several profiles and lettings).
 
 #### Linting
 
@@ -47,31 +47,95 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `source venv/bin/activate`
 - `flake8`
 
-#### Tests unitaires
+#### Unit tests
 
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
 - `pytest`
 
-#### Base de données
+#### Database
 
 - `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
+- Open a shell session `sqlite3`
+- Connect to the database `.open oc-lettings-site.sqlite3`
+- Display the tables in the database `.tables`
+- Display the columns in the profiles table, `pragma table_info(Python-OC-Lettings-FR_profile);`
+- Run a query on the profiles table, `select user_id, favorite_city from
   Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
+- `.quit` to exit
 
-#### Panel d'administration
+#### Admin panel
 
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
+- Go to `http://localhost:8000/admin`
+- Log in with user `admin`, password `Abc1234!`
 
 ### Windows
 
-Utilisation de PowerShell, comme ci-dessus sauf :
+Using PowerShell, as above except:
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+- To activate the virtual environment, `.\venv\Scripts\Activate.ps1` 
+- Replace `which <my-command>` with `(Get-Command <my-command>).Path`
+
+## Deployment
+
+### Overview of the deployment process
+
+The application deployment is done via a GitHub Actions CI/CD pipeline that:
+1. Runs tests and coverage
+2. Builds a Docker image
+3. Publishes the image to Docker Hub when tests succeed
+4. Automatically triggers a deployment on Render using a webhook
+
+This architecture allows:
+- Verifying code quality before deployment
+- Maintaining versioned Docker images
+- Deploying automatically without manual intervention
+
+### Prerequisites
+
+- A Docker Hub account
+- A Render account
+- A GitHub account with configured secrets:
+  - `DOCKERHUB_USERNAME`: Docker Hub username
+  - `DOCKERHUB_TOKEN`: Docker Hub token
+  - `SECRET_KEY`: Django secret key
+  - `SENTRY_DSN`: Sentry DSN key
+
+### Deployment Steps
+
+#### Initial setup (to be done once)
+
+1. Configure Docker Hub:
+   - Create an account on [Docker Hub](https://hub.docker.com/) if you don't have one
+   - Create a new repository for the application
+   - Generate an access token for GitHub Actions
+
+2. Create an account on [Render](https://render.com/) if you don't already have one
+
+3. From the Render dashboard, create a new Web Service:
+   - Click on "New" then "Web Service"
+   - Select "Existing image"
+   - Connect your Docker Hub account
+   - Specify the image: `docker.io/your-username/oc-lettings-site:latest`
+
+4. Configure environment variables on Render:
+   - In your service settings, go to "Environment"
+   - Add the following variables:
+     - `SECRET_KEY`: your Django secret key
+     - `SENTRY_DSN`: Sentry DSN key
+
+5. Configure the Render webhook for automatic deployment:
+   - In your Render service settings, go to "Deploys" then "Deploy Hooks"
+   - Create a new hook and copy the generated URL
+   - Go to Docker Hub, in your repository settings
+   - Add a new webhook pointing to the Render URL
+
+6. Configure secrets in GitHub:
+   - Go to your GitHub repository → Settings → Secrets → Actions
+   - Add the secrets mentioned in the prerequisites
+
+#### Automatic deployment flow
+
+1. When you push code to the main branch:
+   ```bash
+   git push origin master

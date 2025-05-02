@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database Structure and Data Models &mdash; Python-OC-Lettings-FR  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application Views and URL Endpoints" href="interfaces.html" />
+    <link rel="prev" title="Technologies and Programming Languages" href="technologies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Python-OC-Lettings-FR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Project Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies and Programming Languages</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Database Structure and Data Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lettings.models.Address"><code class="docutils literal notranslate"><span class="pre">Address</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Address.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Address.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.city"><code class="docutils literal notranslate"><span class="pre">Address.city</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.country_iso_code"><code class="docutils literal notranslate"><span class="pre">Address.country_iso_code</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.id"><code class="docutils literal notranslate"><span class="pre">Address.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.letting"><code class="docutils literal notranslate"><span class="pre">Address.letting</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.number"><code class="docutils literal notranslate"><span class="pre">Address.number</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.objects"><code class="docutils literal notranslate"><span class="pre">Address.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.state"><code class="docutils literal notranslate"><span class="pre">Address.state</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.street"><code class="docutils literal notranslate"><span class="pre">Address.street</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Address.zip_code"><code class="docutils literal notranslate"><span class="pre">Address.zip_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lettings.models.Letting"><code class="docutils literal notranslate"><span class="pre">Letting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Letting.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Letting.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.address"><code class="docutils literal notranslate"><span class="pre">Letting.address</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.address_id"><code class="docutils literal notranslate"><span class="pre">Letting.address_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.id"><code class="docutils literal notranslate"><span class="pre">Letting.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.objects"><code class="docutils literal notranslate"><span class="pre">Letting.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings.models.Letting.title"><code class="docutils literal notranslate"><span class="pre">Letting.title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#profiles.models.Profile"><code class="docutils literal notranslate"><span class="pre">Profile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Profile.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Profile.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.favorite_city"><code class="docutils literal notranslate"><span class="pre">Profile.favorite_city</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.id"><code class="docutils literal notranslate"><span class="pre">Profile.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.objects"><code class="docutils literal notranslate"><span class="pre">Profile.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.user"><code class="docutils literal notranslate"><span class="pre">Profile.user</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles.models.Profile.user_id"><code class="docutils literal notranslate"><span class="pre">Profile.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interfaces.html">Application Views and URL Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment and Application Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html#running-with-docker">Running with Docker</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python-OC-Lettings-FR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Database Structure and Data Models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lettings.models">
+<span id="database-structure-and-data-models"></span><h1>Database Structure and Data Models<a class="headerlink" href="#module-lettings.models" title="Link to this heading"></a></h1>
+<p>Module for lettings models.</p>
+<p>This module defines the Address and Letting models used to represent lettings data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lettings.models.Address">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lettings.models.</span></span><span class="sig-name descname"><span class="pre">Address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lettings/models.html#Address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lettings.models.Address" title="Link to this definition"></a></dt>
+<dd><p>Represents a physical address.</p>
+<p>This model stores address details such as number, street,
+city, state, zip code, and country ISO code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>models</strong> (<em>django.db.models</em>) – Django’s ORM models module.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.AutoField" title="(in Django v5.2)"><em>AutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>number</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v5.2)"><em>PositiveIntegerField</em></a>) – Number</p></li>
+<li><p><strong>street</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – Street</p></li>
+<li><p><strong>city</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – City</p></li>
+<li><p><strong>state</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – State</p></li>
+<li><p><strong>zip_code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v5.2)"><em>PositiveIntegerField</em></a>) – Zip code</p></li>
+<li><p><strong>country_iso_code</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – Country iso code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of Address representing a physical address.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#lettings.models.Address" title="lettings.models.Address">Address</a></p>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>letting</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#lettings.models.Letting" title="lettings.models.Letting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Letting</span></code></a>) – The letting of this address (related name of <a class="reference internal" href="#lettings.models.Letting.address" title="lettings.models.Letting.address"><code class="xref py py-attr docutils literal notranslate"><span class="pre">address</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Address.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#lettings.models.Address.DoesNotExist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Address.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#lettings.models.Address.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.city">
+<span class="sig-name descname"><span class="pre">city</span></span><a class="headerlink" href="#lettings.models.Address.city" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>City</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.country_iso_code">
+<span class="sig-name descname"><span class="pre">country_iso_code</span></span><a class="headerlink" href="#lettings.models.Address.country_iso_code" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Country iso code</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#lettings.models.Address.id" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.AutoField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.letting">
+<span class="sig-name descname"><span class="pre">letting</span></span><a class="headerlink" href="#lettings.models.Address.letting" title="Link to this definition"></a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#lettings.models.Letting" title="lettings.models.Letting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Letting</span></code></a></p>
+<p>The letting of this address (related name of <a class="reference internal" href="#lettings.models.Letting.address" title="lettings.models.Letting.address"><code class="xref py py-attr docutils literal notranslate"><span class="pre">address</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.number">
+<span class="sig-name descname"><span class="pre">number</span></span><a class="headerlink" href="#lettings.models.Address.number" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositiveIntegerField</span></code></a></p>
+<p>Number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#lettings.models.Address.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.state">
+<span class="sig-name descname"><span class="pre">state</span></span><a class="headerlink" href="#lettings.models.Address.state" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>State</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.street">
+<span class="sig-name descname"><span class="pre">street</span></span><a class="headerlink" href="#lettings.models.Address.street" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Street</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Address.zip_code">
+<span class="sig-name descname"><span class="pre">zip_code</span></span><a class="headerlink" href="#lettings.models.Address.zip_code" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositiveIntegerField</span></code></a></p>
+<p>Zip code</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lettings.models.Letting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lettings.models.</span></span><span class="sig-name descname"><span class="pre">Letting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lettings/models.html#Letting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lettings.models.Letting" title="Link to this definition"></a></dt>
+<dd><p>Represents a letting.</p>
+<p>This model stores information about a letting, including its title and the associated address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>models</strong> (<em>django.db.models</em>) – Django’s ORM models module.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.AutoField" title="(in Django v5.2)"><em>AutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – Title</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of Letting representing a letting record.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#lettings.models.Letting" title="lettings.models.Letting">Letting</a></p>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>address</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference internal" href="#lettings.models.Address" title="lettings.models.Address"><code class="xref py py-class docutils literal notranslate"><span class="pre">Address</span></code></a>) – Address (related name: <a class="reference internal" href="#lettings.models.Address.letting" title="lettings.models.Address.letting"><code class="xref py py-attr docutils literal notranslate"><span class="pre">letting</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Letting.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#lettings.models.Letting.DoesNotExist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lettings.models.Letting.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#lettings.models.Letting.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#lettings.models.Letting.address" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference internal" href="#lettings.models.Address" title="lettings.models.Address"><code class="xref py py-class docutils literal notranslate"><span class="pre">Address</span></code></a></p>
+<p>Address (related name: <a class="reference internal" href="#lettings.models.Address.letting" title="lettings.models.Address.letting"><code class="xref py py-attr docutils literal notranslate"><span class="pre">letting</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.address_id">
+<span class="sig-name descname"><span class="pre">address_id</span></span><a class="headerlink" href="#lettings.models.Letting.address_id" title="Link to this definition"></a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#lettings.models.Letting.address" title="lettings.models.Letting.address"><code class="xref py py-class docutils literal notranslate"><span class="pre">address</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#lettings.models.Letting.id" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.AutoField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#lettings.models.Letting.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lettings.models.Letting.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#lettings.models.Letting.title" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Title</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-profiles.models">Module for the Profile model.</p>
+<p>This module defines the Profile model used to store additional user information.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="profiles.models.Profile">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">profiles.models.</span></span><span class="sig-name descname"><span class="pre">Profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/profiles/models.html#Profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#profiles.models.Profile" title="Link to this definition"></a></dt>
+<dd><p>Profile model with user informations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>models</strong> (<em>django.db.models</em>) – Django’s ORM models module.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.AutoField" title="(in Django v5.2)"><em>AutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>favorite_city</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – Favorite city</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Instance of Profile representing the user’s profile data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#profiles.models.Profile" title="profiles.models.Profile">Profile</a></p>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">profile</span></code>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="profiles.models.Profile.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#profiles.models.Profile.DoesNotExist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="profiles.models.Profile.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#profiles.models.Profile.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.favorite_city">
+<span class="sig-name descname"><span class="pre">favorite_city</span></span><a class="headerlink" href="#profiles.models.Profile.favorite_city" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Favorite city</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#profiles.models.Profile.id" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.AutoField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#profiles.models.Profile.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#profiles.models.Profile.user" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
+<p>User (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">profile</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="profiles.models.Profile.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#profiles.models.Profile.user_id" title="Link to this definition"></a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#profiles.models.Profile.user" title="profiles.models.Profile.user"><code class="xref py py-class docutils literal notranslate"><span class="pre">user</span></code></a> instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="technologies.html" class="btn btn-neutral float-left" title="Technologies and Programming Languages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="interfaces.html" class="btn btn-neutral float-right" title="Application Views and URL Endpoints" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, mumz0.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
