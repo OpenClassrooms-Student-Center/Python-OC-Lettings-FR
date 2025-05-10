@@ -1,8 +1,23 @@
+"""
+Django's command-line utility for administrative tasks.
+
+This module contains the main entry point for executing Django administrative commands.
+It handles setting up the Django environment and running management commands.
+"""
+
 import os
 import sys
 
 
 def main():
+    """
+    Sets up the Django environment by configuring the default settings module
+    and executes the requested management command.
+
+
+    :raises ImportError: If Django cannot be imported, likely due to not being installed
+        or the virtual environment not being activated.
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'oc_lettings_site.settings')
     try:
         from django.core.management import execute_from_command_line
