@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 812 375" width="812" height="375">
+  <rect x="0" y="0" width="812" height="375" fill="#343a40" stroke="#495057" stroke-width="2"/>
+  <rect x="20" y="20" width="772" height="335" fill="#212529" stroke="#495057" stroke-width="1"/>
+  <circle cx="50" cy="187.5" r="15" fill="#adb5bd"/>
+  <rect x="750" y="150" width="30" height="75" rx="15" fill="#adb5bd"/>
+  <text x="406" y="200" text-anchor="middle" fill="#adb5bd" font-family="Arial" font-size="16">iPhone X Landscape Black</text>
+</svg> 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="angleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#dee2e6;stop-opacity:0.2" />
+      <stop offset="50%" style="stop-color:#ced4da;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#dee2e6;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+  <polygon points="0,200 0,150 200,200" fill="url(#angleGradient)"/>
+  <polygon points="200,200 200,120 400,200" fill="url(#angleGradient)" opacity="0.7"/>
+  <polygon points="400,200 400,140 600,200" fill="url(#angleGradient)" opacity="0.5"/>
+  <polygon points="600,200 600,130 800,200" fill="url(#angleGradient)" opacity="0.7"/>
+  <polygon points="800,200 800,145 1000,200" fill="url(#angleGradient)" opacity="0.5"/>
+  <polygon points="1000,200 1000,135 1200,200" fill="url(#angleGradient)" opacity="0.7"/>
+</svg> 
