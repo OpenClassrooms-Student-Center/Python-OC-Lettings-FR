@@ -20057,7 +20057,7 @@ section {
 
 .device[data-device=iPhoneX][data-orientation=portrait][data-color=black] {
   padding-bottom: 198.89807163%;
-  background-image: url("../assets/img/device-mockups/iPhoneX/portrait.png");
+  background-image: url("../assets/img/device-mockups/iPhoneX/portrait.svg");
   z-index: initial;
 }
 
@@ -20072,7 +20072,7 @@ section {
 
 .device[data-device=iPhoneX][data-orientation=landscape][data-color=black] {
   padding-bottom: 50.27700831%;
-  background-image: url("../assets/img/device-mockups/iPhoneX/landscape.png");
+  background-image: url("../assets/img/device-mockups/iPhoneX/landscape.svg");
   z-index: initial;
 }
 
@@ -20098,7 +20098,7 @@ section {
 
 .device[data-device=iPhoneX][data-orientation=portrait][data-color=black]::after {
   content: "";
-  background-image: url("../assets/img/device-mockups/iPhoneX/portrait_black.png");
+  background-image: url("../assets/img/device-mockups/iPhoneX/portrait_black.svg");
 }
 
 .device[data-device=iPhoneX][data-orientation=portrait][data-color=black] .button {
@@ -20122,7 +20122,7 @@ section {
 
 .device[data-device=iPhoneX][data-orientation=landscape][data-color=black]::after {
   content: "";
-  background-image: url("../assets/img/device-mockups/iPhoneX/landscape_black.png");
+  background-image: url("../assets/img/device-mockups/iPhoneX/landscape_black.svg");
 }
 
 .device[data-device=iPhoneX][data-orientation=landscape][data-color=black] .button {

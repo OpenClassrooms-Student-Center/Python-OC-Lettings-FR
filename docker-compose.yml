@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - DJANGO_SETTINGS_MODULE=oc_lettings_site.settings_production
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+    volumes:
+      - ./staticfiles:/app/staticfiles
+      - ./static:/app/static
+
+    command: gunicorn --bind 0.0.0.0:8000 --workers 3 oc_lettings_site.wsgi:application
+
+  # Service pour les tests
+  test:
+    build: .
+    environment:
+      - DEBUG=True
+      - DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
+    command: python -m pytest --cov=. --cov-report=term-missing
+    volumes:
+      - .:/app 

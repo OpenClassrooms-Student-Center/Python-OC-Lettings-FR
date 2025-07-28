@@ -1,0 +1,132 @@
+# Nom de la pipeline CI/CD
+name: CI/CD Pipeline
+
+# Définition des événements qui déclenchent la pipeline
+on:
+  # Se déclenche à chaque push sur la branche main
+  push:
+    branches: [ main ]
+  # Se déclenche à chaque pull request vers la branche main
+  pull_request:
+    branches: [ main ]
+
+# Variables d'environnement globales
+env:
+  # Nom de l'image Docker (utilise le nom d'utilisateur DockerHub stocké dans les secrets)
+  DOCKER_IMAGE: ${{ secrets.DOCKER_USERNAME }}/oc-lettings-site
+  # Tag de l'image basé sur le SHA du commit
+  DOCKER_TAG: ${{ github.sha }}
+
+jobs:
+  # Job de test : vérifie la qualité du code et la couverture des tests
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    # Récupération du code source
+    - uses: actions/checkout@v3
+    
+    # Configuration de l'environnement Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    # Installation des dépendances nécessaires
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov flake8
+        
+    # Vérification de la qualité du code avec Flake8
+    - name: Run Flake8
+      run: |
+        # Première vérification : erreurs critiques (échoue si erreurs trouvées)
+        # E9: Erreurs de syntaxe
+        # F63: Problèmes de comparaison
+        # F7: Problèmes de déclaration
+        # F82: Problèmes de référence non définie
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Deuxième vérification : style du code (n'échoue pas)
+        # - Complexité maximale de 10
+        # - Longueur de ligne maximale de 127 caractères
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        
+    # Exécution des tests avec mesure de la couverture
+    - name: Run tests with coverage
+      run: |
+        pytest --cov=. --cov-report=xml
+        
+    # Vérification que la couverture de tests est supérieure à 80%
+    - name: Check coverage threshold
+      run: |
+        coverage=$(python -c "import xml.etree.ElementTree as ET; tree = ET.parse('coverage.xml'); root = tree.getroot(); print(float(root.attrib['line-rate']) * 100)")
+        if (( $(echo "$coverage < 80" | bc -l) )); then
+          echo "Coverage is below 80%"
+          exit 1
+        fi
+
+  # Job de test Docker : vérifie que l'image Docker fonctionne
+  test-docker:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Test de build de l'image Docker
+    - name: Build Docker image
+      run: docker build -t oc-lettings-site .
+    
+    # Test que l'image peut démarrer
+    - name: Test Docker image startup
+      run: |
+        docker run -d --name test-container oc-lettings-site
+        sleep 10
+        docker logs test-container
+        docker stop test-container
+        docker rm test-container
+
+  # Job de build et push : crée et publie l'image Docker
+  build-and-push:
+    # S'exécute uniquement si les tests sont passés
+    needs: [test, test-docker]
+    runs-on: ubuntu-latest
+    # S'exécute uniquement sur les pushes vers main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Authentification sur DockerHub
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    # Construction et publication de l'image Docker
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        # Tag l'image avec le SHA du commit et 'latest'
+        tags: ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }},${{ env.DOCKER_IMAGE }}:latest
+        # Cache pour optimiser les builds
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # Job de déploiement : déploie l'application sur Render
+  deploy:
+    # S'exécute uniquement si le build est réussi
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    # S'exécute uniquement sur les pushes vers main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+    # Déploiement sur Render
+    - name: Deploy to Render
+      uses: render-actions/deploy@v1
+      with:
+        render-token: ${{ secrets.RENDER_TOKEN }}
+        service-id: ${{ secrets.RENDER_SERVICE_ID }}
+        environment: production 
