@@ -75,3 +75,81 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Fichier .env
+Le projet utilise un fichier `.env` pour centraliser les variables d'environnement sensibles.
+
+Créez un fichier `.env` à la racine du projet avec comme variable:
+  - SECRET_KEY
+  - SENTRY_DSN
+  - SECRET_DEPLOY_HOOK
+
+Ne pas commit ce fichier dans Git, il doit être listé dans le `.gitignore`
+
+
+### Docker
+
+L'application dispose d'un `Dockerfile` pour créer une image Docker exécutable:
+commande pour la création de l'image `docker build -t oc-lettings .`
+
+Pour la partie CI/CD:
+- Créer un compte docker sur Docker Hub (https://hub.docker.com/)
+- Configurer vos identifiants dans les **secrets GitHub**:
+  - `DOCKER_USERNAME`
+  - `DOCKER_PASSWORD`(sous forme de token)
+
+### CI/CD:
+
+Un pipeline GitHub a été ajouté, déclenché à chaque push.
+Il execute automatiquement les étapes suivantes:
+
+- Lint avec `flake8`
+- Tests unitaires avec `pytest`
+- Build Docker
+- Push vers Docker Hub
+- Génération de la documentation
+
+
+### Documentation 
+
+La documentation technique est générée avec **Sphinx** et hebergée sur **Read the Docs**:
+
+Créer sa propre doc 
+
+1. Créer un compte sur https://readthedocs.org
+2. Connecter votre repo GitHub
+3. Importer le projet 
+4. S'assurer que `.readthedocs.yml` est présent à la racine
+5. Déclencher un build 
+
+### Sentry
+
+Étapes pour intégrer Sentry:
+
+  1. Créer un compte sur https://sentry.io 
+  2. Créer un projet Django
+  3. Copier la clé DSN dans votre environnement de variable (.env)
+  4. Ajouter le bloc de code de sentry générée dans sentry et la Clé DSN dans `oc_lettings_site/settings.py`
+
+
+### Déploiement 
+
+Render est connecté à Docker Hub pour tirer l'image automatiquement.
+
+**Étapes pour configurer**
+
+1. Créer un compte render (https://render.com)
+2. Créer un Web service
+3. Indiquer l'image Docker :
+``` 
+  docker.io/nom utilisateur/nom de l'application
+
+```
+4. Déploiement automatique à chaque image pushée
+
+Exemple de lien de production :
+  https://oc-lettings.onrender.com
+
+
+
+

@@ -1,0 +1,10 @@
+**/__pycache__
+*.pyc
+venv
+.venv
+.pytest_cache
+.git
+.gitignore
+.coverage
+staticfiles/
+oc_lettings_site\storage.py
