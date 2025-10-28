@@ -1,6 +1,31 @@
 import os
+from dotenv import load_dotenv
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 from pathlib import Path
+
+
+load_dotenv()
+SENTRY_DSN = os.environ.get('SENTRY_DSN')
+
+if SENTRY_DSN:
+    sentry_logging = LoggingIntegration(
+        level=os.environ.get('SENTRY_LOG_LEVEL', 'INFO'),
+        event_level=os.environ.get('SENTRY_EVENT_LEVEL', 'WARNING'),
+    )
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[
+            DjangoIntegration(),
+            sentry_logging,
+        ],
+        traces_sample_rate=1.0, 
+        release=os.environ.get('GIT_COMMIT_SHA', '1.0.0'),
+        send_default_pii=False
+    )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,18 +35,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'oc_lettings_site.apps.OCLettingsSiteConfig',
+    'lettings',
+    'profiles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -111,4 +138,40 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static",]
+STATICFILES_DIRS = [BASE_DIR / "static", ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        # Standard handler to display logs in the terminal/console
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        # Sentry handler to send logs/errors to the Sentry service
+        'sentry': {
+            'level': 'WARNING',  # Only send WARNINGs and above to Sentry as events
+            'class': 'sentry_sdk.integrations.logging.SentryHandler',
+        },
+    },
+    'loggers': {
+        # Django's root logger
+        'django': {
+            'handlers': ['console', 'sentry'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        # Custom application logger for oc_lettings_site and its sub-apps
+        'oc_lettings_site': {
+            'handlers': ['console', 'sentry'],
+            'level': 'INFO',  # Log everything from INFO up
+            'propagate': False,
+        },
+    },
+}
