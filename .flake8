@@ -1,0 +1,17 @@
+[flake8]
+ignore = E501,E241,E111,E117,E402,F401,E303,E305,E722
+
+exclude =
+    .git,
+    __pycache__,
+    venv\,
+    .github\
+    .pytest_cache\
+    *.pyc,
+    .env\,
+    env\,
+    venv\,
+    .coverage,
+    templates\,
+    static\,
+
