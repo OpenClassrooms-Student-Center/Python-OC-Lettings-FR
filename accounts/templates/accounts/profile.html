@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+<div class="container px-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="page-header-ui-title mb-3 display-6">{{ request.user.username }}</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 py-5 text-center">
+    <div class="card">
+        <div class="card-body">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3">
+                <i data-feather="user"></i>
+            </div>
+            <p><strong>Identifiant :</strong> {{ request.user.username }}</p>
+            <p><strong>Email :</strong> {{ request.user.email }}</p>
+            <p><strong>Membre depuis :</strong> {{ request.user.date_joined|date:"d/m/Y" }}</p>
+            <a href="{% url 'profiles:profile' username=request.user.username %}"
+                class="btn btn-outline-primary w-100 mt-3">
+                    Mon dossier locataire
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 py-5 text-center">
+    <div class="justify-content-center">
+        <form method="post" action="{% url 'accounts:logout' %}" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" class="btn fw-500 ms-lg-4 btn-outline-secondary px-10">
+                Déconnexion
+            </button>
+        </form>
+        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'index' %}">
+            Accueil
+        </a>
+    </div>
+</div>
+{% endblock %}

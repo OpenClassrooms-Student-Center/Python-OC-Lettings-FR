@@ -1,0 +1,23 @@
+version: "3.11"
+
+services:
+  web:
+    build: .
+    container_name: oc-lettings-web
+    ports:
+      - "8000:8000"
+    # Volume pour la DB SQLite (persistance)
+    volumes:
+      # On lie directement le fichier local au fichier dans le conteneur
+      - ./test_db.sqlite3:/app/test_db.sqlite3
+    env_file:
+      - .env
+    # On force la migration AVANT de lancer Gunicorn
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+            python manage.py migrate --noinput &&
+            gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000"
+    restart: unless-stopped
+
+volumes:
+  db_data:

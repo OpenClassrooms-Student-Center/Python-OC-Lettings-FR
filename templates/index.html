@@ -1,26 +1,107 @@
 {% extends "base.html" %}
-{% block title %}Holiday Homes{% endblock title %}
+{% load static %}
+{% block title %}Holiday Homes — Locations de vacances en France{% endblock title %}
 
 {% block content %}
-
-	
-<div class="container px-5 py-5 text-center">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <h1 class="page-header-ui-title mb-3 display-6">Welcome to Holiday Homes</h1>
+<h1 class="d-none">Orange County Lettings</h1>
+<div class="hero-section"
+     style="background-image: url('{% static 'assets/img/imagehouse.jpg' %}');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <h1 class="page-header-ui-title mb-3 display-6 text-white">Bienvenue sur Locations de vacances</h1>
+                    <p class="lead text-white-50 mb-4">
+                        Trouvez la location idéale pour vos vacances en France —
+                        appartements, studios et penthouses dans les plus belles villes.
+                    </p>
+                    <a class="btn btn-primary btn-lg px-5" href="{% url 'lettings:index' %}">
+                        Voir les locations
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="container px-5 py-5 text-center">
-    <div class="justify-content-center">
-        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'profiles_index' %}">
-    		Profiles
-        </a>
-        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'lettings_index' %}">
-            Lettings
-        </a>
+<hr class="mx-5" />
+
+<div class="container px-5 py-5">
+    <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-6">
+            <h2 class="display-6 mb-2">Pourquoi nous choisir ?</h2>
+            <p class="text-muted">Des logements soigneusement sélectionnés pour des séjours inoubliables.</p>
+        </div>
+    </div>
+
+    <div class="row gx-5 gy-4 justify-content-center">
+
+        <div class="col-md-4 text-center">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3 mx-auto">
+                <i data-feather="map-pin"></i>
+            </div>
+            <h5 class="fw-500">Emplacements de choix</h5>
+            <p class="text-muted small">
+                Chaque bien est situé en plein cœur des villes les plus
+                prisées de France — Paris, Lyon, Nice, Bordeaux et plus encore.
+            </p>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3 mx-auto">
+                <i data-feather="shield"></i>
+            </div>
+            <h5 class="fw-500">Réservation sécurisée</h5>
+            <p class="text-muted small">
+                Votre compte est protégé et vos données personnelles
+                restent confidentielles. Réservez en toute sérénité.
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3 mx-auto">
+                <i data-feather="star"></i>
+            </div>
+            <h5 class="fw-500">Qualité garantie</h5>
+            <p class="text-muted small">
+                Tous nos logements sont vérifiés et photographiés.
+                Ce que vous voyez est ce que vous obtenez.
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3 mx-auto">
+                <i data-feather="search"></i>
+            </div>
+            <h5 class="fw-500">Recherche facile</h5>
+            <p class="text-muted small">
+                Filtrez par ville, prix ou surface pour trouver
+                exactement ce qu'il vous faut en quelques secondes.
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3 mx-auto">
+                <i data-feather="message-circle"></i>
+            </div>
+            <h5 class="fw-500">Contact direct</h5>
+            <p class="text-muted small">
+                Une question ? Notre formulaire de contact vous met
+                directement en relation avec notre équipe.
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="icon-stack icon-stack-lg bg-primary text-white mb-3 mx-auto">
+                <i data-feather="home"></i>
+            </div>
+            <h5 class="fw-500">{{ lettings_count }} logements disponibles</h5>
+            <p class="text-muted small">
+                Un catalogue qui s'agrandit régulièrement pour vous
+                offrir toujours plus de choix partout en France.
+            </p>
+        </div>
+
     </div>
 </div>
-
 {% endblock %}

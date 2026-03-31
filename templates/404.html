@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Page non trouvée (404){% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>404 - Page non trouvée</h1>
+  <p>La page demandée n'existe pas.</p>
+  <a href="{% url 'index' %}" class="btn btn-primary">Retour à l'accueil</a>
+</div>
+{% endblock %}

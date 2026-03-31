@@ -1,0 +1,177 @@
+[
+  {
+    "model": "lettings.address",
+    "pk": 1,
+    "fields": {
+      "number": 12,
+      "street": "Rue de Rivoli",
+      "city": "Paris",
+      "state": "Île-de-France",
+      "zip_code": "75001",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.address",
+    "pk": 2,
+    "fields": {
+      "number": 45,
+      "street": "Cours Mirabeau",
+      "city": "Aix-en-Provence",
+      "state": "PACA",
+      "zip_code": "13100",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.address",
+    "pk": 3,
+    "fields": {
+      "number": 8,
+      "street": "Quai de la Tournelle",
+      "city": "Paris",
+      "state": "Île-de-France",
+      "zip_code": "75005",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.address",
+    "pk": 4,
+    "fields": {
+      "number": 3,
+      "street": "Place Bellecour",
+      "city": "Lyon",
+      "state": "Auvergne-Rhône-Alpes",
+      "zip_code": "69002",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.address",
+    "pk": 5,
+    "fields": {
+      "number": 22,
+      "street": "Promenade des Anglais",
+      "city": "Nice",
+      "state": "PACA",
+      "zip_code": "06000",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.address",
+    "pk": 6,
+    "fields": {
+      "number": 14,
+      "street": "Rue Sainte-Catherine",
+      "city": "Bordeaux",
+      "state": "Nouvelle-Aquitaine",
+      "zip_code": "33000",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.address",
+    "pk": 7,
+    "fields": {
+      "number": 5,
+      "street": "Place du Capitole",
+      "city": "Toulouse",
+      "state": "Occitanie",
+      "zip_code": "31000",
+      "country_iso_code": "FRA"
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 1,
+    "fields": {
+      "title": "Appartement Louvre – vue sur jardins",
+      "address": 1,
+      "description": "Magnifique appartement haussmannien en plein cœur de Paris, à deux pas du Louvre et des Tuileries. Parquet ancien, hauts plafonds, lumineux.",
+      "price_per_night": "185.00",
+      "rooms": 3,
+      "area": 75,
+      "image": null
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 2,
+    "fields": {
+      "title": "Studio provençal au cœur d'Aix",
+      "address": 2,
+      "description": "Charmant studio rénové avec goût dans une rue pittoresque d'Aix-en-Provence. Idéal pour découvrir la Provence à pied.",
+      "price_per_night": "75.00",
+      "rooms": 1,
+      "area": 30,
+      "image": null
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 3,
+    "fields": {
+      "title": "Loft moderne quai de Seine",
+      "address": 3,
+      "description": "Loft contemporain avec vue imprenable sur la Seine et Notre-Dame. Décoration soignée, cuisine équipée, terrasse privative.",
+      "price_per_night": "220.00",
+      "rooms": 2,
+      "area": 65,
+      "image": null
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 4,
+    "fields": {
+      "title": "T3 lumineux place Bellecour",
+      "address": 4,
+      "description": "Bel appartement au cœur de Lyon, à quelques minutes à pied de la place Bellecour et du Vieux-Lyon. Vue dégagée, très lumineux.",
+      "price_per_night": "120.00",
+      "rooms": 3,
+      "area": 68,
+      "image": null
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 5,
+    "fields": {
+      "title": "Penthouse face à la Méditerranée",
+      "address": 5,
+      "description": "Penthouse d'exception avec vue panoramique sur la mer. Grande terrasse, piscine privée, prestations haut de gamme sur la Promenade des Anglais.",
+      "price_per_night": "450.00",
+      "rooms": 4,
+      "area": 130,
+      "image": null
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 6,
+    "fields": {
+      "title": "Appartement bordeaux chartrons",
+      "address": 6,
+      "description": "Appartement de caractère dans le quartier branché des Chartrons. Pierres apparentes, poutres, proche des quais et des galeries d'art.",
+      "price_per_night": "110.00",
+      "rooms": 2,
+      "area": 55,
+      "image": null
+    }
+  },
+  {
+    "model": "lettings.letting",
+    "pk": 7,
+    "fields": {
+      "title": "Studio rose au cœur de Toulouse",
+      "address": 7,
+      "description": "Studio cosy en plein centre de la ville rose, à deux pas du Capitole. Parfait pour un séjour en solo ou en couple.",
+      "price_per_night": "65.00",
+      "rooms": 1,
+      "area": 28,
+      "image": null
+    }
+  }
+]

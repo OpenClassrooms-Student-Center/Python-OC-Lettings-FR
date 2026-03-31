@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}Mon dossier{% endblock title %}
+
+{% block content %}
+<div class="container px-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="page-header-ui-title mb-3 display-6">
+                Mon dossier locataire
+            </h1>
+            {% if request.user.username == profile.user.username %}
+                <a href="{% url 'profiles:edit' %}" class="btn btn-primary px-5">
+                    Modifier mon dossier
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <!-- Statut du dossier -->
+            {% if profile.status == "en_attente" %}
+                <div class="alert alert-warning text-center mb-4">
+                    <i data-feather="clock" style="width:20px;height:20px;"></i>
+                    <strong>Dossier en attente</strong> — Notre équipe examine votre dossier.
+                </div>
+            {% elif profile.status == "valide" %}
+                <div class="alert alert-success text-center mb-4">
+                    <i data-feather="check-circle" style="width:20px;height:20px;"></i>
+                    <strong>Dossier validé</strong> — Félicitations, votre dossier a été accepté !
+                </div>
+            {% elif profile.status == "refuse" %}
+                <div class="alert alert-danger text-center mb-4">
+                    <i data-feather="x-circle" style="width:20px;height:20px;"></i>
+                    <strong>Dossier refusé</strong> — Votre dossier n'a pas été retenu.
+                    {% if profile.admin_notes %}
+                        <p class="mb-0 mt-2 small">{{ profile.admin_notes }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <!-- Informations personnelles -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="fw-500 mb-3">
+                        <i data-feather="user" style="width:18px;height:18px;"></i>
+                        Informations personnelles
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Prénom :</strong> {{ profile.user.first_name|default:"—" }}</p>
+                            <p><strong>Nom :</strong> {{ profile.user.last_name|default:"—" }}</p>
+                            <p><strong>Email :</strong> {{ profile.user.email|default:"—" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Date de naissance :</strong> {{ profile.date_of_birth|date:"d/m/Y"|default:"—" }}</p>
+                            <p><strong>Téléphone :</strong> {{ profile.phone|default:"—" }}</p>
+                            <p><strong>Adresse actuelle :</strong> {{ profile.current_address|default:"—" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Situation professionnelle -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="fw-500 mb-3">
+                        <i data-feather="briefcase" style="width:18px;height:18px;"></i>
+                        Situation professionnelle
+                    </h5>
+                    <p><strong>Situation :</strong> {{ profile.get_situation_display|default:"—" }}</p>
+                    <p><strong>Employeur / Établissement :</strong> {{ profile.employer_name|default:"—" }}</p>
+                    <p><strong>Revenus mensuels nets :</strong>
+                        {% if profile.monthly_income %}
+                            {{ profile.monthly_income }} €
+                            {% if profile.is_smic %}
+                                <span class="badge bg-warning text-dark ms-2">SMIC</span>
+                            {% endif %}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+               <!-- Logement souhaité -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="fw-500 mb-3">
+                        <i data-feather="home" style="width:18px;height:18px;"></i>
+                        Logement souhaité
+                    </h5>
+
+                    <p>
+                        <strong>Logement :</strong>
+                        {% if profile.desired_letting %}
+                            {{ profile.desired_letting.reference }} — {{ profile.desired_letting.title }}
+                        {% else %}
+                            <span class="text-muted">Non renseigné</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Garant -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="fw-500 mb-3">
+                        <i data-feather="users" style="width:18px;height:18px;"></i>
+                        Garant
+                    </h5>
+                    {% if profile.has_guarantor %}
+                        <p><strong>Nom du garant :</strong> {{ profile.guarantor_name|default:"—" }}</p>
+                        <p><strong>Revenus du garant :</strong>
+                            {% if profile.guarantor_income %}
+                                {{ profile.guarantor_income }} €
+                                {% if profile.guarantor_is_smic %}
+                                    <span class="badge bg-warning text-dark ms-2">SMIC</span>
+                                {% endif %}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </p>
+                    {% else %}
+                        <p class="text-muted">Aucun garant renseigné.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Pièces justificatives -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="fw-500 mb-3">
+                        <i data-feather="file" style="width:18px;height:18px;"></i>
+                        Pièces justificatives
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-md-4 text-center">
+                            <p class="small fw-500">CNI / Passeport</p>
+                            {% if profile.id_document %}
+                                <a href="{{ profile.id_document.url }}" target="_blank">
+                                    <img src="{{ profile.id_document.url }}"
+                                         class="img-thumbnail" style="max-height:100px;">
+                                </a>
+                            {% else %}
+                                <p class="text-muted small">Non fourni</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <p class="small fw-500">Justificatif de domicile</p>
+                            {% if profile.proof_of_address %}
+                                <a href="{{ profile.proof_of_address.url }}" target="_blank">
+                                    <img src="{{ profile.proof_of_address.url }}"
+                                         class="img-thumbnail" style="max-height:100px;">
+                                </a>
+                            {% else %}
+                                <p class="text-muted small">Non fourni</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <p class="small fw-500">Fiche de paie</p>
+                            {% if profile.payslip %}
+                                <a href="{{ profile.payslip.url }}" target="_blank">
+                                    <img src="{{ profile.payslip.url }}"
+                                         class="img-thumbnail" style="max-height:100px;">
+                                </a>
+                            {% else %}
+                                <p class="text-muted small">Non fourni</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="text-center mt-4">
+                <a href="{% url 'profiles:edit' %}"
+                   class="btn btn-primary px-5 me-3">
+                    Modifier mon dossier
+                </a>
+                <a href="{% url 'index' %}" class="btn btn-outline-secondary px-5">
+                    Accueil
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

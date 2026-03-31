@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Nous contacter{% endblock %}
+
+{% block content %}
+<div class="container px-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="page-header-ui-title mb-3 display-6">Nous contacter</h1>
+            <p class="text-muted">Une question sur une location ? Écrivez-nous.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            {% if success %}
+                <div class="alert alert-success text-center py-4">
+                    <i data-feather="check-circle" style="width:32px;height:32px;" class="mb-2"></i>
+                    <h5 class="mb-1">Message envoyé !</h5>
+                    <p class="mb-0 text-muted small">Nous vous répondrons dans les plus brefs délais.</p>
+                </div>
+            {% endif %}
+
+            {% if not success %}
+                <div class="card p-4">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label fw-500">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger small">{{ form.non_field_errors.0 }}</div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary w-100 mt-2">
+                            Envoyer le message
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 py-3 text-center">
+    <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'index' %}">Accueil</a>
+    <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'lettings:index' %}">Locations</a>
+</div>
+{% endblock %}

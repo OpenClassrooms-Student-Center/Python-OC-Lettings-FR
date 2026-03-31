@@ -20245,3 +20245,101 @@ section {
     border-right: 0.0625rem solid #e0e5ec;
   }
 }
+
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 4rem 1rem;
+}
+
+ body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top left, #dbeafe, transparent 40%),
+                        radial-gradient(circle at bottom right, #e0f2fe, transparent 40%),
+                        #ffffff;
+            color: #0f172a;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .navbar .btn {
+            border-radius: 10px;
+        }
+
+        /* MAIN */
+        main {
+            min-height: 80vh;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+        }
+
+        footer a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+/* =========================
+   RESPONSIVE GLOBAL
+========================= */
+
+/* Images fluides */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Evite les débordements */
+body {
+  overflow-x: hidden;
+}
+
+/* Containers plus propres */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 40vh;
+  }
+}
+
+.hero-section {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 480px;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+}

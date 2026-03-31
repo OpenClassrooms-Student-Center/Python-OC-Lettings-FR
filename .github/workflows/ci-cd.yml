@@ -1,0 +1,74 @@
+name: CI/CD - OC Lettings Django
+
+on:
+  push:
+    branches: [ feature/modular-architecture ]
+  pull_request:
+    branches: [ feature/modular-architecture ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  DJANGO_SETTINGS_MODULE: 'oc_lettings_site.settings'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-django pytest-cov flake8
+
+    - name: Lint with flake8
+      run: flake8 .
+
+    - name: Apply migrations
+      run: python manage.py migrate --noinput
+
+    - name: Run tests
+      env:
+        SECRET_KEY: "test-secret-key"
+        SENTRY_DSN: ""
+      run: |
+        pytest --cov=oc_lettings_site --cov=lettings --cov=profiles \
+               --cov-report=term-missing
+
+  docker-build:
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
