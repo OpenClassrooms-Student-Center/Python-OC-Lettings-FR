@@ -1,77 +1,188 @@
-## Résumé
+# Django App - OpenClassrooms Project 13
+**Scale a Django application using a modular architecture**
 
-Site web d'Orange County Lettings
+---
 
-## Développement local
+## DESCRIPTION
 
-### Prérequis
+This project was completed as part of the "Python Developer" path at OpenClassrooms.
 
-- Compte GitHub avec accès en lecture à ce repository
-- Git CLI
-- SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+The goal was to scale a Django application using a modular architecture :
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+- Redesign of the modular architecture in the GitHub repository;
+- Reduction of various technical debts on the project;
+- Addition and deployment of a CI/CD pipeline;
+- Application monitoring and error tracking via Sentry;
+- Creation of the application's technical documentation using Read The Docs and Sphinx.
 
-### macOS / Linux
+The application must:
 
-#### Cloner le repository
+- allow the users to view available rentals and all the registered profiles.
 
-- `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+---
 
-#### Créer l'environnement virtuel
+## PROJECT STRUCTURE
+<p align="center">
+    <img src="docs/structure.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+---
 
-#### Exécuter le site
+## INSTALLATION
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+- ### Clone the repository :
 
-#### Linting
+```
+git clone https://github.com/Tit-Co/OpenClassrooms_Project_13.git
+```
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
+- ### Navigate into the project directory :
+    `cd OpenClassrooms_Project_13`
 
-#### Tests unitaires
+- ### Create a virtual environment and dependencies :
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
+1. #### With [uv](https://docs.astral.sh/uv/)
 
-#### Base de données
+    `uv` is an environment and dependencies manager.
+    
+    - #### Install environment and dependencies
+    
+    `uv sync`
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
+2. #### With pip
 
-#### Panel d'administration
+   - #### Install the virtual env :
 
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
+    `python -m venv env`
 
-### Windows
+   - #### Activate the virtual env :
+    `source env/bin/activate` in Git Bash on Windows or on macOS / Linux
+    Or  
+    `env\Scripts\activate` on Windows  
 
-Utilisation de PowerShell, comme ci-dessus sauf :
+3. #### With [Poetry](https://python-poetry.org/docs/)
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+    `Poetry` is a tool for dependency management and packaging in Python.
+    
+    - #### Install the virtual env :
+    `py -3.10 -m venv env`
+    
+    - #### Activate the virtual env :
+    `poetry env activate`
+
+- ### Install dependencies 
+  1. #### With [uv](https://docs.astral.sh/uv/)
+      `uv sync` or `uv pip install -r requirements.txt` or `uv add -r requirements.txt`
+
+  2. #### With pip
+      `pip install -r requirements.txt` 
+
+  3. #### With [Poetry](https://python-poetry.org/docs/)
+      `poetry install`
+  
+     (NB : Poetry and uv will read the `pyproject.toml` file to know which dependencies to install)
+
+---
+
+## USAGE
+
+### Launching server
+- Open a terminal
+- Go to project folder - example : `cd oc_lettings_site`
+- Activate the virtual environment as described previously
+- Create environment variables (to avoid to add raw Sentry key into the code)
+  - With Power Shell :
+    ```
+    $env:SENTRY_KEY = "my_key"
+    ```
+  - With Git Bash :
+    ```
+    export SENTRY_KEY = "my_key"
+    ```
+- Launch the local server by typing the command :
+  - `python manage.py runserver`
+
+### Launching the APP
+
+- Finally, in a web browser, open the urls :
+  - [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+  - [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) 
+    - for the admin panel (username: ```admin```, password: ```Abc1234!```)
+    
+---
+
+## APP EXAMPLES
+
+Here are some examples of the application execution.
+
+- Home page
+<p align="center">
+    <img src="docs/screenshots/home_page_screenshot.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+- Lettings index
+<p align="center">
+    <img src="docs/screenshots/lettings_list_screenshot.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+- Letting details
+<p align="center">
+    <img src="docs/screenshots/letting_details_screenshot.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+- Profiles index
+<p align="center">
+    <img src="docs/screenshots/profiles_list_screenshot.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+- Profile details
+<p align="center">
+    <img src="docs/screenshots/profile_details_screenshot.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+---
+
+## PEP 8 CONVENTIONS
+
+- Flake 8 report
+<p align="center">
+    <img src="docs/flake8_report.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+**Type the line below in the terminal to generate another report with [flake8-html](https://pypi.org/project/flake8-html/) tool :**
+
+` flake8`
+- The app code has a setup.cfg file that specify Flake 8 options as below : 
+    ```
+    format = html
+    htmldir = flake8-report
+    max-line-length = 99
+    exclude = **/migrations/*,env,cov_html
+    ```
+
+---
+
+## TESTS COVERAGE WITH PYTEST
+
+- Coverage report
+<p align="center">
+    <img src="docs/cov_report_1.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+    <img src="docs/cov_report_2.png" width="auto" style="border: 1px solid grey; border-radius: 10px;">
+</p>
+
+- **Type the line below in the terminal to generate another coverage report with pytest**
+
+    `pytest --cov=lettings --cov=profiles --cov=oc_lettings_site --cov-report=html:cov_html`
+
+---
+
+![Python](https://img.shields.io/badge/python-3.10-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Coverage](https://img.shields.io/badge/coverage-100%25-red)
+
+---
+
+## AUTHOR
+**Name**: Nicolas MARIE  
+**Track**: Python Developer – OpenClassrooms  
+**Project 13 – Scale a Django application using a modular architecture – May 2026**
