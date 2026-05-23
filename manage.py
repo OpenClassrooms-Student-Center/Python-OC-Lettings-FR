@@ -1,3 +1,6 @@
+"""
+Main module
+"""
 import os
 import sys
 
