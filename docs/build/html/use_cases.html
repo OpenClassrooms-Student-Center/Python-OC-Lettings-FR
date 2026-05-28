@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User guide with use cases &mdash; Orange County Lettings 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deployment" href="deployment.html" />
+    <link rel="prev" title="Programing Interface description" href="programing_interface.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Orange County Lettings
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db_structure_and_models.html">Database structure and models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programing_interface.html">Programing Interface description</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User guide with use cases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quick-overview">Quick overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-of-main-use-cases">Example of main use cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#home-page">Home page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lettings-list-page">Lettings list page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#letting-details-page">Letting details page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiles-list-page">Profiles list page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profile-details-page">Profile details page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#letting-404-error-page">Letting 404 error page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#use-cases">Use cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#browsing-lettings">Browsing lettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-profiles">Viewing profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#returning-to-home-page">Returning to home page</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Orange County Lettings</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User guide with use cases</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/use_cases.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-guide-with-use-cases">
+<h1>User guide with use cases<a class="headerlink" href="#user-guide-with-use-cases" title="Link to this heading"></a></h1>
+<section id="quick-overview">
+<h2>Quick overview<a class="headerlink" href="#quick-overview" title="Link to this heading"></a></h2>
+<p>Orange County Lettings allows the user to browse available rentals and all the registered profiles.</p>
+<p>The user has access to lettings and profiles lists, and can display a letting or a profile detail by id or username.</p>
+</section>
+<section id="example-of-main-use-cases">
+<h2>Example of main use cases<a class="headerlink" href="#example-of-main-use-cases" title="Link to this heading"></a></h2>
+<section id="home-page">
+<h3>Home page<a class="headerlink" href="#home-page" title="Link to this heading"></a></h3>
+<img alt="_images/home_page_screenshot.png" src="_images/home_page_screenshot.png" />
+</section>
+<section id="lettings-list-page">
+<h3>Lettings list page<a class="headerlink" href="#lettings-list-page" title="Link to this heading"></a></h3>
+<img alt="_images/lettings_list_screenshot.png" src="_images/lettings_list_screenshot.png" />
+</section>
+<section id="letting-details-page">
+<h3>Letting details page<a class="headerlink" href="#letting-details-page" title="Link to this heading"></a></h3>
+<img alt="_images/letting_details_screenshot.png" src="_images/letting_details_screenshot.png" />
+</section>
+<section id="profiles-list-page">
+<h3>Profiles list page<a class="headerlink" href="#profiles-list-page" title="Link to this heading"></a></h3>
+<img alt="_images/profiles_list_screenshot.png" src="_images/profiles_list_screenshot.png" />
+</section>
+<section id="profile-details-page">
+<h3>Profile details page<a class="headerlink" href="#profile-details-page" title="Link to this heading"></a></h3>
+<img alt="_images/profile_details_screenshot.png" src="_images/profile_details_screenshot.png" />
+</section>
+<section id="letting-404-error-page">
+<h3>Letting 404 error page<a class="headerlink" href="#letting-404-error-page" title="Link to this heading"></a></h3>
+<img alt="_images/letting_404_error_screenshot.png" src="_images/letting_404_error_screenshot.png" />
+</section>
+</section>
+<section id="use-cases">
+<h2>Use cases<a class="headerlink" href="#use-cases" title="Link to this heading"></a></h2>
+<section id="browsing-lettings">
+<h3>Browsing lettings<a class="headerlink" href="#browsing-lettings" title="Link to this heading"></a></h3>
+<p>Here is the procedure :</p>
+<ul class="simple">
+<li><p>Open the home page</p></li>
+<li><p>Click on the “Letting” link</p></li>
+<li><p>Select a letting from the list</p></li>
+<li><p>The detail page displays the address and related information</p></li>
+</ul>
+</section>
+<section id="viewing-profiles">
+<h3>Viewing profiles<a class="headerlink" href="#viewing-profiles" title="Link to this heading"></a></h3>
+<p>The procedure is more or less the same :</p>
+<ul class="simple">
+<li><p>Open the Profiles page.</p></li>
+<li><p>Select a profile from the list.</p></li>
+<li><p>The application displays the user profile details.</p></li>
+</ul>
+</section>
+<section id="returning-to-home-page">
+<h3>Returning to home page<a class="headerlink" href="#returning-to-home-page" title="Link to this heading"></a></h3>
+<p>Here is the procedure :</p>
+<ul class="simple">
+<li><p>In the lettings page or profiles page, click on the “Home” button</p></li>
+<li><p>The application displays the home page</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="programing_interface.html" class="btn btn-neutral float-left" title="Programing Interface description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="deployment.html" class="btn btn-neutral float-right" title="Deployment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nicolas MARIE.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

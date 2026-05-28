@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deployment &mdash; Orange County Lettings 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="prev" title="User guide with use cases" href="use_cases.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Orange County Lettings
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db_structure_and_models.html">Database structure and models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programing_interface.html">Programing Interface description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use_cases.html">User guide with use cases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#django-settings">Django settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static-files-and-whitenoise">Static files and WhiteNoise</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-whitenoise">Enable WhiteNoise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-compression-and-caching-support">Add compression and caching support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-containerization">Docker containerization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-cd-pipeline">CI/CD pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ci-pipeline">CI pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cd-pipeline">CD pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#secrets-variables">Secrets/variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#github">GitHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gitlab">Gitlab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#required-secrets-variables">Required secrets/variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#heroku">Heroku</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">GitHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Gitlab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-with-sentry">Monitoring with Sentry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#heroku-application-crashes-immediately">Heroku application crashes immediately</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#allowed-hosts-errors">ALLOWED_HOSTS errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-files-not-loading">Static files not loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-build-fails">Docker build fails</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Links</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Orange County Lettings</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Deployment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/deployment.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Link to this heading"></a></h1>
+<section id="django-settings">
+<h2>Django settings<a class="headerlink" href="#django-settings" title="Link to this heading"></a></h2>
+<p>The Django application’s <cite>settings.py</cite> file is used to configure the application regarding some very important
+environment variables used by the CI/CD pipeline such as “DEBUG” and “DJANGO_ALLOWED_HOSTS” (the latter must be set on
+your Heroku profile) and regarding the static files used by the application’s front-end.</p>
+</section>
+<section id="static-files-and-whitenoise">
+<h2>Static files and WhiteNoise<a class="headerlink" href="#static-files-and-whitenoise" title="Link to this heading"></a></h2>
+<p>You can find the detailed specific configuration of WhiteNoise library by checking the url below : <a class="reference external" href="https://whitenoise.readthedocs.io/en/stable/django.html">WhiteNoise</a></p>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
+<p>If you’re familiar with Django you’ll know what to do. If you’re just getting started with a new Django project then you’ll need add the following to the bottom of your settings.py file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;staticfiles&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="enable-whitenoise">
+<h3>Enable WhiteNoise<a class="headerlink" href="#enable-whitenoise" title="Link to this heading"></a></h3>
+<p>The WhiteNoise library has to be installed before if not already done.
+Please edit your <cite>settings.py</cite> file and add WhiteNoise to the MIDDLEWARE list.
+The WhiteNoise middleware should be placed directly after the Django SecurityMiddleware (if you are using it) and before all other middleware:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MIDDLEWARE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># ...</span>
+    <span class="s2">&quot;django.middleware.security.SecurityMiddleware&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;whitenoise.middleware.WhiteNoiseMiddleware&quot;</span><span class="p">,</span>
+    <span class="c1"># ...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="add-compression-and-caching-support">
+<h3>Add compression and caching support<a class="headerlink" href="#add-compression-and-caching-support" title="Link to this heading"></a></h3>
+<p>WhiteNoise comes with a storage backend which compresses your files and hashes them to unique names, so they can safely be cached forever. To use it, set it as your staticfiles storage backend in your settings file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">STORAGES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># ...</span>
+    <span class="s2">&quot;staticfiles&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;BACKEND&quot;</span><span class="p">:</span> <span class="s2">&quot;whitenoise.storage.CompressedManifestStaticFilesStorage&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="docker-containerization">
+<h2>Docker containerization<a class="headerlink" href="#docker-containerization" title="Link to this heading"></a></h2>
+<p>A Dockerfile in the repository root defines the process for building an image of the application and its dependencies
+as a Docker container. Here are the main steps in this image building :</p>
+<ul class="simple">
+<li><p>Copy the dependencies from the <cite>requirements.txt</cite> file and install them.</p></li>
+<li><p>Retrieve the static files of the Django application.</p></li>
+<li><p>Run Gunicorn (a library required for deployment on Heroku) on the specified application (for example, <cite>oc_lettings_site.wsgi:application</cite>), and the specified host and port.</p></li>
+</ul>
+</section>
+<section id="ci-cd-pipeline">
+<h2>CI/CD pipeline<a class="headerlink" href="#ci-cd-pipeline" title="Link to this heading"></a></h2>
+<p>GitHub Actions is the CI/CD solution provided by GitHub, while GitLab uses GitLab CI/CD pipelines.</p>
+<p>The <cite>.yml</cite> file structures the CI/CD pipelines and it is used by GitHub for creating GitHub Actions or used by Gitlab for creating CI/CD workflow.</p>
+<section id="ci-pipeline">
+<h3>CI pipeline<a class="headerlink" href="#ci-pipeline" title="Link to this heading"></a></h3>
+<p>The continuous integration (CI) pipeline ensures the quality of the code.
+The CI pipeline defined in the “ci” job runs as follows:</p>
+<ul class="simple">
+<li><p>Checkout on the branch from which the push was performed</p></li>
+<li><p>Installing the project’s dependencies</p></li>
+<li><p>Running linters (quality step)</p></li>
+<li><p>Running tests with the <cite>pytest</cite> command (testing step)</p></li>
+<li><p>Finally, loading the quality and test coverage reports</p></li>
+</ul>
+</section>
+<section id="cd-pipeline">
+<h3>CD pipeline<a class="headerlink" href="#cd-pipeline" title="Link to this heading"></a></h3>
+<p>The Continuous Delivery (CD) pipeline ensures the delivery and deployment of the app.
+The CD pipeline defined in the “deploy” job works as follows:</p>
+<ul class="simple">
+<li><p>Requires the successful execution of the previous continuous integration (CI) job (described earlier) on the master branch.</p></li>
+<li><p>Checkout on the master branch. If the commit &amp; push are performed from another branch, the CD pipeline is not executed.</p></li>
+<li><p>The Docker image is initialized.</p></li>
+<li><p>The Docker image is built and pushed (containerization process).</p></li>
+<li><p>The Heroku command-line interface (CLI) is installed.</p></li>
+<li><p>Deployment to Heroku.</p></li>
+</ul>
+</section>
+</section>
+<section id="secrets-variables">
+<h2>Secrets/variables<a class="headerlink" href="#secrets-variables" title="Link to this heading"></a></h2>
+<p>In order to use correctly this Django web application, you must define some secrets in your Git platform secrets section.
+Those secrets are used in the django.yml file that describes the CI/CD pipeline.</p>
+<section id="github">
+<h3>GitHub<a class="headerlink" href="#github" title="Link to this heading"></a></h3>
+<p>Here’s how you can add a secret on GitHub :</p>
+<ul class="simple">
+<li><p>Go to your GitHub profile and open the project repository.</p></li>
+<li><p>Click on “Settings”, then on the “Secrets &amp; Variables” section, and finally on the “Actions” button in the dropdown menu.</p></li>
+<li><p>Next, click on “New Repository Secret” and enter the secret name and the secret value. Then confirm. The new secret is added to the repository.</p></li>
+</ul>
+</section>
+<section id="gitlab">
+<h3>Gitlab<a class="headerlink" href="#gitlab" title="Link to this heading"></a></h3>
+<p>Here’s how you can add a secret variable on GitLab :</p>
+<ul class="simple">
+<li><p>Go to your GitLab profile and open the project repository.</p></li>
+<li><p>In the left sidebar, click on “Settings” and then on “CI/CD”.</p></li>
+<li><p>Expand the “Variables” section.</p></li>
+<li><p>Click on “Add variable”.</p></li>
+<li><p>Enter the variable key (name) and the variable value, then click on “Add variable” to save it.</p></li>
+<li><p>The new variable is now available in the GitLab CI/CD pipeline.</p></li>
+</ul>
+</section>
+<section id="required-secrets-variables">
+<h3>Required secrets/variables<a class="headerlink" href="#required-secrets-variables" title="Link to this heading"></a></h3>
+<p>Here are all the required secrets/variables :</p>
+<ul class="simple">
+<li><p>DOCKER_PASSWORD</p></li>
+<li><p>DOCKER_USERNAME</p></li>
+<li><p>HEROKU_API_KEY</p></li>
+<li><p>HEROKU_USER_EMAIL</p></li>
+<li><p>SENTRY_KEY</p></li>
+</ul>
+<p>When created, you can then use this secret with the variable <cite>secrets</cite> as shown below :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>${{ secrets.&lt;THE SECRET NAME&gt; }}
+</pre></div>
+</div>
+<p>All secrets are used according to this format in the django.yml file which describes the CI/CD pipeline.</p>
+<p>The variable attribute name and the secret name has to be rigorously identical.</p>
+</section>
+</section>
+<section id="heroku">
+<h2>Heroku<a class="headerlink" href="#heroku" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>GitHub<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Once the GitHub actions are successfully completed, the application is deployed as a web service. Please check the
+application’s Heroku URL or click the “View application” button in your Heroku account to view the web application.</p>
+<p>If the GitHub actions failed, please review the logs on GitHub or in Heroku, fix the errors, and try the deployment
+again.</p>
+</section>
+<section id="id2">
+<h3>Gitlab<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Once the Gitlab CI/CD is successfully completed, the application is deployed as a web service. Please check the
+application’s Heroku URL or click the “View application” button in your Heroku account to view the web application.</p>
+<p>If the Gitlab CI/CD failed, please review the logs on the platform or in Heroku, fix the errors, and try the deployment
+again.</p>
+</section>
+<section id="environment-variables">
+<h3>Environment variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h3>
+<p>The application needs some environment variables to work well. You must specify the variables into your Heroku app.
+Please follow the steps below :</p>
+<ul class="simple">
+<li><p>Go into your app in Heroku dashboard</p></li>
+<li><p>Go to settings section</p></li>
+<li><p>scroll down to “config vars” sub-section</p></li>
+<li><p>click on the “Reveal Config Vars” button to reveal the variables if some are already existing</p></li>
+<li><p>For each environment variable needed by the project, enter the “key” and the “value”, and validate by clicking the “add’ button</p></li>
+</ul>
+<p>Hera are all the variables regarding Django you need to provide :</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DEBUG</p></td>
+<td><p>False (required for production deployment, True otherwise in dev)</p></td>
+</tr>
+<tr class="row-odd"><td><p>DJANGO_ALLOWED_HOSTS</p></td>
+<td><p>localhost,127.0.0.1,&lt;your heroku url&gt;.herokuapp.com</p></td>
+</tr>
+<tr class="row-even"><td><p>SECRET_KEY</p></td>
+<td><p>&lt;your Django secret key&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="monitoring-with-sentry">
+<h2>Monitoring with Sentry<a class="headerlink" href="#monitoring-with-sentry" title="Link to this heading"></a></h2>
+<p>In this project, the CI/CD pipeline uses the Sentry SDK for exceptions and logs monitoring.</p>
+<p>You will need a Sentry account to run the application correctly. Therefore, please register on the Sentry website
+if you don’t already have one.</p>
+<p>Another step: Before using the deployment pipeline, you must define a secret or variable into your Git platform for the Sentry key, required to link
+the application to your Sentry account. Please see the “Secrets” subsection above.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p>In this section we focus on some common issues that arise in this kind of pipeline.</p>
+<section id="heroku-application-crashes-immediately">
+<h3>Heroku application crashes immediately<a class="headerlink" href="#heroku-application-crashes-immediately" title="Link to this heading"></a></h3>
+<p>Here are the possible causes :</p>
+<ul class="simple">
+<li><p>bad port</p></li>
+<li><p>non-used port</p></li>
+<li><p>bad Gunicorn configuration</p></li>
+</ul>
+<p>Example :
+If the application crashes immediately after deployment, ensure Gunicorn binds to the environment PORT variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gunicorn<span class="w"> </span>oc_lettings_site.wsgi:application<span class="w"> </span>--bind<span class="w"> </span><span class="m">0</span>.0.0.0:<span class="nv">$PORT</span>
+</pre></div>
+</div>
+</section>
+<section id="allowed-hosts-errors">
+<h3>ALLOWED_HOSTS errors<a class="headerlink" href="#allowed-hosts-errors" title="Link to this heading"></a></h3>
+<p>Example :
+A HTTP 400 error usually indicates that the Heroku domain is missing from DJANGO_ALLOWED_HOSTS, environment variable
+defines in Heroku app.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">DJANGO_ALLOWED_HOSTS</span><span class="o">=</span>localhost,127.0.0.1,my-app.herokuapp.com
+</pre></div>
+</div>
+</section>
+<section id="static-files-not-loading">
+<h3>Static files not loading<a class="headerlink" href="#static-files-not-loading" title="Link to this heading"></a></h3>
+<p>Here are the possible causes :</p>
+<ul class="simple">
+<li><p>collectstatic not implemented</p></li>
+<li><p>WhiteNoise not used</p></li>
+<li><p>STATIC_ROOT not defined in Django app settings.py file</p></li>
+</ul>
+</section>
+<section id="docker-build-fails">
+<h3>Docker build fails<a class="headerlink" href="#docker-build-fails" title="Link to this heading"></a></h3>
+<p>Here are the possible causes :</p>
+<ul class="simple">
+<li><p>secrets missing</p></li>
+<li><p>invalid Heroku API key</p></li>
+<li><p>bad Docker login</p></li>
+<li><p>release failed</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="use_cases.html" class="btn btn-neutral float-left" title="User guide with use cases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nicolas MARIE.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
