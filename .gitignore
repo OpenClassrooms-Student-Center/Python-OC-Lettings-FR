@@ -1,3 +1,18 @@
+# Temp files
 **/__pycache__
 *.pyc
+
+# Virtual environment
 venv
+env
+env-docs
+
+# Idea
+.idea
+
+# Database
+backup.sqlite3
+oc-lettings-site_old.sqlite3
+
+# .env file
+.env
