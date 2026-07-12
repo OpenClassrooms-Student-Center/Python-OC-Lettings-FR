@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found{% endblock %}
+
+{% block content %}
+
+<div class="container text-center py-5">
+    <h1>404 - Page not found</h1>
+
+    <p>
+        Sorry, the page you are looking for does not exist.
+        Maybe you were trying to access something that does not exist in our database?
+    </p>
+
+    <a class="btn btn-primary" href="{% url 'index' %}">
+        Return to home
+    </a>
+</div>
+
+{% endblock %}

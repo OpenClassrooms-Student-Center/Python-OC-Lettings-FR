@@ -1,45 +1,67 @@
+"""
+Views for the main Django project (oc_lettings_site).
+
+This module defines the views responsible for rendering the application's
+home page and custom HTTP error pages.
+"""
+
 from django.shortcuts import render
-from .models import Letting, Profile
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-
-
-# Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie quam lobortis leo consectetur ullamcorper non id est. Praesent dictum, nulla eget feugiat sagittis, sem mi convallis eros,
-# vitae dapibus nisi lorem dapibus sem. Maecenas pharetra purus ipsum, eget consequat ipsum lobortis quis. Phasellus eleifend ex auctor venenatis tempus.
-# Aliquam vitae erat ac orci placerat luctus. Nullam elementum urna nisi, pellentesque iaculis enim cursus in. Praesent volutpat porttitor magna, non finibus neque cursus id.
 def index(request):
-    return render(request, 'index.html')
+    """
+    Render the application's home page.
 
-# Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit. Sed non placerat massa. Integer est nunc, pulvinar a
-# tempor et, bibendum id arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras eget scelerisque
-def lettings_index(request):
-    lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings_index.html', context)
+    This view handles requests to the root URL (``/``) and returns
+    the main landing page of the Orange County Lettings application.
+
+    An informational log entry is generated each time the page is
+    successfully accessed.
+
+    :param request: Incoming HTTP request.
+    :type request: HttpRequest
+    :returns: Rendered home page.
+    :rtype: HttpResponse
+    """
+    logger.info("Homepage accessed")
+
+    return render(request, "index.html")
 
 
-#Cras ultricies dignissim purus, vitae hendrerit ex varius non. In accumsan porta nisl id eleifend. Praesent dignissim, odio eu consequat pretium, purus urna vulputate arcu, vitae efficitur
-#  lacus justo nec purus. Aenean finibus faucibus lectus at porta. Maecenas auctor, est ut luctus congue, dui enim mattis enim, ac condimentum velit libero in magna. Suspendisse potenti. In tempus a nisi sed laoreet.
-# Suspendisse porta dui eget sem accumsan interdum. Ut quis urna pellentesque justo mattis ullamcorper ac non tellus. In tristique mauris eu velit fermentum, tempus pharetra est luctus. Vivamus consequat aliquam libero, eget bibendum lorem. Sed non dolor risus. Mauris condimentum auctor elementum. Donec quis nisi ligula. Integer vehicula tincidunt enim, ac lacinia augue pulvinar sit amet.
-def letting(request, letting_id):
-    letting = Letting.objects.get(id=letting_id)
-    context = {
-        'title': letting.title,
-        'address': letting.address,
-    }
-    return render(request, 'letting.html', context)
+def page_not_found(request, exception):
+    """
+    Render the custom 404 error page.
 
-# Sed placerat quam in pulvinar commodo. Nullam laoreet consectetur ex, sed consequat libero pulvinar eget. Fusc
-# faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum lacus d
-def profiles_index(request):
-    profiles_list = Profile.objects.all()
-    context = {'profiles_list': profiles_list}
-    return render(request, 'profiles_index.html', context)
+    This view is invoked when Django cannot resolve the requested URL.
 
-# Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac
-# laoreet neque quis, pellentesque dui. Nullam facilisis pharetra vulputate. Sed tincidunt, dolor id facilisis fringilla, eros leo tristique lacus,
-# it. Nam aliquam dignissim congue. Pellentesque habitant morbi tristique senectus et netus et males
-def profile(request, username):
-    profile = Profile.objects.get(user__username=username)
-    context = {'profile': profile}
-    return render(request, 'profile.html', context)
+    A warning is logged to record the requested path and HTTP method.
+
+    :param request: Incoming HTTP request.
+    :type request: HttpRequest
+    :param exception: URL resolution exception.
+    :type exception: Exception
+    :returns: Rendered 404 error page.
+    :rtype: HttpResponse
+    """
+    logger.warning("404 error encountered", extra={"path": request.path, "method": request.method})
+    return render(request, "404.html", status=404)
+
+
+def server_error(request):
+    """
+    Render the custom 500 error page.
+
+    This view is called whenever an unhandled server error occurs.
+
+    An error is logged to facilitate monitoring and post-mortem debugging.
+
+    :param request: Incoming HTTP request.
+    :type request: HttpRequest
+    :returns: Rendered 500 error page.
+    :rtype: HttpResponse
+    """
+    logger.error("500 error encountered", extra={"path": request.path, "method": request.method})
+    return render(request, "500.html", status=500)

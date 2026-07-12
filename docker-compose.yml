@@ -1,0 +1,25 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: oc_lettings_postgres
+    env_file:
+      - .env
+    volumes:
+      - oc_lettings_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    container_name: oc_lettings_web
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: ./start.sh
+
+volumes:
+  oc_lettings_postgres_data:

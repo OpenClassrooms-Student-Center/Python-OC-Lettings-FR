@@ -1,0 +1,86 @@
+name: Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  compile:
+
+    runs-on: ubuntu-latest
+
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      USE_SQLITE: "True"
+
+    steps:
+      # 1. Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Lint (flake8)
+      - name: Run flake8
+        run: flake8 .
+
+      # 5. Tests + coverage
+      - name: Run tests with coverage
+        run: pytest --cov=. --cov-report=term-missing --cov-fail-under=80
+
+
+  containerize:
+
+    needs: compile
+
+    if: github.ref == 'refs/heads/master'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Login Docker Hub
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # 3. Build Docker image (SHA + latest)
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:${{ github.sha }} .
+          docker tag ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:latest
+
+      # 4. Push Docker images
+      - name: Push Docker image (SHA)
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:${{ github.sha }}
+
+      - name: Push Docker image (latest)
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:latest
+
+  deploy:
+
+    needs: containerize
+
+    if: github.ref == 'refs/heads/master'
+
+    runs-on: ubuntu-latest
+
+    #Trigger Render deployment
+    steps:
+      - name: Trigger Render Deploy Hook
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}

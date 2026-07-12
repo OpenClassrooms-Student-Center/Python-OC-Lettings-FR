@@ -1,0 +1,585 @@
+[
+{
+  "model": "lettings.address",
+  "pk": 1,
+  "fields": {
+    "number": 7217,
+    "street": "Bedford Street",
+    "city": "Brunswick",
+    "state": "GA",
+    "zip_code": 31525,
+    "country_iso_code": "USA"
+  }
+},
+{
+  "model": "lettings.address",
+  "pk": 2,
+  "fields": {
+    "number": 4,
+    "street": "Military Street",
+    "city": "Willoughby",
+    "state": "OH",
+    "zip_code": 44094,
+    "country_iso_code": "USA"
+  }
+},
+{
+  "model": "lettings.address",
+  "pk": 3,
+  "fields": {
+    "number": 340,
+    "street": "Wintergreen Avenue",
+    "city": "Newport News",
+    "state": "VA",
+    "zip_code": 23601,
+    "country_iso_code": "USA"
+  }
+},
+{
+  "model": "lettings.address",
+  "pk": 4,
+  "fields": {
+    "number": 9230,
+    "street": "E. Joy Ridge Street",
+    "city": "Marquette",
+    "state": "MI",
+    "zip_code": 49855,
+    "country_iso_code": "USA"
+  }
+},
+{
+  "model": "lettings.address",
+  "pk": 5,
+  "fields": {
+    "number": 9606,
+    "street": "Harvard Street",
+    "city": "Aliquippa",
+    "state": "PA",
+    "zip_code": 15001,
+    "country_iso_code": "USA"
+  }
+},
+{
+  "model": "lettings.address",
+  "pk": 6,
+  "fields": {
+    "number": 588,
+    "street": "Argyle Avenue",
+    "city": "East Meadow",
+    "state": "NY",
+    "zip_code": 11554,
+    "country_iso_code": "USA"
+  }
+},
+{
+  "model": "lettings.letting",
+  "pk": 1,
+  "fields": {
+    "title": "Joshua Tree Green Haus /w Hot Tub",
+    "address": 1
+  }
+},
+{
+  "model": "lettings.letting",
+  "pk": 2,
+  "fields": {
+    "title": "Oceanview Retreat",
+    "address": 2
+  }
+},
+{
+  "model": "lettings.letting",
+  "pk": 3,
+  "fields": {
+    "title": "'Silo Studio' Cottage",
+    "address": 3
+  }
+},
+{
+  "model": "lettings.letting",
+  "pk": 4,
+  "fields": {
+    "title": "Pirates of the Caribbean Getaway",
+    "address": 4
+  }
+},
+{
+  "model": "lettings.letting",
+  "pk": 5,
+  "fields": {
+    "title": "The Mushroom Dome Retreat & LAND of Paradise Suite",
+    "address": 5
+  }
+},
+{
+  "model": "lettings.letting",
+  "pk": 6,
+  "fields": {
+    "title": "Underground Hygge",
+    "address": 6
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$p35UH2yYInHF$4LTphT2basUmvfLq+XHETVvKONZrWUsLfKu1K8/Hqdk=",
+    "last_login": "2026-04-04T12:22:01.195",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@email.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-06-14T09:41:15.326",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$8ZKjEEdeYubZ$jq4T/Vaa2DWdAvzNys4ynNO6Wd/PsWe3dux20F7BGgQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "4meRomance",
+    "first_name": "John",
+    "last_name": "Rodriguez",
+    "email": "coemperor@famemma.net",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-14T09:44:05",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$DdNkE39rolFF$nGmWZanXv4GlcTxtfUgc+MUIqBgDszAtvFfuFu538LQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "AirWow",
+    "first_name": "Ada",
+    "last_name": "Paul",
+    "email": "flocation.vam4@glendenningflowerdesign.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-14T09:44:45",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$3VJdHtu39cbD$8qNVkvJ0KddsvfFueEm09Sg0LxgFievigmtAEb39paE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "DavWin",
+    "first_name": "Cassandra",
+    "last_name": "Grahm",
+    "email": "5houssam.kessaiso@facpidif.ml",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-14T09:46:28",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$zjnQu4LiqMAT$Qxom08ahzw11iPlX6kYyySa94yJXdjrptta6Qzx8HWE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "HeadlinesGazer",
+    "first_name": "Jamie",
+    "last_name": "Lal",
+    "email": "jssssss33@acee9.live",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-14T09:47:21",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6rmrxn3uts8m2ytfny39msvhhcr7x6ge",
+  "fields": {
+    "session_data": "YzFjNTIxZWFkZGRkMmE2Y2MwNDY2YWUzOTg1MGJlNTM1MTRiYjliNjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1NTMxMjkyZWYxMzBjMjBjNDMwOWE5YzEzMGJmMDYyZjlmN2Q0NTQxIn0=",
+    "expire_date": "2020-06-28T09:41:56.984"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "r8q5klofqavm3xgkrokfb2k0ftuqg5qi",
+  "fields": {
+    "session_data": "YzFjNTIxZWFkZGRkMmE2Y2MwNDY2YWUzOTg1MGJlNTM1MTRiYjliNjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1NTMxMjkyZWYxMzBjMjBjNDMwOWE5YzEzMGJmMDYyZjlmN2Q0NTQxIn0=",
+    "expire_date": "2026-04-18T12:22:01.200"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2020-06-14T09:44:05.888",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "4meRomance",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2020-06-14T09:44:45.294",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "AirWow",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2020-06-14T09:45:14.363",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "AirWow",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2020-06-14T09:45:57.716",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "4meRomance",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2020-06-14T09:46:29.087",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "DavWin",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2020-06-14T09:46:46.028",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "DavWin",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2020-06-14T09:47:21.157",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "HeadlinesGazer",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2020-06-14T09:47:39.497",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "HeadlinesGazer",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2020-06-14T09:47:42.559",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "HeadlinesGazer",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2020-06-14T09:49:23.116",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "1",
+    "object_repr": "7217 Bedford Street",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2020-06-14T09:49:50.934",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "2",
+    "object_repr": "4 Military Street",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2020-06-14T09:50:23.835",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "3",
+    "object_repr": "340 Wintergreen Avenue",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2020-06-14T09:50:52.590",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "4",
+    "object_repr": "9230 E. Joy Ridge Street",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2020-06-14T09:51:21.192",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "5",
+    "object_repr": "9606 Harvard Street",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2020-06-14T09:51:46.901",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "6",
+    "object_repr": "588 Argyle Avenue",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2020-06-14T09:52:18.053",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "Joshua Tree Green Haus /w Hot Tub",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2020-06-14T09:52:32.121",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "Oceanview Retreat",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2020-06-14T09:52:43.896",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "'Silo Studio' Cottage",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2020-06-14T09:52:59.316",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "4",
+    "object_repr": "Pirates of the Caribbean Getaway",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2020-06-14T09:53:41.990",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "The Mushroom Dome Retreat & LAND of Paradise Suite",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2020-06-14T09:53:54.720",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "6",
+    "object_repr": "Underground Hygge",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2020-06-14T09:54:29.736",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "1",
+    "object_repr": "HeadlinesGazer",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2020-06-14T09:54:41.934",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "2",
+    "object_repr": "DavWin",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2020-06-14T09:54:53.201",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "3",
+    "object_repr": "AirWow",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2020-06-14T09:55:06.931",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "4",
+    "object_repr": "4meRomance",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "profiles.profile",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "favorite_city": "Buenos Aires"
+  }
+},
+{
+  "model": "profiles.profile",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "favorite_city": "Barcelona"
+  }
+},
+{
+  "model": "profiles.profile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "favorite_city": "Budapest"
+  }
+},
+{
+  "model": "profiles.profile",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "favorite_city": "Berlin"
+  }
+}
+]

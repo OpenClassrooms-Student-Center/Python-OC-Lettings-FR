@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Holiday Homes{% endblock title %}
+{% block title %}Holiday Homes V2{% endblock title %}
 
 {% block content %}
 
@@ -14,10 +14,10 @@
 
 <div class="container px-5 py-5 text-center">
     <div class="justify-content-center">
-        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'profiles_index' %}">
+        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'profiles:profiles_index' %}">
     		Profiles
         </a>
-        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'lettings_index' %}">
+        <a class="btn fw-500 ms-lg-4 btn-primary px-10" href="{% url 'lettings:lettings_index' %}">
             Lettings
         </a>
     </div>
