@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% extends "oc_lettings_site/base.html" %}
+{% block title %}Holiday Homes{% endblock title %}
+
+{% block content %}
+
+    <header>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h1>Welcome to Holiday Homes</h1>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="text-center">
+            <a class="btn fw-500 ms-lg-4 btn-primary" href="{% url 'profiles:index' %}">Profiles</a>
+            <a class="btn fw-500 ms-lg-4 btn-primary" href="{% url 'lettings:index' %}">Lettings</a>
+        </div>
+    </section>
+
+{% endblock %}
